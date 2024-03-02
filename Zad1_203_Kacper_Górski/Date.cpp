@@ -1,114 +1,151 @@
 #include <string>
+#include <stdexcept>
 #include "Date.h"
 
-Date::Date(int d, int m, int y) : day(d), month(m), year(y) { }
+// TODO: Figure out how to use scoped enum
+
+Date::Date(int d, Month m, int y) : day(d), month(m), year(y) { }
 
 // Private methods
-std::string Date::convertMonth(int mon) const {
-    // Convert month digit into polish names of the month
-
+std::string Date::convertMonth(Month mon) const {
     std::string result;
 
     switch (mon) {
-    case 1:
+    case Month::January:
         result = "Styczeñ";
         break;
-    case 2:
+    case Month::February:
         result = "Luty";
         break;
-    case 3:
+    case Month::March:
         result = "Marzec";
         break;
-    case 4:
+    case Month::April:
         result = "Kwiecieñ";
         break;
-    case 5:
+    case Month::May:
         result = "Maj";
         break;
-    case 6:
+    case Month::June:
         result = "Czerwiec";
         break;
-    case 7:
+    case Month::July:
         result = "Lipiec";
         break;
-    case 8:
+    case Month::August:
         result = "Sierpieñ";
         break;
-    case 9:
+    case Month::September:
         result = "Wrzesieñ";
         break;
-    case 10:
+    case Month::October:
         result = "PaŸdziernik";
         break;
-    case 11:
+    case Month::November:
         result = "Listopad";
         break;
-    case 12:
+    case Month::December:
         result = "Grudzieñ";
         break;
-    default:
-        result = "Niepoprawny miesi¹c";
     }
     return result;
 }
 
-std::string Date::convertMonthGenitive(int mon) const {
+std::string Date::convertMonthGenitive(Month mon) const {
     std::string result;
 
     switch (mon) {
-    case 1:
+    case Month::January:
         result = "Stycznia";
         break;
-    case 2:
+    case Month::February:
         result = "Lutego";
         break;
-    case 3:
+    case Month::March:
         result = "Marca";
         break;
-    case 4:
+    case Month::April:
         result = "Kwietnia";
         break;
-    case 5:
+    case Month::May:
         result = "Maja";
         break;
-    case 6:
+    case Month::June:
         result = "Czerwca";
         break;
-    case 7:
+    case Month::July:
         result = "Lipca";
         break;
-    case 8:
+    case Month::August:
         result = "Sierpnia";
         break;
-    case 9:
+    case Month::September:
         result = "Wrzeœnia";
         break;
-    case 10:
+    case Month::October:
         result = "PaŸdziernika";
         break;
-    case 11:
+    case Month::November:
         result = "Listopada";
         break;
-    case 12:
+    case Month::December:
         result = "Grudnia";
         break;
-    default:
-        result = "Niepoprawnego miesi¹ca";
     }
     return result;
 }
 
+// TODO: Make check[..]Value functions
+
+bool Date::checkDayValue(int d) const { }
+
+bool Date::checkMonthValue(Month mon) const {
+    if (mon < 1 || mon > 12) {
+        return false;
+    }
+    else { return true; }
+}
+
+bool Date::checkYearValue(int y) const { }
+
+bool Date::determineLeapYear(int y) const {
+    if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 
 // Public Methods
 
 //Getters
 int Date::getDay(void) const { return day; }
-int Date::getMonthDigits(void) const { return month; }
+Date::Month Date::getMonthDigits(void) const { return month; }
 int Date::getYear(void) const { return year; }
 std::string Date::getMonthName(void) const { return convertMonth(month); }
 
 //Setters
-void Date::setDay(int d) { day = d; }
-void Date::setMonth(int m) { month = m; }
+void Date::setDay(int d) { 
+
+    // TODO: Need to break this func into setDay() and checkDayValue() func
+
+    int maxDayInMonth;
+
+    if (month == 2 && determineLeapYear(year)) {
+        maxDayInMonth = 29;
+    }
+    else {
+        static constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        maxDayInMonth = daysInMonth[static_cast<int>(month) - 1];
+    }
+    if (d <= maxDayInMonth) {
+        day = d;
+    }
+    else {
+        throw std::out_of_range("This month is out of range!");
+    }
+}
+void Date::setMonth(Month m) { month = m; }
 void Date::setYear(int y) { year = y; }

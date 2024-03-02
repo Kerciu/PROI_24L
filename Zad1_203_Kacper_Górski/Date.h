@@ -3,21 +3,32 @@
 class Date {
 
 private:
-    int day, month, year;
+    enum class Month {
+        January = 1, February, March, April, May, June, July,
+        August, September, October, November, December
+    };
 
-    std::string convertMonth(int mon) const;
-    std::string convertMonthGenitive(int mon) const;
+    int day;
+    Month month;
+    int year;
+
+    std::string convertMonth(Month mon) const;
+    std::string convertMonthGenitive(Month mon) const;
+    bool checkDayValue(int d) const;
+    bool checkMonthValue(Month mon) const;
+    bool checkYearValue(int y) const;
+    bool determineLeapYear(int y) const;
 
 public:
-    Date(int d, int m, int y);
+    Date(int d, Month m, int y);
 
     int getDay(void) const;
-    int getMonthDigits(void) const;
+    Month getMonthDigits(void) const;
     int getYear(void) const;
     std::string getMonthName(void) const;
 
     void setDay(int d);
-    void setMonth(int m);
+    void setMonth(Month m);
     void setYear(int y);
 };
 

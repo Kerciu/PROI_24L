@@ -1,9 +1,8 @@
 ﻿#include <iostream>
-#include <string>
 #include "Date.h"
 
 int main()
 {   
-    Date date(1, 3, 2024);
+    Date date(15, 10, 2004);
     std::cout << "Hello World!\n";
 }
