@@ -6,10 +6,10 @@
 
 // TODO: Figure out how to use scoped enum
 
-Date::Date(int d, Month m, int y) : day(d), month(m), year(y) { }
+Date::Date(int d, int m, int y) : day(d), month(m), year(y) { }
 
 // Private methods
-std::string Date::fillWithZeroes(int num); {
+std::string Date::fillWithZeroes(int num) {
     std::stringstream ss;
     ss << std::setw(2) << std::setfill('0') << num;
     return ss.str();
@@ -25,100 +25,98 @@ std::string Date::getWeekDay(int d, int m, int y) {
     int J = y / 100;
     int h = (d + 13 * (m + 1) / 5 + K + K / 4 + J / 4 + J * 5) % 7;
 
-    std::string days[] = { "Sobota", "Niedziela", "Poniedzia³ek", "Wtorek", "Œroda", "Czwartek", "Pi¹tek" };
+    std::string days[] = { "Sobota", "Niedziela", "Poniedzialek", "Wtorek", "Sroda", "Czwartek", "Piatek" };
 
     return days[h];
 }
 
-std::string Date::convertMonth(Month mon) const {
+std::string Date::convertMonth(int mon) const {
     std::string result;
 
     switch (mon) {
-    case Month::January:
-        result = "Styczeñ";
+    case 1:
+        result = "Styczen";
         break;
-    case Month::February:
+    case 2:
         result = "Luty";
         break;
-    case Month::March:
+    case 3:
         result = "Marzec";
         break;
-    case Month::April:
-        result = "Kwiecieñ";
+    case 4:
+        result = "Kwiecien";
         break;
-    case Month::May:
+    case 5:
         result = "Maj";
         break;
-    case Month::June:
+    case 6:
         result = "Czerwiec";
         break;
-    case Month::July:
+    case 7:
         result = "Lipiec";
         break;
-    case Month::August:
-        result = "Sierpieñ";
+    case 8:
+        result = "Sierpien";
         break;
-    case Month::September:
-        result = "Wrzesieñ";
+    case 9:
+        result = "Wrzesien";
         break;
-    case Month::October:
-        result = "PaŸdziernik";
+    case 10:
+        result = "Pazdziernik";
         break;
-    case Month::November:
+    case 11:
         result = "Listopad";
         break;
-    case Month::December:
-        result = "Grudzieñ";
+    case 12:
+        result = "Grudzien";
         break;
     }
     return result;
 }
 
-std::string Date::convertMonthGenitive(Month mon) const {
+std::string Date::convertMonthGenitive(int mon) const {
     std::string result;
 
     switch (mon) {
-    case Month::January:
+    case 1:
         result = "Stycznia";
         break;
-    case Month::February:
+    case 2:
         result = "Lutego";
         break;
-    case Month::March:
+    case 3:
         result = "Marca";
         break;
-    case Month::April:
+    case 4:
         result = "Kwietnia";
         break;
-    case Month::May:
+    case 5:
         result = "Maja";
         break;
-    case Month::June:
+    case 6:
         result = "Czerwca";
         break;
-    case Month::July:
+    case 7:
         result = "Lipca";
         break;
-    case Month::August:
+    case 8:
         result = "Sierpnia";
         break;
-    case Month::September:
-        result = "Wrzeœnia";
+    case 9:
+        result = "Wrzesnia";
         break;
-    case Month::October:
-        result = "PaŸdziernika";
+    case 10:
+        result = "Pazdziernika";
         break;
-    case Month::November:
+    case 11:
         result = "Listopada";
         break;
-    case Month::December:
+    case 12:
         result = "Grudnia";
         break;
     }
     return result;
 }
-
-// TODO: Make check[..]Value functions
 
 bool Date::checkDayValue(int d) const {
     int maxDayInMonth;
@@ -138,7 +136,7 @@ bool Date::checkDayValue(int d) const {
     }
 }
 
-bool Date::checkMonthValue(Month mon) const {
+bool Date::checkMonthValue(int mon) const {
     if (mon < 1 || mon > 12) {
         return false;
     }
@@ -146,7 +144,7 @@ bool Date::checkMonthValue(Month mon) const {
 }
 
 bool Date::checkYearValue(int y) const {
-    if (y >= 0) { return true; }
+    if (y > 0) { return true; }
     else { return false; }
 }
 
@@ -164,7 +162,7 @@ bool Date::determineLeapYear(int y) const {
 
 //Getters
 int Date::getDay(void) const { return day; }
-Date::Month Date::getMonthDigits(void) const { return month; }
+int Date::getMonthDigits(void) const { return month; }
 int Date::getYear(void) const { return year; }
 std::string Date::getMonthName(void) const { return convertMonth(month); }
 
@@ -175,36 +173,36 @@ void Date::setDay(int d) {
     }
     else { throw std::out_of_range("Day out of range!"); }
 }
-void Date::setMonth(Month m) {
+void Date::setMonth(int m) {
     if (checkMonthValue(m)) {
         month = m;
     }
     else { throw std::out_of_range("Month out of range!"); }
 }
 void Date::setYear(int y) {
-    if (checkDayValue(y)) {
+    if (checkYearValue(y)) {
         year = y;
     }
     else { throw std::out_of_range("Year out of range!"); }
 }
 
 //Output methods
-std::string Date::slashOutput(int d, int m, int y) {
-    return fillWithZeroes(d) + "/" + fillWithZeroes(m) + "/" + std::to_string(y);
+std::string Date::slashOutput(void) {
+    return fillWithZeroes(day) + "/" + fillWithZeroes(month) + "/" + std::to_string(year);
 }
 
-std::string Date::hyphenOutput(int d, int m, int y) {
-    return fillWithZeroes(d) + "-" + fillWithZeroes(m) + "-" + std::to_string(y);
+std::string Date::hyphenOutput(void) {
+    return fillWithZeroes(day) + "-" + fillWithZeroes(month) + "-" + std::to_string(year);
 }
 
-std::string Date::dotOutput(int d, int m, int y) {
-    return fillWithZeroes(d) + "." + fillWithZeroes(m) + "." + std::to_string(y);
+std::string Date::dotOutput(void) {
+    return fillWithZeroes(day) + "." + fillWithZeroes(month) + "." + std::to_string(year);
 }
 
-std::string Date::verbalMonthOutput(int d, int m, int y) {
-    return std::to_string(d) + " " + convertMonthGenitive(m) + " " + std::to_string(y);
+std::string Date::verbalMonthOutput(void) {
+    return std::to_string(day) + " " + convertMonthGenitive(month) + " " + std::to_string(year);
 }
 
-std::string Date::verbalDayOutput(int d, int m, int y) {
-    return getWeekDay(d, m, y) + " " + std::to_string(d) + "." + fillWithZeroes(m) + "." + std::to_string(y);
+std::string Date::verbalDayOutput(void) {
+    return getWeekDay(day, month, year) + " " + std::to_string(day) + "." + fillWithZeroes(month) + "." + std::to_string(year);
 }

@@ -3,41 +3,36 @@
 class Date {
 
 private:
-    enum class Month {
-        January = 1, February, March, April, May, June, July,
-        August, September, October, November, December
-    };
-
     int day;
-    Month month;
+    int month;
     int year;
 
     std::string fillWithZeroes(int num);
     std::string getWeekDay(int d, int m, int y);
-    std::string convertMonth(Month mon) const;
-    std::string convertMonthGenitive(Month mon) const;
+    std::string convertMonth(int mon) const;
+    std::string convertMonthGenitive(int mon) const;
     bool checkDayValue(int d) const;
-    bool checkMonthValue(Month mon) const;
+    bool checkMonthValue(int mon) const;
     bool checkYearValue(int y) const;
     bool determineLeapYear(int y) const;
 
 public:
-    Date(int d, Month m, int y);
+    Date(int d, int m, int y);
 
     int getDay(void) const;
-    Month getMonthDigits(void) const;
+    int getMonthDigits(void) const;
     int getYear(void) const;
     std::string getMonthName(void) const;
 
     void setDay(int d);
-    void setMonth(Month m);
+    void setMonth(int m);
     void setYear(int y);
 
-    std::string slashOutput(int d, int m, int y);
-    std::string hyphenOutput(int d, int m, int y);
-    std::string dotOutput(int d, int m, int y);
-    std::string verbalMonthOutput(int d, int m, int y);
-    std::string verbalDayOutput(int d, int m, int y);
+    std::string slashOutput(void);
+    std::string hyphenOutput(void);
+    std::string dotOutput(void);
+    std::string verbalMonthOutput(void);
+    std::string verbalDayOutput(void);
 
 };
 
