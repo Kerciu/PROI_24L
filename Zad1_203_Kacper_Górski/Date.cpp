@@ -161,9 +161,24 @@ bool Date::determineLeapYear(int y) const {
 // Public Methods
 
 //Getters
-int Date::getDay(void) const { return day; }
-int Date::getMonthDigits(void) const { return month; }
-int Date::getYear(void) const { return year; }
+int Date::getDay(void) const {
+    if (checkDayValue(day)) {
+        return day;;
+    }
+    else { throw std::out_of_range("Day out of range!"); }
+}
+int Date::getMonthDigits(void) const {
+    if (checkMonthValue(month)) {
+        return month;
+    }
+    else { throw std::out_of_range("Month out of range!"); }
+}
+int Date::getYear(void) const {
+    if (checkYearValue(year)) {
+        return year;
+    }
+    else { throw std::out_of_range("Year out of range!"); }
+}
 std::string Date::getMonthName(void) const { return convertMonth(month); }
 
 //Setters
