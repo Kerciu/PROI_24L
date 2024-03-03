@@ -8,5 +8,10 @@
 #define PCH_H
 
 // w tym miejscu dodaj nagłówki, które mają być wstępnie kompilowane
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include <iomanip>
+#include <sstream>
 
 #endif //PCH_H

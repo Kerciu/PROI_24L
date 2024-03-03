@@ -4,10 +4,11 @@
 #include <sstream>
 #include "Date.h"
 
-// TODO: Figure out how to use scoped enum
-
-Date::Date(int d, int m, int y) : day(d), month(m), year(y) {
-    if (!checkDayValue(day) || !checkMonthValue(month) || !checkYearValue(year)) {
+// Constructor
+Date::Date(int d, int m, int y) : day(d), month(m), year(y)
+{
+    if (!checkDayValue(day) || !checkMonthValue(month) || !checkYearValue(year))
+    {
         throw std::out_of_range("Date values out of correct ranges!");
     }
 }
@@ -122,45 +123,32 @@ std::string Date::convertMonthGenitive(int mon) const {
     return result;
 }
 
-bool Date::checkDayValue(int d) const {
-    int maxDayInMonth;
+int Date::getMaxDayInMonth(int mon, int y) const {
+    static constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    int maxDayInMonth = daysInMonth[mon - 1];
 
-    if (month == 2 && determineLeapYear(year)) {
+    if (mon == 2 && determineLeapYear(y)) {
         maxDayInMonth = 29;
     }
-    else {
-        static constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-        maxDayInMonth = daysInMonth[static_cast<int>(month) - 1];
-    }
-    if (d <= maxDayInMonth && d > 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return maxDayInMonth;
+}
+
+bool Date::checkDayValue(int d) const {
+    int maxDayInMonth = getMaxDayInMonth(month, year);
+    return (d <= maxDayInMonth && d > 0);
 }
 
 bool Date::checkMonthValue(int mon) const {
-    if (mon < 1 || mon > 12) {
-        return false;
-    }
-    else { return true; }
+    return !(mon < 1 || mon > 12);
 }
 
 bool Date::checkYearValue(int y) const {
-    if (y > 0 && y <= 9999) { return true; }
-    else { return false; }
+    return (y > 0 && y <= 9999);
 }
 
 bool Date::determineLeapYear(int y) const {
-    if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0));
 }
-
 
 // Public Methods
 
@@ -180,22 +168,15 @@ std::string Date::getMonthName(void) const {
 
 //Setters
 void Date::setDay(int d) { 
-    if (checkDayValue(d)) {
-        day = d;
-    }
-    else { throw std::out_of_range("Day out of range!"); }
+    checkDayValue(d) ? day = d : throw std::out_of_range("Day out of range!");
 }
+
 void Date::setMonth(int m) {
-    if (checkMonthValue(m)) {
-        month = m;
-    }
-    else { throw std::out_of_range("Month out of range!"); }
+    checkMonthValue(m) ? month = m : throw std::out_of_range("Month out of range!");
 }
+
 void Date::setYear(int y) {
-    if (checkYearValue(y)) {
-        year = y;
-    }
-    else { throw std::out_of_range("Year out of range!"); }
+    checkYearValue(y) ? year = y : throw std::out_of_range("Year out of range!");
 }
 
 //Output methods

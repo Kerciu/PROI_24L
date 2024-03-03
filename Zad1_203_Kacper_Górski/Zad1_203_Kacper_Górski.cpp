@@ -4,7 +4,7 @@
 int main()
 {   
     try {
-        Date date(15, 7, 2004);
+        Date date(7, 3, 2004);
         std::cout << "Dzien: " << date.getDay() << std::endl;
         std::cout << "Miesiac: " << date.getMonthName() << " (" << date.getMonthDigits() << ")" << std::endl;
         std::cout << "Rok: " << date.getYear() << std::endl;
