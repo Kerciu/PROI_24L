@@ -1,5 +1,7 @@
 #include <string>
 #include <stdexcept>
+#include <iomanip>
+#include <sstream>
 #include "Date.h"
 
 // TODO: Figure out how to use scoped enum
@@ -7,6 +9,27 @@
 Date::Date(int d, Month m, int y) : day(d), month(m), year(y) { }
 
 // Private methods
+std::string Date::fillWithZeroes(int num); {
+    std::stringstream ss;
+    ss << std::setw(2) << std::setfill('0') << num;
+    return ss.str();
+}
+
+std::string Date::getWeekDay(int d, int m, int y) {
+    // Zeller's algorythm for getting week days
+    if (m < 3) {
+        m += 12;
+        y -= 1;
+    }
+    int K = y % 100;
+    int J = y / 100;
+    int h = (d + 13 * (m + 1) / 5 + K + K / 4 + J / 4 + J * 5) % 7;
+
+    std::string days[] = { "Sobota", "Niedziela", "Poniedzia³ek", "Wtorek", "Œroda", "Czwartek", "Pi¹tek" };
+
+    return days[h];
+}
+
 std::string Date::convertMonth(Month mon) const {
     std::string result;
 
@@ -97,7 +120,23 @@ std::string Date::convertMonthGenitive(Month mon) const {
 
 // TODO: Make check[..]Value functions
 
-bool Date::checkDayValue(int d) const { }
+bool Date::checkDayValue(int d) const {
+    int maxDayInMonth;
+
+    if (month == 2 && determineLeapYear(year)) {
+        maxDayInMonth = 29;
+    }
+    else {
+        static constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        maxDayInMonth = daysInMonth[static_cast<int>(month) - 1];
+    }
+    if (d > maxDayInMonth && d < 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 bool Date::checkMonthValue(Month mon) const {
     if (mon < 1 || mon > 12) {
@@ -106,7 +145,10 @@ bool Date::checkMonthValue(Month mon) const {
     else { return true; }
 }
 
-bool Date::checkYearValue(int y) const { }
+bool Date::checkYearValue(int y) const {
+    if (y >= 0) { return true; }
+    else { return false; }
+}
 
 bool Date::determineLeapYear(int y) const {
     if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
@@ -128,24 +170,41 @@ std::string Date::getMonthName(void) const { return convertMonth(month); }
 
 //Setters
 void Date::setDay(int d) { 
-
-    // TODO: Need to break this func into setDay() and checkDayValue() func
-
-    int maxDayInMonth;
-
-    if (month == 2 && determineLeapYear(year)) {
-        maxDayInMonth = 29;
-    }
-    else {
-        static constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-        maxDayInMonth = daysInMonth[static_cast<int>(month) - 1];
-    }
-    if (d <= maxDayInMonth) {
+    if (checkDayValue(d)) {
         day = d;
     }
-    else {
-        throw std::out_of_range("This month is out of range!");
-    }
+    else { throw std::out_of_range("Day out of range!"); }
 }
-void Date::setMonth(Month m) { month = m; }
-void Date::setYear(int y) { year = y; }
+void Date::setMonth(Month m) {
+    if (checkMonthValue(m)) {
+        month = m;
+    }
+    else { throw std::out_of_range("Month out of range!"); }
+}
+void Date::setYear(int y) {
+    if (checkDayValue(y)) {
+        year = y;
+    }
+    else { throw std::out_of_range("Year out of range!"); }
+}
+
+//Output methods
+std::string Date::slashOutput(int d, int m, int y) {
+    return fillWithZeroes(d) + "/" + fillWithZeroes(m) + "/" + std::to_string(y);
+}
+
+std::string Date::hyphenOutput(int d, int m, int y) {
+    return fillWithZeroes(d) + "-" + fillWithZeroes(m) + "-" + std::to_string(y);
+}
+
+std::string Date::dotOutput(int d, int m, int y) {
+    return fillWithZeroes(d) + "." + fillWithZeroes(m) + "." + std::to_string(y);
+}
+
+std::string Date::verbalMonthOutput(int d, int m, int y) {
+    return std::to_string(d) + " " + convertMonthGenitive(m) + " " + std::to_string(y);
+}
+
+std::string Date::verbalDayOutput(int d, int m, int y) {
+    return getWeekDay(d, m, y) + " " + std::to_string(d) + "." + fillWithZeroes(m) + "." + std::to_string(y);
+}

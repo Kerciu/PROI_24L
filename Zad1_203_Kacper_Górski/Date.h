@@ -12,6 +12,8 @@ private:
     Month month;
     int year;
 
+    std::string fillWithZeroes(int num);
+    std::string getWeekDay(int d, int m, int y);
     std::string convertMonth(Month mon) const;
     std::string convertMonthGenitive(Month mon) const;
     bool checkDayValue(int d) const;
@@ -30,5 +32,12 @@ public:
     void setDay(int d);
     void setMonth(Month m);
     void setYear(int y);
+
+    std::string slashOutput(int d, int m, int y);
+    std::string hyphenOutput(int d, int m, int y);
+    std::string dotOutput(int d, int m, int y);
+    std::string verbalMonthOutput(int d, int m, int y);
+    std::string verbalDayOutput(int d, int m, int y);
+
 };
 
