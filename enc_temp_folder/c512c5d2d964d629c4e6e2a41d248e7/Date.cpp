@@ -6,11 +6,7 @@
 
 // TODO: Figure out how to use scoped enum
 
-Date::Date(int d, int m, int y) : day(d), month(m), year(y) {
-    if (!checkDayValue(day) || !checkMonthValue(month) || !checkYearValue(year)) {
-        throw std::out_of_range("Date values out of correct ranges!");
-    }
-}
+Date::Date(int d, int m, int y) : day(d), month(m), year(y) { }
 
 // Private methods
 std::string Date::fillWithZeroes(int num) {
@@ -132,7 +128,7 @@ bool Date::checkDayValue(int d) const {
         static constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
         maxDayInMonth = daysInMonth[static_cast<int>(month) - 1];
     }
-    if (d <= maxDayInMonth && d > 0) {
+    if (d > maxDayInMonth && d < 0) {
         return true;
     }
     else {
@@ -148,7 +144,7 @@ bool Date::checkMonthValue(int mon) const {
 }
 
 bool Date::checkYearValue(int y) const {
-    if (y > 0 && y <= 9999) { return true; }
+    if (y > 0) { return true; }
     else { return false; }
 }
 
@@ -166,17 +162,24 @@ bool Date::determineLeapYear(int y) const {
 
 //Getters
 int Date::getDay(void) const {
-    return day;
+    if (checkDayValue(day)) {
+        return day;;
+    }
+    else { throw std::out_of_range("Day out of range!"); }
 }
 int Date::getMonthDigits(void) const {
-    return month;
+    if (checkMonthValue(month)) {
+        return month;
+    }
+    else { throw std::out_of_range("Month out of range!"); }
 }
 int Date::getYear(void) const {
-    return year;
+    if (checkYearValue(year)) {
+        return year;
+    }
+    else { throw std::out_of_range("Year out of range!"); }
 }
-std::string Date::getMonthName(void) const {
-    return convertMonth(month);
-}
+std::string Date::getMonthName(void) const { return convertMonth(month); }
 
 //Setters
 void Date::setDay(int d) { 
