@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "C:\Users\Kacper\source\repos\Zad1_203_Kacper_Górski\Zad1_203_Kacper_Górski\Date.h"
+#include "C:\Users\Kacper\source\repos\Zad1_203_Kacper_GÃ³rski\Zad1_203_Kacper_GÃ³rski\Date.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
