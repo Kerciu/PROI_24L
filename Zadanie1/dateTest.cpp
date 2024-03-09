@@ -49,6 +49,12 @@ namespace dateTest
 			Assert::AreEqual(std::string("15.10.2004"), date.dotOutput());
 		}
 
+		TEST_METHOD(ShortenedYearOutput)
+		{
+			Date date(15, 10, 2004);
+			Assert::AreEqual(std::string("15.10.04"), date.verbalDayOutput());
+		}
+
 		TEST_METHOD(VerbalMonthOutput)
 		{
 			Date date(15, 10, 2004);

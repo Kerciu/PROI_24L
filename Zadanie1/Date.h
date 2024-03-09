@@ -8,6 +8,7 @@ private:
     int year;
 
     std::string fillWithZeroes(int num);
+    std::string shortenYear(int y);
     std::string getWeekDay(int d, int m, int y);
     std::string convertMonth(int mon) const;
     std::string convertMonthGenitive(int mon) const;
@@ -32,6 +33,7 @@ public:
     std::string slashOutput(void);
     std::string hyphenOutput(void);
     std::string dotOutput(void);
+    std::string shortenedYearOutput(void);
     std::string verbalMonthOutput(void);
     std::string verbalDayOutput(void);
 

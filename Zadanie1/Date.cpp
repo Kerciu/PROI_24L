@@ -20,6 +20,11 @@ std::string Date::fillWithZeroes(int num) {
     return ss.str();
 }
 
+std::string Date::shortenYear(int y) {
+    std::string stringYear = std::to_string(y);
+    return stringYear.substr(stringYear.length() - 2);
+}
+
 std::string Date::getWeekDay(int d, int m, int y) {
     // Zeller's algorythm for getting week days
     if (m < 3) {
@@ -190,6 +195,10 @@ std::string Date::hyphenOutput(void) {
 
 std::string Date::dotOutput(void) {
     return fillWithZeroes(day) + "." + fillWithZeroes(month) + "." + std::to_string(year);
+}
+
+std::string Date::shortenedYearOutput(void) {
+    return std::to_string(day) + "." + fillWithZeroes(month) + "." + shortenYear(year);
 }
 
 std::string Date::verbalMonthOutput(void) {
