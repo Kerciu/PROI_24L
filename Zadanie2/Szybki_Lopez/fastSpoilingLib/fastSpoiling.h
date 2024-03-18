@@ -40,15 +40,24 @@ class fastSpoiling {
     // Getters
     name getName(void) const;
     type getType(void) const;
-    Date getDate(void) const;
     transportMeans getTransportMeans(void) const;
     weight getWeight(void) const;
     volume getVolume(void) const;
     std::string getWeightNVolume(void) const;
 
+    // Date Getters
+    std::string getDateRandomFormat(void);
+    std::string getDateSlashed(void);
+    std::string getDateHyphened(void);
+    std::string getDateDotted(void);
+    std::string getDateShortenedYear(void);
+    std::string getDateVerbalizedMonth(void);
+    std::string getDateVerbalizedDay(void);
+
     // Setters
     void setName(name n);
     void setType(type t);
+    void setDate(int d, int m, int y);
     void setTransportMeans(transportMeans tm);
     void setWeight(weight w);
     void setVolume(volume v);
