@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include <vector>
 #include "Date.h"
 #include "weightAndVolume.h"
+#include "fastSpoilingCollection.h"
 
 class fastSpoiling {
     private:
@@ -16,7 +16,8 @@ class fastSpoiling {
     Date mExpirdate;
     transport mTransportMeans;
     weightAndVolume mWeightAndVolume;
-    std::vector<fastSpoiling> elementCollection;
+
+    friend class fastSpoilingCollection;
 
 public:
     // Constructors
@@ -50,13 +51,4 @@ public:
     void setName(name n);
     void setType(type t);
     void setTransportMeans(transportMeans tm);
-
-    // Element collection operations
-    void searchForElement(const fastSpoiling& element);
-    void addNewElement(const fastSpoiling& element);
-    void modifyCollectionElement(fastSpoiling& element);
-    void deleteElement(const fastSpoiling& element);
-    bool elementInCollection(const fastSpoiling& element) const;
-    int sizeOfCollection(void) const;
-
 };
