@@ -3,9 +3,9 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace dateTest
+namespace fastSpoilingTest
 {
-	TEST_CLASS(dateTest)
+	TEST_CLASS(fastSpoilingTest)
 	{
 	public:
 		
