@@ -4,46 +4,35 @@
 
 class fastSpoiling {
     private:
-    using name = std::string;
-    using type = std::string;
-    using transportMeans = std::string;
-    using weight = double;
-    using volume = double;
 
     name mName;
     type mType;
     Date mDate;
     transportMeans mTransportMeans;
-    weight mWeight;
-    volume mVolume;
+    weightAndVolume mWeightAndVolume;
 
     public:
     // Constructors
-    fastSpoiling(name n, type t, Date d, weight w, volume v) {
+    fastSpoiling(name n, type t, Date d, weightAndVolume wv) {
         this->mName = n;
         this->mType = t;
         this->mDate = d;
         this->mTransportMeans = "No known transport means";
-        this->mWeight = w;
-        this->mVolume = v;
+        this->mWeightAndVolume = wv;
     }
 
-    fastSpoiling(name n, type t, Date d, transportMeans tm, weight w, volume v) {
+    fastSpoiling(name n, type t, Date d, transportMeans tm, weightAndVolume wv) {
         this->mName = n;
         this->mType = t;
         this->mDate = d;
         this->mTransportMeans = tm;
-        this->mWeight = w;
-        this->mVolume = v;
+        this->mWeightAndVolume = wv;
     }
 
     // Getters
     name getName(void) const;
     type getType(void) const;
     transportMeans getTransportMeans(void) const;
-    weight getWeight(void) const;
-    volume getVolume(void) const;
-    std::string getWeightNVolume(void) const;
 
     // Date Getters
     std::string getDateRandomFormat(void);
@@ -59,7 +48,5 @@ class fastSpoiling {
     void setType(type t);
     void setDate(int d, int m, int y);
     void setTransportMeans(transportMeans tm);
-    void setWeight(weight w);
-    void setVolume(volume v);
 
 };
