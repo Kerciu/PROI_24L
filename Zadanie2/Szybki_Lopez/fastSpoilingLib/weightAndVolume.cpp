@@ -106,7 +106,7 @@ volume weightAndVolume::getVolume(const std::string& unitString) const {
     return (unit != volumeFactorCount) ? convertVolume(unit) : -1;
 }
 
-std::string weightAndVolume::getWeightNVolume(void) {
+std::string weightAndVolume::getWeightNVolume(void) const {
     return std::to_string(mWeight) + ' ' + correctWeightConverFact[4] + ", " + std::to_string(mVolume) + ' ' + correctVolumeConverFact[3];
 }
 

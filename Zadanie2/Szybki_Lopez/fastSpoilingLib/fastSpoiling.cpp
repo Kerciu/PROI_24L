@@ -7,14 +7,14 @@ fastSpoiling(name n, type t, weightAndVolume wv) {
     this->mWeightAndVolume = wv;
 }
 
-fastSpoiling(name n, type t, Date pd, weightAndVolume wv) {
+fastSpoiling::fastSpoiling(name n, type t, Date pd, weightAndVolume wv) {
     this->mName = n;
     this->mType = t;
     this->mProdDate = pd;
     this->mWeightAndVolume = wv;
 }
 
-fastSpoiling(name n, type t, Date pd, transportMeans tm, weightAndVolume wv) {
+fastSpoiling::fastSpoiling(name n, type t, Date pd, transportMeans tm, weightAndVolume wv) {
     this->mName = n;
     this->mType = t;
     this->mProdDate = pd;
@@ -22,7 +22,7 @@ fastSpoiling(name n, type t, Date pd, transportMeans tm, weightAndVolume wv) {
     this->mWeightAndVolume = wv;
 }
 
-fastSpoiling(name n, type t, Date pd, Date ed, weightAndVolume wv) {
+fastSpoiling::fastSpoiling(name n, type t, Date pd, Date ed, weightAndVolume wv) {
     this->mName = n;
     this->mType = t;
     this->mProdDate = pd;
@@ -31,7 +31,7 @@ fastSpoiling(name n, type t, Date pd, Date ed, weightAndVolume wv) {
     this->mWeightAndVolume = wv;
 }
 
-fastSpoiling(name n, type t, Date pd, Date ed, transportMeans tm, weightAndVolume wv) {
+fastSpoiling::fastSpoiling(name n, type t, Date pd, Date ed, transportMeans tm, weightAndVolume wv) {
     this->mName = n;
     this->mType = t;
     this->mProdDate = pd;
@@ -43,26 +43,6 @@ fastSpoiling(name n, type t, Date pd, Date ed, transportMeans tm, weightAndVolum
 name fastSpoiling::getName(void) const { return mName; }
 type fastSpoiling::getType(void) const { return mType; }
 transportMeans fastSpoiling::getTransportMeans(void) const { return mTransportMeans;}
-
-// Date Getters
-std::string fastSpoiling::getDateSlashed() {
-    return mDate.slashOutput();
-}
-std::string fastSpoiling::getDateHyphened() {
-    return mDate.hyphenOutput();
-}
-std::string fastSpoiling::getDateDotted() {
-    return mDate.dotOutput();
-}
-std::string fastSpoiling::getDateShortenedYear() {
-    return mDate.shortenedYearOutput();
-}
-std::string fastSpoiling::getDateVerbalizedMonth() {
-    return mDate.verbalMonthOutput();
-}
-std::string fastSpoiling::getDateVerbalizedDay() {
-    return mDate.verbalDayOutput()
-}
 
 // Setters
 void fastSpoiling::setName(name n) { mName = n; }
