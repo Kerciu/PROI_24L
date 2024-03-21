@@ -1,33 +1,50 @@
 #include "fastSpoiling.h"
 
-fastSpoiling::fastSpoiling(name n, type t, Date d, weightAndVolume wv) {
-    mName = n;
-    mType = t;
-    mDate = d;
-    mTransportMeans = "No known transport means";
-    mWeightAndVolume = wv;
+fastSpoiling(name n, type t, weightAndVolume wv) {
+    this->mName = n;
+    this->mType = t;
+    this->mTransportMeans = "No known transport means";
+    this->mWeightAndVolume = wv;
 }
 
-fastSpoiling::fastSpoiling(name n, type t, Date d, transportMeans tm, weightAndVolume wv) {
-    mName = n;
-    mType = t;
-    mDate = d;
-    mTransportMeans = tm;
-    mWeightAndVolume = wv;
+fastSpoiling(name n, type t, Date pd, weightAndVolume wv) {
+    this->mName = n;
+    this->mType = t;
+    this->mProdDate = pd;
+    this->mWeightAndVolume = wv;
+}
+
+fastSpoiling(name n, type t, Date pd, transportMeans tm, weightAndVolume wv) {
+    this->mName = n;
+    this->mType = t;
+    this->mProdDate = pd;
+    this->mTransportMeans = tm;
+    this->mWeightAndVolume = wv;
+}
+
+fastSpoiling(name n, type t, Date pd, Date ed, weightAndVolume wv) {
+    this->mName = n;
+    this->mType = t;
+    this->mProdDate = pd;
+    this->mExpirDate = ed;
+    this->mTransportMeans = "No known transport means";
+    this->mWeightAndVolume = wv;
+}
+
+fastSpoiling(name n, type t, Date pd, Date ed, transportMeans tm, weightAndVolume wv) {
+    this->mName = n;
+    this->mType = t;
+    this->mProdDate = pd;
+    this->mExpirDate = ed;
+    this->mTransportMeans = tm;
+    this->mWeightAndVolume = wv;
 }
 
 name fastSpoiling::getName(void) const { return mName; }
 type fastSpoiling::getType(void) const { return mType; }
 transportMeans fastSpoiling::getTransportMeans(void) const { return mTransportMeans;}
-weight fastSpoiling::getWeight(void) const { return mWeight; }
-volume fastSpoiling::getVolume(void) const { return mVolume; }
-std::string fastSpoiling::getWeightNVolume(void) {
-    return std::to_string(mWeight) + " kg ," + std::to_string(mVolume) + " m^3";
-}
 
 // Date Getters
-std::string fastSpoiling::getRandomDateFormat() {}
-
 std::string fastSpoiling::getDateSlashed() {
     return mDate.slashOutput();
 }
@@ -50,5 +67,4 @@ std::string fastSpoiling::getDateVerbalizedDay() {
 // Setters
 void fastSpoiling::setName(name n) { mName = n; }
 void fastSpoiling::setType(type t) { mType = t; }
-void fastSpoiling::setDate(int d, int m, int y) { mDate = Date(d, m, y); }
 void fastSpoiling::setTransportMeans(transportMeans tm) { mType = t; }

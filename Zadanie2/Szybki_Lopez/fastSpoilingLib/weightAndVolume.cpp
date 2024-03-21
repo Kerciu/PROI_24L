@@ -108,3 +108,12 @@ volume weightAndVolume::getVolume(const std::string& unitString) const {
 
 std::string weightAndVolume::getWeightNVolume(void) {
     return std::to_string(mWeight) + ' ' + correctWeightConverFact[4] + ", " + std::to_string(mVolume) + ' ' + correctVolumeConverFact[3];
+}
+
+void weightAndVolume::setWeight(weight w) {
+    mWeight = w;
+}
+
+void weightAndVolume::setVolume(volume v) {
+    mVolume = v;
+}

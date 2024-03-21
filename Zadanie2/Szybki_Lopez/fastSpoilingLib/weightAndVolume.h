@@ -29,4 +29,7 @@ class weightAndVolume {
     volume getVolume(void);
     volume getVolume(const std::string& unitString) const;
 
+    // Setters
+    void setWeight(weight w);
+    void setVolume(volume v);
 };
