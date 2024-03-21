@@ -1,21 +1,19 @@
 #include "fastSpoiling.h"
 
-fastSpoiling::fastSpoiling(const name& n, const type& t, const Date& d, weight w, volume v) {
+fastSpoiling::fastSpoiling(name n, type t, Date d, weightAndVolume wv) {
     mName = n;
     mType = t;
     mDate = d;
     mTransportMeans = "No known transport means";
-    mWeight = w;
-    mVolume = v;
+    mWeightAndVolume = wv;
 }
 
-fastSpoiling::fastSpoiling(name n, type t, Date d, transportMeans tm, weight w, volume v) {
+fastSpoiling::fastSpoiling(name n, type t, Date d, transportMeans tm, weightAndVolume wv) {
     mName = n;
     mType = t;
     mDate = d;
     mTransportMeans = tm;
-    mWeight = w;
-    mVolume = v;
+    mWeightAndVolume = wv;
 }
 
 name fastSpoiling::getName(void) const { return mName; }
@@ -54,5 +52,3 @@ void fastSpoiling::setName(name n) { mName = n; }
 void fastSpoiling::setType(type t) { mType = t; }
 void fastSpoiling::setDate(int d, int m, int y) { mDate = Date(d, m, y); }
 void fastSpoiling::setTransportMeans(transportMeans tm) { mType = t; }
-void fastSpoiling::setWeight(weight w) { mWeight = w; }
-void fastSpoiling::setVolume(volume v) { mVolume = v; }
