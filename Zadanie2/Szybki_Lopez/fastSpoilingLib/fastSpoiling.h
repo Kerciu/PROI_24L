@@ -6,49 +6,68 @@
 
 class fastSpoiling {
     private:
-    using name = std::string;
-    using type = std::string;
-    using transport = std::string
+    using Name = std::string;
+    using Type = std::string;
+    using Transport = std::string;
+    using WeightAndVolume = weightAndVolume;
+    using Weight = double;
+    using Volume = double;
 
-    name mName;
-    type mType;
+    Name mName;
+    Type mType;
     Date mProdDate;
     Date mExpirdate;
-    transport mTransportMeans;
-    weightAndVolume mWeightAndVolume;
+    Transport mTransportMeans;
+    WeightAndVolume mWeightAndVolume;
 
     friend class fastSpoilingCollection;
 
 public:
     // Constructors
-    fastSpoiling(const name& n, const type& t, const weightAndVolume& wv) : mName(n), mType(t), mWeightAndVolume(wv) {}
+    fastSpoiling::fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv)
+        : mName(n), mType(t), mWeightAndVolume(wv) {}
 
-    fastSpoiling(const name& n, const type& t, const Date& pd, const weightAndVolume& wv) : mName(n), mType(t), mProdDate(pd), mWeightAndVolume(wv) {}
+    fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& pd, const WeightAndVolume& wv)
+        : mName(n), mType(t), mProdDate(pd), mWeightAndVolume(wv) {}
 
-    fastSpoiling(const name& n, const type& t, const Date& pd, const transport& tm, const weightAndVolume& wv)
+    fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& pd, const Transport& tm, const WeightAndVolume& wv)
         : mName(n), mType(t), mProdDate(pd), mTransportMeans(tm), mWeightAndVolume(wv) {}
 
-    fastSpoiling(const name& n, const type& t, const Date& pd, const Date& ed, const weightAndVolume& wv)
+    fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& pd, const Date& ed, const WeightAndVolume& wv)
         : mName(n), mType(t), mProdDate(pd), mExpirDate(ed), mWeightAndVolume(wv) {}
 
-    fastSpoiling(const name& n, const type& t, const Date& pd, const Date& ed, const transport& tm, const weightAndVolume& wv)
+    fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& pd, const Date& ed, const Transport& tm, const WeightAndVolume& wv)
         : mName(n), mType(t), mProdDate(pd), mExpirDate(ed), mTransportMeans(tm), mWeightAndVolume(wv) {}
 
     // Getters
-    name getName() const { return mName; }
-    type getType() const { return mType; }
-    transport getTransportMeans() const { return mTransportMeans; }
+    name getName() const;
+    type getType() const;
+    transport getTransportMeans() const;
 
-    // Date Getters
-    std::string getDateSlashed(void);
-    std::string getDateHyphened(void);
-    std::string getDateDotted(void);
-    std::string getDateShortenedYear(void);
-    std::string getDateVerbalizedMonth(void);
-    std::string getDateVerbalizedDay(void);
+    // Production Date Getters
+    std::string fastSpoiling::getProductionDateSlashed() const;
+    std::string fastSpoiling::getProductionDateHyphened() const;
+    std::string fastSpoiling::getProductionDateDotted() const;
+    std::string fastSpoiling::getProductionDateShortenedYear() const;
+    std::string fastSpoiling::getProductionDateVerbalizedMonth() const;
+    std::string fastSpoiling::getProductionDateVerbalizedDay() const;
+
+    // Expiration Date Getters
+    std::string fastSpoiling::getExpirationDateSlashed() const;
+    std::string fastSpoiling::getExpirationDateHyphened() const;
+    std::string fastSpoiling::getExpirationDateDotted() const;
+    std::string fastSpoiling::getExpirationDateShortenedYear() const;
+    std::string fastSpoiling::getExpirationDateVerbalizedMonth() const;
+    std::string fastSpoiling::getExpirationDateVerbalizedDay() const;
+
+    // Weight and Volume Getters
+    Weight fastSpoiling::getWeight() const;
+    Weight fastSpoiling::getWeight(const std::string& unitString) const;
+    Volume fastSpoiling::getVolume() const;
+    Volume fastSpoiling::getVolume(const std::string& unitString) const;
 
     // Setters
-    void setName(name n);
-    void setType(type t);
-    void setTransportMeans(transportMeans tm);
+    void setName(Name n);
+    void setType(Type t);
+    void setTransportMeans(Transport tm);
 };
