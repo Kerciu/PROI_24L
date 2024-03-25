@@ -1,0 +1,13 @@
+﻿  Date.cpp
+C:\Users\Kacper\Desktop\Zadanie2\FastSpoiling\FastSpoiling\Date.cpp(227,1): error C1010: Nieoczekiwany koniec pliku podczas wyszukiwania prekompilowanego pliku nagłówkowego. Czy zapomniano dodać „#include "pch.h"” do źródła?
+  fastSpoiling.cpp
+C:\Users\Kacper\Desktop\Zadanie2\FastSpoiling\FastSpoiling\fastSpoiling.cpp(136,1): error C1010: Nieoczekiwany koniec pliku podczas wyszukiwania prekompilowanego pliku nagłówkowego. Czy zapomniano dodać „#include "pch.h"” do źródła?
+  FastSpoilingCollection.cpp
+C:\Users\Kacper\Desktop\Zadanie2\FastSpoiling\FastSpoiling\FastSpoilingCollection.cpp(131,1): error C1010: Nieoczekiwany koniec pliku podczas wyszukiwania prekompilowanego pliku nagłówkowego. Czy zapomniano dodać „#include "pch.h"” do źródła?
+  mainModule.cpp
+C:\Users\Kacper\Desktop\Zadanie2\FastSpoiling\FastSpoiling\mainModule.cpp(58,1): error C1010: Nieoczekiwany koniec pliku podczas wyszukiwania prekompilowanego pliku nagłówkowego. Czy zapomniano dodać „#include "pch.h"” do źródła?
+  Transport.cpp
+C:\Users\Kacper\Desktop\Zadanie2\FastSpoiling\FastSpoiling\Transport.cpp(57,1): error C1010: Nieoczekiwany koniec pliku podczas wyszukiwania prekompilowanego pliku nagłówkowego. Czy zapomniano dodać „#include "pch.h"” do źródła?
+  weightAndVolume.cpp
+C:\Users\Kacper\Desktop\Zadanie2\FastSpoiling\FastSpoiling\weightAndVolume.cpp(173,1): error C1010: Nieoczekiwany koniec pliku podczas wyszukiwania prekompilowanego pliku nagłówkowego. Czy zapomniano dodać „#include "pch.h"” do źródła?
+  Generowanie kodu...
