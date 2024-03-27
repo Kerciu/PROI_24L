@@ -5,6 +5,8 @@
 #include "Transport.h"
 #include "weightAndVolume.h"
 
+#define P(x) std::cout << ChocolateMilk.x() << std::endl;
+
 int main() {
 	try {
 		// Creating Chicken Object
@@ -28,6 +30,20 @@ int main() {
 
 		std::cout << collection << '\n';
 
+		std::cout << "Show all the Chocolate milk getters: \n";
+		P(getName);
+		P(getType);
+		P(getProductionDateVerbalizedDay);
+		P(getExpirationDateVerbalizedDay);
+		P(getTransportTemperature);
+		P(getTransportPackaging);
+		P(getTransportHumidity);
+		P(getWeight);
+		P(getVolume);
+
+		std::cout << ChocolateMilk.getWeight("gram") << " grams\n";
+		std::cout << ChocolateMilk.getVolume("mililiter") << " mililiters\n";
+
 		std::cout << "\nLet's remove cereal, banana, and change chocolate milk and chicken breast\n";
 
 		collection.deleteElement(BreakfastCereal);
@@ -40,10 +56,9 @@ int main() {
 		collection.modifyName(1, "Strawberry Milk");
 		collection.modifyCollectionElement(0, "Turkey Breast", "Poultry", Date(1, 1, 1), Date(16, 7, 2024), Transport(-15, "Store freezed"), weightAndVolume(15, 14.5));
 
-		std::cout << '\n';
-		std::cout << collection << '\n';
+		std::cout << collection;
 
-		std::cout << "\nLet's delete already deleted Banana\n";
+		std::cout << "Let's delete already deleted Banana\n";
 		collection.deleteElement(Banana);
 	}
 	catch (const std::out_of_range& e) {

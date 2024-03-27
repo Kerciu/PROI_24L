@@ -49,8 +49,6 @@ public:
     Volume getVolume() const;
     Volume getVolume(const std::string& unitString) const;
 
-    std::string getWeightNVolume(void) const;
-
     // Setters
     void setWeight(Weight w);
     void setVolume(Volume v);

@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string>
 #include <stdexcept>
+#include <map>
 
 using Weight = double;
 using Volume = double;
@@ -29,27 +30,42 @@ enum VolumeConversionFactor {
     volumeFactorCount
 };
 
-const std::string weightAndVolume::correctWeightConverFact[] = { "miligram", "gram", "ounce", "decagram", "kilogram", "pounds", "tonne" };
-const std::string weightAndVolume::correctVolumeConverFact[] = { "mililiter", "centiliter", "deciliter", "liter", "hectoliter", "kiloliter" };
+const std::map<std::string, WeightConversionFactor> weightConversionFactors = {
+    {"miligram", WeightConversionFactor::miligram},
+    {"gram", WeightConversionFactor::gram},
+    {"ounce", WeightConversionFactor::ounce},
+    {"decagram", WeightConversionFactor::decagram},
+    {"kilogram", WeightConversionFactor::kilogram},
+    {"pounds", WeightConversionFactor::pounds},
+    {"tonne", WeightConversionFactor::tonne}
+};
+
+const std::map<std::string, VolumeConversionFactor> volumeConversionFactors = {
+    {"mililiter", VolumeConversionFactor::mililiter},
+    {"centiliter", VolumeConversionFactor::centiliter},
+    {"deciliter", VolumeConversionFactor::deciliter},
+    {"liter", VolumeConversionFactor::liter},
+    {"hectoliter", VolumeConversionFactor::hectoliter},
+    {"kiloliter", VolumeConversionFactor::kiloliter}
+};
 
 // Private
-weightAndVolume::WeightConversionFactor weightAndVolume::parseWeightUnits(const std::string& unitString) const {
-    for (int i = 0; i < weightFactorCount; i++) {
-        if (correctWeightConverFact[i] == unitString) {
-            return static_cast<WeightConversionFactor>(i);
-        }
+Weight weightAndVolume::getWeight(const std::string& unitString) const {
+    if (weightConversionFactors.find(unitString) == weightConversionFactors.end()) {
+        throw std::invalid_argument("Invalid weight unit");
     }
-    throw std::invalid_argument("Invalid weight unit");
+    WeightConversionFactor unit = static_cast<WeightConversionFactor>(weightConversionFactors.at(unitString));
+    return convertWeight(unit);
 }
 
-weightAndVolume::VolumeConversionFactor weightAndVolume::parseVolumeUnits(const std::string& unitString) const {
-    for (int i = 0; i < volumeFactorCount; i++) {
-        if (correctVolumeConverFact[i] == unitString) {
-            return static_cast<VolumeConversionFactor>(i);
-        }
+Volume weightAndVolume::getVolume(const std::string& unitString) const {
+    if (volumeConversionFactors.find(unitString) == volumeConversionFactors.end()) {
+        throw std::invalid_argument("Invalid volume unit");
     }
-    throw std::invalid_argument("Invalid volume unit");
+    VolumeConversionFactor unit = static_cast<VolumeConversionFactor>(volumeConversionFactors.at(unitString));
+    return convertVolume(unit);
 }
+
 
 Weight weightAndVolume::convertWeight(WeightConversionFactor toUnit) const {
     switch (toUnit) {
@@ -95,34 +111,8 @@ Weight weightAndVolume::getWeight() const {
     return mWeight;
 }
 
-Weight weightAndVolume::getWeight(const std::string& unitString) const {
-    WeightConversionFactor unit;
-    try {
-        unit = parseWeightUnits(unitString);
-    }
-    catch (const std::invalid_argument& e) {
-        return -1;
-    }
-    return convertWeight(unit);
-}
-
 Volume weightAndVolume::getVolume() const {
     return mVolume;
-}
-
-Volume weightAndVolume::getVolume(const std::string& unitString) const {
-    VolumeConversionFactor unit;
-    try {
-        unit = parseVolumeUnits(unitString);
-    }
-    catch (const std::invalid_argument& e) {
-        return -1;
-    }
-    return convertVolume(unit);
-}
-
-std::string weightAndVolume::getWeightNVolume() const {
-    return std::to_string(mWeight) + ' ' + correctWeightConverFact[4] + ", " + std::to_string(mVolume) + ' ' + correctVolumeConverFact[3];
 }
 
 void weightAndVolume::setWeight(Weight w) {
