@@ -130,6 +130,7 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="fastSpoiling.cpp" />
     <ClCompile Include="FastSpoilingCollection.cpp" />
+    <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="mainModule.cpp" />
     <ClCompile Include="Transport.cpp" />
     <ClCompile Include="weightAndVolume.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="fastSpoiling.h" />
     <ClInclude Include="FastSpoilingCollection.h" />
+    <ClInclude Include="FileHandler.h" />
     <ClInclude Include="Transport.h" />
     <ClInclude Include="weightAndVolume.h" />
   </ItemGroup>
