@@ -5,6 +5,8 @@
 #include "Date.h"
 
 // Constructor
+Date::Date() : day(1), month(1), year(1) { }
+
 Date::Date(int d, int m, int y) : day(d), month(m), year(y)
 {
     if (!checkDayValue(day) || !checkMonthValue(month) || !checkYearValue(year))
@@ -209,7 +211,14 @@ std::string Date::verbalDayOutput(void) const {
     return getWeekDay(day, month, year) + " " + std::to_string(day) + "." + fillWithZeroes(month) + "." + std::to_string(year);
 }
 
+bool Date::isDefaultDate(void) const {
+    return (day == 1 && month == 1 && year == 1);
+}
+
 bool Date::operator==(const Date& other) const {
+    if (isDefaultDate() && other.isDefaultDate()) {
+        return false;
+    }
     return day == other.day && month == other.month && year == other.year;
 }
 
@@ -223,4 +232,32 @@ bool Date::operator>(const Date& other) const {
             return day > other.day;
         }
     }
+}
+
+std::ostream& operator<<(std::ostream& os, const Date& date)
+{
+    date.year != 1 ? os << date.slashOutput() : os << "N/A";
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, Date& date)
+{
+    std::string dateString;
+    is >> dateString;
+
+    if (dateString == "N/A") {
+        date = Date();
+    }
+    else {
+        std::istringstream dateStream(dateString);
+        int day, month, year;
+        char delimiter;
+        dateStream >> day >> delimiter >> month >> delimiter >> year;
+
+        date.setDay(day);
+        date.setMonth(month);
+        date.setYear(year);
+    }
+
+    return is;
 }

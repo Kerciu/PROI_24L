@@ -19,6 +19,7 @@ private:
     bool determineLeapYear(int y) const;
 
 public:
+    Date();
     Date(int d, int m, int y);
 
     int getDay(void) const;
@@ -37,8 +38,12 @@ public:
     std::string verbalMonthOutput(void) const;
     std::string verbalDayOutput(void) const;
 
+    bool isDefaultDate(void) const;
+
     bool operator==(const Date& other) const;
     bool operator>(const Date& other) const;
+    friend std::ostream& operator<<(std::ostream& os, const Date& date);
+    friend std::istream& operator>>(std::istream& is, Date& date);
 };
 
 
