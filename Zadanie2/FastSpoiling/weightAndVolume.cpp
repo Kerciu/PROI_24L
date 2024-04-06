@@ -147,7 +147,7 @@ bool weightAndVolume::operator==(const weightAndVolume& other) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const weightAndVolume& wv) {
-    os << "Weight: " << wv.getWeight() << " kg's, Volume: " << wv.getVolume() << " liters\n";
+    os << wv.getWeight() << ' ' << wv.getVolume();
     return os;
 }
 

@@ -120,11 +120,8 @@ size_t fastSpoilingCollection::sizeOfCollection() const {
 
 std::ostream& operator<<(std::ostream& os, const fastSpoilingCollection& collect) {
     os << "Collection of elements:\n";
-    int index = 1;
     for (const auto& element : collect.elementCollection) {
-        os << index << " ) " << element << '\n';
-        index++;
+        os << element << '\n';
     }
-    os << '\n';
     return os;
 }

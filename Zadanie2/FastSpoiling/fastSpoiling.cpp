@@ -121,15 +121,13 @@ bool fastSpoiling::operator==(const fastSpoiling& other) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs) {
-    os << "Name: " << fs.mName << '\n';
-    os << "Type: " << fs.mType << '\n';
-    if (fs.mProdDate.getYear() != 1) {
-        os << "Production Date: " << fs.mProdDate.slashOutput() << '\n';
-    }
-    if (fs.mExpirDate.getYear() != 1) {
-        os << "Expiration Date: " << fs.mExpirDate.slashOutput() << '\n';
-    }
-    os << "Transport Means:\n" << fs.mTransportMeans << '\n';
-    os << "Weight and Volume:\n" << fs.mWeightAndVolume << '\n';
+    os << fs.mName << ' ';
+    os << fs.mType << ' ';
+    
+    fs.mProdDate.getYear() == 1 ? os << "N/A " : os << fs.mProdDate.slashOutput() << ' ';
+    fs.mExpirDate.getYear() == 1 ? os << "N/A " : os << fs.mExpirDate.slashOutput() << ' ';
+    
+    os << fs.mTransportMeans << ' ';
+    os << fs.mWeightAndVolume << '\n';
     return os;
 }
