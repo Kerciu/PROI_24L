@@ -51,7 +51,7 @@ bool Transport::operator==(const Transport& other) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Transport& transport) {
-	os << transport.getTemperature() << ' ' << transport.getPackaging() << ' ' << transport.getHumidity();
+	os << transport.getTemperature() << ';' << transport.getPackaging() << ';' << transport.getHumidity();
 	return os;
 }
 

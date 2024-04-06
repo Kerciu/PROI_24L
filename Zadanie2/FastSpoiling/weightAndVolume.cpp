@@ -8,6 +8,8 @@
 using Weight = double;
 using Volume = double;
 
+weightAndVolume::weightAndVolume() : mWeight(0), mVolume(0) { }
+
 weightAndVolume::weightAndVolume(Weight w, Volume v) : mWeight(w), mVolume(v) { }
 
 enum WeightConversionFactor {
@@ -148,7 +150,7 @@ bool weightAndVolume::operator==(const weightAndVolume& other) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const weightAndVolume& wv) {
-    os << wv.getWeight() << ' ' << wv.getVolume();
+    os << wv.getWeight() << ';' << wv.getVolume();
     return os;
 }
 

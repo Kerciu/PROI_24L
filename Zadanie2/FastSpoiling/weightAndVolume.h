@@ -30,9 +30,6 @@ private:
         kiloliter = 1000000,
         volumeFactorCount
     };
-
-    WeightConversionFactor parseWeightUnits(const std::string& unitString) const;
-    VolumeConversionFactor parseVolumeUnits(const std::string& unitString) const;
     Weight convertWeight(WeightConversionFactor toUnit) const;
     Volume convertVolume(VolumeConversionFactor toUnit) const;
 
@@ -41,6 +38,7 @@ private:
 
 
 public:
+    weightAndVolume();
     weightAndVolume(Weight w, Volume v);
 
     // Getters
