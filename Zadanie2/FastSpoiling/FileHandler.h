@@ -28,8 +28,8 @@ public:
 	std::string getName() const;
 	void setName(const std::string& newName);
 
-	std::string readFromFile() const;
-	void writeToFile(const std::string& content);
+	fastSpoilingCollection readFromFile() const;
+	void writeToFile(const fastSpoiling& content);
 	
 };
 

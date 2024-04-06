@@ -32,22 +32,40 @@ fastSpoilingCollection FileHandler::readFromFile() const
 	std::ifstream file(fileName.c_str());
 
 	if (!file.is_open()) {
-		throw std::runtime_error(("Unable to open the file called ", fileName));
+		throw std::runtime_error(("Unable to open the file called ", fileName).c_str());
+	}
+	if (file.fail()) {
+		throw std::runtime_error("Error while writing to file: Write operation failed.");
+	}
+	if (file.bad()) {
+		throw std::runtime_error("Error while writing to file: Critical stream failure.");
 	}
 
-	while (file >>)
-	
+	while (file >> product) {
+		collection.addNewElement(product);
+	}
+
+	file.close();
+
+	return collection;
  }
 
-void FileHandler::writeToFile(const std::string& content)
+void FileHandler::writeToFile(const fastSpoiling& content)
 {
-	std::ofstream file(fileName);
+	std::ofstream file(fileName, std::ios::app);
 
 	if (!file.is_open()) {
 		throw std::runtime_error("Unable to open the file.");
 	}
 
 	file << content;
+
+	if (file.fail()) {
+		throw std::runtime_error("Error while writing to file: Write operation failed.");
+	}
+	if (file.bad()) {
+		throw std::runtime_error("Error while writing to file: Critical stream failure.");
+	}
 
 	file.close();
 }
