@@ -61,7 +61,19 @@ std::istream& operator>>(std::istream& is, Transport& transport)
 	Transport::Packaging pack;
 	Transport::Humidity humid;
 
-	is >> temp >> pack >> humid;
+	std::string tempStr, packStr, humidStr;
+	is >> tempStr >> packStr >> humidStr;
+
+	try {
+		temp = std::stod(tempStr);
+		pack = packStr;
+		humid = std::stod(humidStr);
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error: " << e.what() << '\n';
+		return is;
+	}
+
 	transport.setTemperature(temp);
 	transport.setPackaging(pack);
 	transport.setHumidity(humid);

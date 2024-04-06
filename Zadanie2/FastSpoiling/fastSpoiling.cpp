@@ -152,7 +152,20 @@ std::istream& operator>>(std::istream& is, fastSpoiling& fs)
     std::string name, type, prodDate, expirDate, packaging;
     double temp, humid, weight, volume;
 
-    is >> fs.mName >> fs.mType >> fs.mProdDate >> fs.mExpirDate >> fs.mTransportMeans >> fs.mWeightAndVolume;
+    is >> name >> type >> prodDate >> expirDate >> temp >> packaging  >> humid >> weight >> volume;
+
+    fs.mName = name;
+    fs.mType = type;
+
+    std::istringstream prodDateStream(prodDate);
+    prodDateStream >> fs.mProdDate;
+
+    std::istringstream expirDateStream(expirDate);
+    expirDateStream >> fs.mExpirDate;
+
+    is >> fs.mTransportMeans;
+
+    is >> fs.mWeightAndVolume;
 
     return is;
 }

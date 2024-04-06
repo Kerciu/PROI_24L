@@ -3,6 +3,7 @@
 #include <string>
 #include <stdexcept>
 #include <map>
+#include <iostream>
 
 using Weight = double;
 using Volume = double;
@@ -157,7 +158,21 @@ std::istream& operator>>(std::istream& is, weightAndVolume& wv)
     weightAndVolume::Volume vol;
     char delimiter;
 
-    is >> wei >> delimiter >> vol;
+    std::string good = "0123456789.-";
+    std::string weiStr, volStr;
+
+    is >> weiStr >> delimiter >> volStr;
+    try {
+        if (weiStr.find_first_not_of(good) != std::string::npos || volStr.find_first_not_of(good) != std::string::npos)
+            throw std::invalid_argument("Error: Invalid weight or volume format");
+
+        wei = std::stod(weiStr);
+        vol = std::stod(volStr);
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+        return is;
+    }
 
     wv.setWeight(wei);
     wv.setVolume(vol);
