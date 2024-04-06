@@ -152,8 +152,16 @@ std::ostream& operator<<(std::ostream& os, const weightAndVolume& wv) {
 }
 
 std::istream& operator>>(std::istream& is, weightAndVolume& wv)
-{
-    is >> wv.mWeight >> wv.mVolume;
+{   
+    weightAndVolume::Weight wei;
+    weightAndVolume::Volume vol;
+    char delimiter;
+
+    is >> wei >> delimiter >> vol;
+
+    wv.setWeight(wei);
+    wv.setVolume(vol);
+
     return is;
 }
 

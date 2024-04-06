@@ -148,32 +148,8 @@ std::istream& operator>>(std::istream& is, fastSpoiling& fs)
 {
     std::string name, type, prodDate, expirDate, packaging;
     double temp, humid, weight, volume;
-    std::istringstream prodDateStream;
-    std::istringstream expirDateStream;
 
-    is >> fs.mName >> fs.mType >> prodDate >> expirDate >> fs.mTransportMeans >> fs.mWeightAndVolume;
-
-    if (prodDate != "N/A") {
-        int day, month, year;
-        char delimiter;
-        prodDateStream.str(prodDate);
-        prodDateStream >> day >> delimiter >> month >> delimiter >> year;
-        fs.setProductionDate(day, month, year);
-    }
-    else {
-        fs.setProductionDate(1, 1, 1);
-    }
-
-    if (expirDate != "N/A") {
-        int day, month, year;
-        char delimiter;
-        expirDateStream.str(expirDate);
-        expirDateStream >> day >> delimiter >> month >> delimiter >> year;
-        fs.setExpirationDate(day, month, year);
-    }
-    else {
-        fs.setExpirationDate(2, 1, 1);
-    }
+    is >> fs.mName >> fs.mType >> fs.mProdDate >> fs.mExpirDate >> fs.mTransportMeans >> fs.mWeightAndVolume;
 
     return is;
 }
