@@ -1,4 +1,8 @@
 #include "FileHandler.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
 #include <stdexcept>
 
 // Exceptions
@@ -27,7 +31,6 @@ void FileHandler::setName(const std::string& newName)
 
 fastSpoilingCollection FileHandler::readFromFile() const
 {	
-	fastSpoiling product;
 	fastSpoilingCollection collection;
 	std::ifstream file(fileName.c_str());
 
@@ -41,11 +44,39 @@ fastSpoilingCollection FileHandler::readFromFile() const
 		throw std::runtime_error("Error while writing to file: Critical stream failure.");
 	}
 
-	while (file >> product) {
+	std::string line;
+	while (std::getline(file, line)) {
+		std::istringstream iss(line);
+		std::vector<std::string> attributes;
+
+		std::string substring;
+		while (std::getline(iss, substring, ';')) {
+			attributes.push_back(substring);
+		}
+
+		if (attributes.size() != 9) {
+			throw std::runtime_error("Invalid number of attributes in the file.");
+		}
+
+		std::istringstream dateStream(attributes[2]);
+		int day, month, year;
+		char delimiter;
+		dateStream >> day >> delimiter >> month >> delimiter >> year;
+
+		
+		Date productionDate(day, month, year);
+
+		dateStream.clear();
+		dateStream.str(attributes[3]);
+		dateStream >> day >> delimiter >> month >> delimiter >> year;
+		Date expirationDate(day, month, year);
+
+		Transport transport(std::stod(attributes[4]), attributes[5], std::stod(attributes[6]));
+		weightAndVolume wv(std::stod(attributes[7]), std::stod(attributes[8]));
+
+		fastSpoiling product(attributes[0], attributes[1], productionDate, expirationDate, transport, wv);
 		collection.addNewElement(product);
 	}
-
-	file.close();
 
 	return collection;
  }

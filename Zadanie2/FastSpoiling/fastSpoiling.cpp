@@ -125,47 +125,65 @@ bool fastSpoiling::operator==(const fastSpoiling& other) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs) {
-    os << fs.mName << ' ';
-    os << fs.mType << ' ';
+    os << fs.mName << ';';
+    os << fs.mType << ';';
     
     if (fs.mProdDate.getYear() == 1) {
-        os << "N/A ";
+        os << "N/A;";
     }
     else {
-        os << fs.mProdDate.slashOutput() << ' ';
+        os << fs.mProdDate.slashOutput() << ';';
     }
 
     if (fs.mExpirDate.getYear() == 1) {
-        os << "N/A ";
+        os << "N/A;";
     }
     else {
-        os << fs.mExpirDate.slashOutput() << ' ';
+        os << fs.mExpirDate.slashOutput() << ';';
     }
     
-    os << fs.mTransportMeans << ' ';
+    os << fs.mTransportMeans << ';';
     os << fs.mWeightAndVolume << '\n';
     return os;
 }
 
 std::istream& operator>>(std::istream& is, fastSpoiling& fs)
 {
-    std::string name, type, prodDate, expirDate, packaging;
-    double temp, humid, weight, volume;
+    std::string line;
+    std::getline(is, line);
 
-    is >> name >> type >> prodDate >> expirDate >> temp >> packaging  >> humid >> weight >> volume;
+    std::istringstream iss(line);
+    std::string name, type, prodDate, expirDate, temp, pack, humid, weight, volume;
+    std::getline(iss, name, ';');
+    std::getline(iss, type, ';');
+    std::getline(iss, prodDate, ';');
+    std::getline(iss, expirDate, ';');
+    std::getline(iss, temp, ';');
+    std::getline(iss, pack, ';');
+    std::getline(iss, humid, ';');
+    std::getline(iss, weight, ';');
+    std::getline(iss, volume, '\n');
 
     fs.mName = name;
     fs.mType = type;
 
-    std::istringstream prodDateStream(prodDate);
-    prodDateStream >> fs.mProdDate;
+    Date productionDate;
+    Date expirationDate;
+    std::istringstream(prodDate) >> productionDate;
+    std::istringstream(expirDate) >> expirationDate;
+    fs.mProdDate = productionDate;
+    fs.mExpirDate = expirationDate;
 
-    std::istringstream expirDateStream(expirDate);
-    expirDateStream >> fs.mExpirDate;
+    Transport transport;
+    std::istringstream(temp) >> transport;
+    transport.setPackaging(pack);
+    std::istringstream(humid) >> transport;
+    fs.mTransportMeans = transport;
 
-    is >> fs.mTransportMeans;
-
-    is >> fs.mWeightAndVolume;
+    WeightAndVolume weightAndVolume;
+    std::istringstream(weight) >> weightAndVolume;
+    std::istringstream(volume) >> weightAndVolume;
+    fs.mWeightAndVolume = weightAndVolume;
 
     return is;
 }
