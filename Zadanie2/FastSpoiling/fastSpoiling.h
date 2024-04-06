@@ -23,6 +23,7 @@ private:
 
 public:
     // Constructors
+    fastSpoiling();
     fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv);
     fastSpoiling(const Name& n, const Type& t, const Date& expDate, const WeightAndVolume& wv);
     fastSpoiling(const Name& n, const Type& t, const Transport& tm, const WeightAndVolume& wv);

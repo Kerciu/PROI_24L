@@ -12,6 +12,9 @@ using WeightAndVolume = weightAndVolume;
 using Weight = double;
 using Volume = double;
 
+fastSpoiling::fastSpoiling()
+    : mName("N/A"), mType("N/A"), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(weightAndVolume(0, 0)) { }
+
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv)
     : mName(n), mType(t), mProdDate(Date(1, 1, 1)), mExpirDate(Date(2, 1, 1)), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
 
