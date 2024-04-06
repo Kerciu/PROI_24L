@@ -52,10 +52,12 @@ public:
     // Setters
     void setWeight(Weight w);
     void setVolume(Volume v);
+    
     weightAndVolume operator+(const weightAndVolume& other) const;
     weightAndVolume operator-(const weightAndVolume& other) const;
     weightAndVolume operator*(double factor) const;
     bool operator==(const weightAndVolume& other) const;
     friend std::ostream& operator<<(std::ostream& os, const weightAndVolume& wv);
+    friend std::istream& operator>>(std::istream& is, weightAndVolume& wv);
     weightAndVolume& operator=(const weightAndVolume& other);
 };

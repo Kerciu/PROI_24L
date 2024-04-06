@@ -81,4 +81,5 @@ public:
     // Operator overloads
     bool operator==(const fastSpoiling& other) const;
     friend std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs);
+    friend std::istream& operator>>(std::istream& is, fastSpoiling& fs);
 };

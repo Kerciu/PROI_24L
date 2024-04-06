@@ -4,6 +4,7 @@
 #include "weightAndVolume.h"
 #include <iomanip>
 #include <ostream>
+#include <sstream>
 
 using Name = std::string;
 using Type = std::string;
@@ -124,10 +125,55 @@ std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs) {
     os << fs.mName << ' ';
     os << fs.mType << ' ';
     
-    fs.mProdDate.getYear() == 1 ? os << "N/A " : os << fs.mProdDate.slashOutput() << ' ';
-    fs.mExpirDate.getYear() == 1 ? os << "N/A " : os << fs.mExpirDate.slashOutput() << ' ';
+    if (fs.mProdDate.getYear() == 1) {
+        os << "N/A ";
+    }
+    else {
+        os << fs.mProdDate.slashOutput() << ' ';
+    }
+
+    if (fs.mExpirDate.getYear() == 1) {
+        os << "N/A ";
+    }
+    else {
+        os << fs.mExpirDate.slashOutput() << ' ';
+    }
     
     os << fs.mTransportMeans << ' ';
     os << fs.mWeightAndVolume << '\n';
     return os;
+}
+
+std::istream& operator>>(std::istream& is, fastSpoiling& fs)
+{
+    std::string name, type, prodDate, expirDate, packaging;
+    double temp, humid, weight, volume;
+    std::istringstream prodDateStream;
+    std::istringstream expirDateStream;
+
+    is >> fs.mName >> fs.mType >> prodDate >> expirDate >> fs.mTransportMeans >> fs.mWeightAndVolume;
+
+    if (prodDate != "N/A") {
+        int day, month, year;
+        char delimiter;
+        prodDateStream.str(prodDate);
+        prodDateStream >> day >> delimiter >> month >> delimiter >> year;
+        fs.setProductionDate(day, month, year);
+    }
+    else {
+        fs.setProductionDate(1, 1, 1);
+    }
+
+    if (expirDate != "N/A") {
+        int day, month, year;
+        char delimiter;
+        expirDateStream.str(expirDate);
+        expirDateStream >> day >> delimiter >> month >> delimiter >> year;
+        fs.setExpirationDate(day, month, year);
+    }
+    else {
+        fs.setExpirationDate(2, 1, 1);
+    }
+
+    return is;
 }

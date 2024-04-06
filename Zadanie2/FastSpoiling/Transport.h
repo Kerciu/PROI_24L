@@ -31,5 +31,6 @@ public:
 	void setHumidity(Humidity h);
 	bool operator==(const Transport& other) const;
 	friend std::ostream& operator<<(std::ostream& os, const Transport& transport);
+	friend std::istream& operator>>(std::istream& is, Transport& transport);
 };
 

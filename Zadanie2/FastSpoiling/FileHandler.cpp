@@ -25,22 +25,19 @@ void FileHandler::setName(const std::string& newName)
 	fileName = newName;
 }
 
-std::string FileHandler::readFromFile() const
-{
-	std::ifstream file(fileName);
+fastSpoilingCollection FileHandler::readFromFile() const
+{	
+	fastSpoiling product;
+	fastSpoilingCollection collection;
+	std::ifstream file(fileName.c_str());
 
 	if (!file.is_open()) {
-		throw std::runtime_error("Unable to open the file.");
+		throw std::runtime_error(("Unable to open the file called ", fileName));
 	}
 
-	std::string content((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
-	if (validateFileInfo(content)) {
-		throw wrongItemContentError("Items in file are incorrect!");
-	}
-	file.close();
-
-	return content;
-}
+	while (file >>)
+	
+ }
 
 void FileHandler::writeToFile(const std::string& content)
 {

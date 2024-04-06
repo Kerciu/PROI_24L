@@ -151,6 +151,12 @@ std::ostream& operator<<(std::ostream& os, const weightAndVolume& wv) {
     return os;
 }
 
+std::istream& operator>>(std::istream& is, weightAndVolume& wv)
+{
+    is >> wv.mWeight >> wv.mVolume;
+    return is;
+}
+
 weightAndVolume& weightAndVolume::operator=(const weightAndVolume& other) {
     if (this == &other)
         return *this;

@@ -54,3 +54,17 @@ std::ostream& operator<<(std::ostream& os, const Transport& transport) {
 	os << transport.getTemperature() << ' ' << transport.getPackaging() << ' ' << transport.getHumidity();
 	return os;
 }
+
+std::istream& operator>>(std::istream& is, Transport& transport)
+{
+	Transport::Temperature temp;
+	Transport::Packaging pack;
+	Transport::Humidity humid;
+
+	is >> temp >> pack >> humid;
+	transport.setTemperature(temp);
+	transport.setPackaging(pack);
+	transport.setHumidity(humid);
+
+	return is;
+}
