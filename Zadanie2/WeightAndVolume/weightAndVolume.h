@@ -36,6 +36,8 @@ private:
     static const std::string correctWeightConverFact[7];
     static const std::string correctVolumeConverFact[6];
 
+    bool validateWeight(Weight w) const;
+    bool validateVolume(Volume v) const;
 
 public:
     weightAndVolume();

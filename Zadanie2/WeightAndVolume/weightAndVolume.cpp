@@ -8,9 +8,27 @@
 using Weight = double;
 using Volume = double;
 
+bool weightAndVolume::validateWeight(Weight w) const
+{
+    return (w >= 0);
+}
+
+bool weightAndVolume::validateVolume(Volume v) const
+{
+    return (v >= 0);
+}
+
 weightAndVolume::weightAndVolume() : mWeight(0), mVolume(0) { }
 
-weightAndVolume::weightAndVolume(Weight w, Volume v) : mWeight(w), mVolume(v) { }
+weightAndVolume::weightAndVolume(Weight w, Volume v) : mWeight(w), mVolume(v) 
+{
+    if (!validateWeight(w)) {
+        throw std::out_of_range("Weight cannot be negative");
+    }
+    if (!validateVolume(v)) {
+        throw std::out_of_range("Volume cannot be negative");
+    }
+}
 
 enum WeightConversionFactor {
     miligram = 1,
@@ -127,6 +145,7 @@ void weightAndVolume::setVolume(Volume v) {
 }
 
 // Operator Overload
+// Constructor takes care of the exceptions
 weightAndVolume weightAndVolume::operator+(const weightAndVolume& other) const {
     Weight newWeight = mWeight + other.mWeight;
     Volume newVolume = mVolume + other.mVolume;
