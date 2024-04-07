@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <fstream>
-#include "fastSpoiling.h"
-#include "FastSpoilingCollection.h"
+#include "../FastSpoiling/fastSpoiling.h"
+#include "../FastSpoilingCollection/FastSpoilingCollection.h"
 
 class wrongItemContentError : public std::exception {
 private:

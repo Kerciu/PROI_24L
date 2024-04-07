@@ -1,7 +1,7 @@
 ﻿#include "fastSpoiling.h"
-#include "Date.h"
-#include "Transport.h"
-#include "weightAndVolume.h"
+#include "../Date/Date.h"
+#include "../Transport/Transport.h"
+#include "../WeightAndVolume/weightAndVolume.h"
 #include <iomanip>
 #include <ostream>
 #include <sstream>

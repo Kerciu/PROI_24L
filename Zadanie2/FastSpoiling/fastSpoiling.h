@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "Date.h"
-#include "weightAndVolume.h"
-#include "Transport.h"
+#include "../Transport/Transport.h"
+#include "../Date/Date.h"
+#include "../WeightAndVolume/weightAndVolume.h"
 
 class fastSpoiling {
 private:

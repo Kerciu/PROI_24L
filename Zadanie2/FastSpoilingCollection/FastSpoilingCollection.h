@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
-#include "fastSpoiling.h"
-#include "Transport.h"
-#include "Date.h"
-#include "weightAndVolume.h"
+#include "../FastSpoiling/fastSpoiling.h"
+#include "../Transport/Transport.h"
+#include "../Date/Date.h"
+#include "../WeightAndVolume/weightAndVolume.h"
 
 class fastSpoilingCollection {
 private:

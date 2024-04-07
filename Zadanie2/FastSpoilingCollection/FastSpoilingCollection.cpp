@@ -1,11 +1,11 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-#include "fastSpoiling.h"
+#include "../FastSpoiling/fastSpoiling.h"
 #include "fastSpoilingCollection.h"
-#include "Transport.h"
-#include "Date.h"
-#include "weightAndVolume.h"
+#include "../Transport/Transport.h"
+#include "../Date/Date.h"
+#include "../WeightAndVolume/weightAndVolume.h"
 
 // Element collection operations
 void fastSpoilingCollection::searchForElement(const fastSpoiling& element) const {

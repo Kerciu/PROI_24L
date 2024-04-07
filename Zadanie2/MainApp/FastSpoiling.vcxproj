@@ -127,23 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Date.cpp" />
-    <ClCompile Include="fastSpoiling.cpp" />
-    <ClCompile Include="FastSpoilingCollection.cpp" />
-    <ClCompile Include="FileHandler.cpp" />
+    <ClCompile Include="..\Date\Date.cpp" />
+    <ClCompile Include="..\FastSpoiling\fastSpoiling.cpp" />
+    <ClCompile Include="..\FastSpoilingCollection\FastSpoilingCollection.cpp" />
+    <ClCompile Include="..\FileHandler\FileHandler.cpp" />
     <ClCompile Include="mainModule.cpp" />
-    <ClCompile Include="Price.cpp" />
-    <ClCompile Include="Transport.cpp" />
-    <ClCompile Include="weightAndVolume.cpp" />
+    <ClCompile Include="..\Price\Price.cpp" />
+    <ClCompile Include="..\Transport\Transport.cpp" />
+    <ClCompile Include="..\weightAndVolume\weightAndVolume.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Date.h" />
-    <ClInclude Include="fastSpoiling.h" />
-    <ClInclude Include="FastSpoilingCollection.h" />
-    <ClInclude Include="FileHandler.h" />
-    <ClInclude Include="Price.h" />
-    <ClInclude Include="Transport.h" />
-    <ClInclude Include="weightAndVolume.h" />
+    <ClInclude Include="..\Date\Date.h" />
+    <ClInclude Include="..\FastSpoiling\fastSpoiling.h" />
+    <ClInclude Include="..\FastSpoilingCollection\FastSpoilingCollection.h" />
+    <ClInclude Include="..\FileHandler\FileHandler.h" />
+    <ClInclude Include="..\Price\Price.h" />
+    <ClInclude Include="..\Transport\Transport.h" />
+    <ClInclude Include="..\weightAndVolume\weightAndVolume.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
