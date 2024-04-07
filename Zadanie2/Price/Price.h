@@ -21,7 +21,7 @@ public:
     Price(std::string curr);
     Price(int value, std::string currency);
 
-	float getValue(void) const;
+	double getValue(void) const;
     int getValueBiggestUnit(void) const;
     int getValueSmallestUnit(void) const;
     std::string getCurrency(void) const;
@@ -32,5 +32,6 @@ public:
     void setValue(float newValue);
     void setCurrency(std::string currencyCode);
     void showAvailableCurrencies() const;
+    void showAvailableCurrenciesShortAndCode() const;
 };
 

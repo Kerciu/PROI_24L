@@ -1,5 +1,6 @@
 ﻿#include "Price.h"
 #include <string>
+#include <iostream>
 #include <utility>
 #include <stdexcept>
 #include <unordered_map>
@@ -374,6 +375,188 @@ std::unordered_map<std::string, CurrencyCode> currencyMap = {
     {"ZMW", CurrencyCode::ZMW},
     {"ZWL", CurrencyCode::ZWL}
 };
+std::unordered_map<CurrencyCode, std::string> currencyName = {
+    { CurrencyCode::AED, "United Arab Emirates dirham" },
+    { CurrencyCode::AFN, "Afghan afghani" },
+    { CurrencyCode::ALL, "Albanian lek" },
+    { CurrencyCode::AMD, "Armenian dram" },
+    { CurrencyCode::ANG, "Netherlands Antillean guilder" },
+    { CurrencyCode::AOA, "Angolan kwanza" },
+    { CurrencyCode::ARS, "Argentine peso" },
+    { CurrencyCode::AUD, "Australian dollar" },
+    { CurrencyCode::AWG, "Aruban florin" },
+    { CurrencyCode::AZN, "Azerbaijani manat" },
+    { CurrencyCode::BAM, "Bosnia and Herzegovina convertible mark" },
+    { CurrencyCode::BBD, "Barbados dollar" },
+    { CurrencyCode::BDT, "Bangladeshi taka" },
+    { CurrencyCode::BGN, "Bulgarian lev" },
+    { CurrencyCode::BHD, "Bahraini dinar" },
+    { CurrencyCode::BIF, "Burundian franc" },
+    { CurrencyCode::BMD, "Bermudian dollar" },
+    { CurrencyCode::BND, "Brunei dollar" },
+    { CurrencyCode::BOB, "Bolivian boliviano" },
+    { CurrencyCode::BRL, "Brazilian real" },
+    { CurrencyCode::BSD, "Bahamian dollar" },
+    { CurrencyCode::BTN, "Bhutanese ngultrum" },
+    { CurrencyCode::BWP, "Botswana pula" },
+    { CurrencyCode::BYN, "Belarusian ruble" },
+    { CurrencyCode::BZD, "Belize dollar" },
+    { CurrencyCode::CAD, "Canadian dollar" },
+    { CurrencyCode::CDF, "Congolese franc" },
+    { CurrencyCode::CHE, "WIR euro (complementary currency)" },
+    { CurrencyCode::CHF, "Swiss franc" },
+    { CurrencyCode::CHW, "WIR franc (complementary currency)" },
+    { CurrencyCode::CLF, "Unidad de Fomento (funds code)" },
+    { CurrencyCode::CLP, "Chilean peso" },
+    { CurrencyCode::COP, "Colombian peso" },
+    { CurrencyCode::COU, "Unidad de Valor Real (UVR) (funds code)" },
+    { CurrencyCode::CRC, "Costa Rican colon" },
+    { CurrencyCode::CUC, "Cuban convertible peso" },
+    { CurrencyCode::CUP, "Cuban peso" },
+    { CurrencyCode::CVE, "Cape Verdean escudo" },
+    { CurrencyCode::CZK, "Czech koruna" },
+    { CurrencyCode::DJF, "Djiboutian franc" },
+    { CurrencyCode::DKK, "Danish krone" },
+    { CurrencyCode::DOP, "Dominican peso" },
+    { CurrencyCode::DZD, "Algerian dinar" },
+    { CurrencyCode::EGP, "Egyptian pound" },
+    { CurrencyCode::ERN, "Eritrean nakfa" },
+    { CurrencyCode::ETB, "Ethiopian birr" },
+    { CurrencyCode::EUR, "Euro" },
+    { CurrencyCode::FJD, "Fiji dollar" },
+    { CurrencyCode::FKP, "Falkland Islands pound" },
+    { CurrencyCode::GBP, "Pound sterling" },
+    { CurrencyCode::GEL, "Georgian lari" },
+    { CurrencyCode::GHS, "Ghanaian cedi" },
+    { CurrencyCode::GIP, "Gibraltar pound" },
+    { CurrencyCode::GMD, "Gambian dalasi" },
+    { CurrencyCode::GNF, "Guinean franc" },
+    { CurrencyCode::GTQ, "Guatemalan quetzal" },
+    { CurrencyCode::GYD, "Guyanese dollar" },
+    { CurrencyCode::HKD, "Hong Kong dollar" },
+    { CurrencyCode::HNL, "Honduran lempira" },
+    { CurrencyCode::HRK, "Croatian kuna" },
+    { CurrencyCode::HTG, "Haitian gourde" },
+    { CurrencyCode::HUF, "Hungarian forint" },
+    { CurrencyCode::IDR, "Indonesian rupiah" },
+    { CurrencyCode::ILS, "Israeli new shekel" },
+    { CurrencyCode::INR, "Indian rupee" },
+    { CurrencyCode::IQD, "Iraqi dinar" },
+    { CurrencyCode::IRR, "Iranian rial" },
+    { CurrencyCode::ISK, "Icelandic króna (plural: kronur)" },
+    { CurrencyCode::JMD, "Jamaican dollar" },
+    { CurrencyCode::JOD, "Jordanian dinar" },
+    { CurrencyCode::JPY, "Japanese yen" },
+    { CurrencyCode::KES, "Kenyan shilling" },
+    { CurrencyCode::KGS, "Kyrgyzstani som" },
+    { CurrencyCode::KHR, "Cambodian riel" },
+    { CurrencyCode::KMF, "Comoro franc" },
+    { CurrencyCode::KPW, "North Korean won" },
+    { CurrencyCode::KRW, "South Korean won" },
+    { CurrencyCode::KWD, "Kuwaiti dinar" },
+    { CurrencyCode::KYD, "Cayman Islands dollar" },
+    { CurrencyCode::KZT, "Kazakhstani tenge" },
+    { CurrencyCode::LAK, "Lao kip" },
+    { CurrencyCode::LBP, "Lebanese pound" },
+    { CurrencyCode::LKR, "Sri Lankan rupee" },
+    { CurrencyCode::LRD, "Liberian dollar" },
+    { CurrencyCode::LSL, "Lesotho loti" },
+    { CurrencyCode::LYD, "Libyan dinar" },
+    { CurrencyCode::MAD, "Moroccan dirham" },
+    { CurrencyCode::MDL, "Moldovan leu" },
+    { CurrencyCode::MGA, "Malagasy ariary" },
+    { CurrencyCode::MKD, "Macedonian denar" },
+    { CurrencyCode::MMK, "Myanmar kyat" },
+    { CurrencyCode::MNT, "Mongolian togrog" },
+    { CurrencyCode::MOP, "Macanese pataca" },
+    { CurrencyCode::MRU, "Mauritanian ouguiya" },
+    { CurrencyCode::MUR, "Mauritian rupee" },
+    { CurrencyCode::MVR, "Maldivian rufiyaa" },
+    { CurrencyCode::MWK, "Malawian kwacha" },
+    { CurrencyCode::MXN, "Mexican peso" },
+    { CurrencyCode::MXV, "Mexican Unidad de Inversion (UDI) (funds code)" },
+    { CurrencyCode::MYR, "Malaysian ringgit" },
+    { CurrencyCode::MZN, "Mozambican metical" },
+    { CurrencyCode::NAD, "Namibian dollar" },
+    { CurrencyCode::NGN, "Nigerian naira" },
+    { CurrencyCode::NIO, "Nicaraguan cordoba" },
+    { CurrencyCode::NOK, "Norwegian krone" },
+    { CurrencyCode::NPR, "Nepalese rupee" },
+    { CurrencyCode::NZD, "New Zealand dollar" },
+    { CurrencyCode::OMR, "Omani rial" },
+    { CurrencyCode::PAB, "Panamanian balboa" },
+    { CurrencyCode::PEN, "Peruvian sol" },
+    { CurrencyCode::PGK, "Papua New Guinean kina" },
+    { CurrencyCode::PHP, "Philippine peso" },
+    { CurrencyCode::PKR, "Pakistani rupee" },
+    { CurrencyCode::PLN, "Polish zloty" },
+    { CurrencyCode::PYG, "Paraguayan guaraní" },
+    { CurrencyCode::QAR, "Qatari riyal" },
+    { CurrencyCode::RON, "Romanian leu" },
+    { CurrencyCode::RSD, "Serbian dinar" },
+    { CurrencyCode::CNY, "Renminbi" },
+    { CurrencyCode::RUB, "Russian ruble" },
+    { CurrencyCode::RWF, "Rwandan franc" },
+    { CurrencyCode::SAR, "Saudi riyal" },
+    { CurrencyCode::SBD, "Solomon Islands dollar" },
+    { CurrencyCode::SCR, "Seychelles rupee" },
+    { CurrencyCode::SDG, "Sudanese pound" },
+    { CurrencyCode::SEK, "Swedish krona (plural: kronor)" },
+    { CurrencyCode::SGD, "Singapore dollar" },
+    { CurrencyCode::SHP, "Saint Helena pound" },
+    { CurrencyCode::SLL, "Sierra Leonean leone" },
+    { CurrencyCode::SLE, "Sierra Leonean leone" },
+    { CurrencyCode::SOS, "Somali shilling" },
+    { CurrencyCode::SRD, "Surinamese dollar" },
+    { CurrencyCode::SSP, "South Sudanese pound" },
+    { CurrencyCode::STN, "Sao Tome and Príncipe dobra" },
+    { CurrencyCode::SVC, "Salvadoran colón" },
+    { CurrencyCode::SYP, "Syrian pound" },
+    { CurrencyCode::SZL, "Swazi lilangeni" },
+    { CurrencyCode::THB, "Thai baht" },
+    { CurrencyCode::TJS, "Tajikistani somoni" },
+    { CurrencyCode::TMT, "Turkmenistan manat" },
+    { CurrencyCode::TND, "Tunisian dinar" },
+    { CurrencyCode::TOP, "Tongan pa anga" },
+    { CurrencyCode::TRY, "Turkish lira" },
+    { CurrencyCode::TTD, "Trinidad and Tobago dollar" },
+    { CurrencyCode::TWD, "New Taiwan dollar" },
+    { CurrencyCode::TZS, "Tanzanian shilling" },
+    { CurrencyCode::UAH, "Ukrainian hryvnia" },
+    { CurrencyCode::UGX, "Ugandan shilling" },
+    { CurrencyCode::USD, "United States dollar" },
+    { CurrencyCode::USN, "United States dollar (next day) (funds code)" },
+    { CurrencyCode::UYI, "Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)" },
+    { CurrencyCode::UYU, "Uruguayan peso" },
+    { CurrencyCode::UYW, "Unidad previsional" },
+    { CurrencyCode::UZS, "Uzbekistan som" },
+    { CurrencyCode::VED, "Venezuelan bolívar digital" },
+    { CurrencyCode::VES, "Venezuelan bolívar soberano" },
+    { CurrencyCode::VND, "Vietnamese dong" },
+    { CurrencyCode::VUV, "Vanuatu vatu" },
+    { CurrencyCode::WST, "Samoan tala" },
+    { CurrencyCode::XAF, "CFA franc BEAC" },
+    { CurrencyCode::XAG, "Silver (one troy ounce)" },
+    { CurrencyCode::XAU, "Gold (one troy ounce)" },
+    { CurrencyCode::XBA, "European Composite Unit (EURCO) (bond market unit)" },
+    { CurrencyCode::XBB, "European Monetary Unit (E.M.U.-6) (bond market unit)" },
+    { CurrencyCode::XBC, "European Unit of Account 9 (E.U.A.-9) (bond market unit)" },
+    { CurrencyCode::XBD, "European Unit of Account 17 (E.U.A.-17) (bond market unit)" },
+    { CurrencyCode::XCD, "East Caribbean dollar" },
+    { CurrencyCode::XDR, "Special drawing rights" },
+    { CurrencyCode::XOF, "CFA franc BCEAO" },
+    { CurrencyCode::XPD, "Palladium (one troy ounce)" },
+    { CurrencyCode::XPF, "CFP franc (franc Pacifique)" },
+    { CurrencyCode::XPT, "Platinum (one troy ounce)" },
+    { CurrencyCode::XSU, "SUCRE" },
+    { CurrencyCode::XTS, "Code reserved for testing" },
+    { CurrencyCode::XUA, "ADB Unit of Account" },
+    { CurrencyCode::XXX, "No currency" },
+    { CurrencyCode::YER, "Yemeni rial" },
+    { CurrencyCode::ZAR, "South African rand" },
+    { CurrencyCode::ZMW, "Zambian kwacha" },
+    { CurrencyCode::ZWL, "Zimbabwean dollar" }
+};
 std::unordered_map<CurrencyCode, double> exchangeRates = {
     {CurrencyCode::AED, 3.67},   // United Arab Emirates dirham
     {CurrencyCode::AFN, 77.11},  // Afghan afghani
@@ -547,9 +730,7 @@ std::pair<int, int> Price::splitToIntegerAndDecimal() const
 	return std::make_pair(integerPart, decimalPart);
 }
 
-int Price::parseCurrency(void) { return 0; }
-
-float Price::getValue(void) const { return 0; }
+double Price::getValue(void) const { return (double) mValue / 100; }
 
 int Price::getValueBiggestUnit(void) const
 {
@@ -584,192 +765,38 @@ std::string Price::getCurrencyName(void) const
         throw std::out_of_range("Unknown currency");
     }
     CurrencyCode code = currencyMap[mCurrency];
-        switch (static_cast<int>(code)) {
-        case static_cast<int>(CurrencyCode::AED): return "United Arab Emirates dirham";
-        case static_cast<int>(CurrencyCode::AFN): return "Afghan afghani";
-        case static_cast<int>(CurrencyCode::ALL): return "Albanian lek";
-        case static_cast<int>(CurrencyCode::AMD): return "Armenian dram";
-        case static_cast<int>(CurrencyCode::ANG): return "Netherlands Antillean guilder";
-        case static_cast<int>(CurrencyCode::AOA): return "Angolan kwanza";
-        case static_cast<int>(CurrencyCode::ARS): return "Argentine peso";
-        case static_cast<int>(CurrencyCode::AUD): return "Australian dollar";
-        case static_cast<int>(CurrencyCode::AWG): return "Aruban florin";
-        case static_cast<int>(CurrencyCode::AZN): return "Azerbaijani manat";
-        case static_cast<int>(CurrencyCode::BAM): return "Bosnia and Herzegovina convertible mark";
-        case static_cast<int>(CurrencyCode::BBD): return "Barbados dollar";
-        case static_cast<int>(CurrencyCode::BDT): return "Bangladeshi taka";
-        case static_cast<int>(CurrencyCode::BGN): return "Bulgarian lev";
-        case static_cast<int>(CurrencyCode::BHD): return "Bahraini dinar";
-        case static_cast<int>(CurrencyCode::BIF): return "Burundian franc";
-        case static_cast<int>(CurrencyCode::BMD): return "Bermudian dollar";
-        case static_cast<int>(CurrencyCode::BND): return "Brunei dollar";
-        case static_cast<int>(CurrencyCode::BOB): return "Bolivian boliviano";
-        case static_cast<int>(CurrencyCode::BRL): return "Brazilian real";
-        case static_cast<int>(CurrencyCode::BSD): return "Bahamian dollar";
-        case static_cast<int>(CurrencyCode::BTN): return "Bhutanese ngultrum";
-        case static_cast<int>(CurrencyCode::BWP): return "Botswana pula";
-        case static_cast<int>(CurrencyCode::BYN): return "Belarusian ruble";
-        case static_cast<int>(CurrencyCode::BZD): return "Belize dollar";
-        case static_cast<int>(CurrencyCode::CAD): return "Canadian dollar";
-        case static_cast<int>(CurrencyCode::CDF): return "Congolese franc";
-        case static_cast<int>(CurrencyCode::CHE): return "WIR euro (complementary currency)";
-        case static_cast<int>(CurrencyCode::CHF): return "Swiss franc";
-        case static_cast<int>(CurrencyCode::CHW): return "WIR franc (complementary currency)";
-        case static_cast<int>(CurrencyCode::CLF): return "Unidad de Fomento (funds code)";
-        case static_cast<int>(CurrencyCode::CLP): return "Chilean peso";
-        case static_cast<int>(CurrencyCode::COP): return "Colombian peso";
-        case static_cast<int>(CurrencyCode::COU): return "Unidad de Valor Real (UVR) (funds code)";
-        case static_cast<int>(CurrencyCode::CRC): return "Costa Rican colon";
-        case static_cast<int>(CurrencyCode::CUC): return "Cuban convertible peso";
-        case static_cast<int>(CurrencyCode::CUP): return "Cuban peso";
-        case static_cast<int>(CurrencyCode::CVE): return "Cape Verdean escudo";
-        case static_cast<int>(CurrencyCode::CZK): return "Czech koruna";
-        case static_cast<int>(CurrencyCode::DJF): return "Djiboutian franc";
-        case static_cast<int>(CurrencyCode::DKK): return "Danish krone";
-        case static_cast<int>(CurrencyCode::DOP): return "Dominican peso";
-        case static_cast<int>(CurrencyCode::DZD): return "Algerian dinar";
-        case static_cast<int>(CurrencyCode::EGP): return "Egyptian pound";
-        case static_cast<int>(CurrencyCode::ERN): return "Eritrean nakfa";
-        case static_cast<int>(CurrencyCode::ETB): return "Ethiopian birr";
-        case static_cast<int>(CurrencyCode::EUR): return "Euro";
-        case static_cast<int>(CurrencyCode::FJD): return "Fiji dollar";
-        case static_cast<int>(CurrencyCode::FKP): return "Falkland Islands pound";
-        case static_cast<int>(CurrencyCode::GBP): return "Pound sterling";
-        case static_cast<int>(CurrencyCode::GEL): return "Georgian lari";
-        case static_cast<int>(CurrencyCode::GHS): return "Ghanaian cedi";
-        case static_cast<int>(CurrencyCode::GIP): return "Gibraltar pound";
-        case static_cast<int>(CurrencyCode::GMD): return "Gambian dalasi";
-        case static_cast<int>(CurrencyCode::GNF): return "Guinean franc";
-        case static_cast<int>(CurrencyCode::GTQ): return "Guatemalan quetzal";
-        case static_cast<int>(CurrencyCode::GYD): return "Guyanese dollar";
-        case static_cast<int>(CurrencyCode::HKD): return "Hong Kong dollar";
-        case static_cast<int>(CurrencyCode::HNL): return "Honduran lempira";
-        case static_cast<int>(CurrencyCode::HRK): return "Croatian kuna";
-        case static_cast<int>(CurrencyCode::HTG): return "Haitian gourde";
-        case static_cast<int>(CurrencyCode::HUF): return "Hungarian forint";
-        case static_cast<int>(CurrencyCode::IDR): return "Indonesian rupiah";
-        case static_cast<int>(CurrencyCode::ILS): return "Israeli new shekel";
-        case static_cast<int>(CurrencyCode::INR): return "Indian rupee";
-        case static_cast<int>(CurrencyCode::IQD): return "Iraqi dinar";
-        case static_cast<int>(CurrencyCode::IRR): return "Iranian rial";
-        case static_cast<int>(CurrencyCode::ISK): return "Icelandic króna (plural: kronur)";
-        case static_cast<int>(CurrencyCode::JMD): return "Jamaican dollar";
-        case static_cast<int>(CurrencyCode::JOD): return "Jordanian dinar";
-        case static_cast<int>(CurrencyCode::JPY): return "Japanese yen";
-        case static_cast<int>(CurrencyCode::KES): return "Kenyan shilling";
-        case static_cast<int>(CurrencyCode::KGS): return "Kyrgyzstani som";
-        case static_cast<int>(CurrencyCode::KHR): return "Cambodian riel";
-        case static_cast<int>(CurrencyCode::KMF): return "Comoro franc";
-        case static_cast<int>(CurrencyCode::KPW): return "North Korean won";
-        case static_cast<int>(CurrencyCode::KRW): return "South Korean won";
-        case static_cast<int>(CurrencyCode::KWD): return "Kuwaiti dinar";
-        case static_cast<int>(CurrencyCode::KYD): return "Cayman Islands dollar";
-        case static_cast<int>(CurrencyCode::KZT): return "Kazakhstani tenge";
-        case static_cast<int>(CurrencyCode::LAK): return "Lao kip";
-        case static_cast<int>(CurrencyCode::LBP): return "Lebanese pound";
-        case static_cast<int>(CurrencyCode::LKR): return "Sri Lankan rupee";
-        case static_cast<int>(CurrencyCode::LRD): return "Liberian dollar";
-        case static_cast<int>(CurrencyCode::LSL): return "Lesotho loti";
-        case static_cast<int>(CurrencyCode::LYD): return "Libyan dinar";
-        case static_cast<int>(CurrencyCode::MAD): return "Moroccan dirham";
-        case static_cast<int>(CurrencyCode::MDL): return "Moldovan leu";
-        case static_cast<int>(CurrencyCode::MGA): return "Malagasy ariary";
-        case static_cast<int>(CurrencyCode::MKD): return "Macedonian denar";
-        case static_cast<int>(CurrencyCode::MMK): return "Myanmar kyat";
-        case static_cast<int>(CurrencyCode::MNT): return "Mongolian togrog";
-        case static_cast<int>(CurrencyCode::MOP): return "Macanese pataca";
-        case static_cast<int>(CurrencyCode::MRU): return "Mauritanian ouguiya";
-        case static_cast<int>(CurrencyCode::MUR): return "Mauritian rupee";
-        case static_cast<int>(CurrencyCode::MVR): return "Maldivian rufiyaa";
-        case static_cast<int>(CurrencyCode::MWK): return "Malawian kwacha";
-        case static_cast<int>(CurrencyCode::MXN): return "Mexican peso";
-        case static_cast<int>(CurrencyCode::MXV): return "Mexican Unidad de Inversion (UDI) (funds code)";
-        case static_cast<int>(CurrencyCode::MYR): return "Malaysian ringgit";
-        case static_cast<int>(CurrencyCode::MZN): return "Mozambican metical";
-        case static_cast<int>(CurrencyCode::NAD): return "Namibian dollar";
-        case static_cast<int>(CurrencyCode::NGN): return "Nigerian naira";
-        case static_cast<int>(CurrencyCode::NIO): return "Nicaraguan cordoba";
-        case static_cast<int>(CurrencyCode::NOK): return "Norwegian krone";
-        case static_cast<int>(CurrencyCode::NPR): return "Nepalese rupee";
-        case static_cast<int>(CurrencyCode::NZD): return "New Zealand dollar";
-        case static_cast<int>(CurrencyCode::OMR): return "Omani rial";
-        case static_cast<int>(CurrencyCode::PAB): return "Panamanian balboa";
-        case static_cast<int>(CurrencyCode::PEN): return "Peruvian sol";
-        case static_cast<int>(CurrencyCode::PGK): return "Papua New Guinean kina";
-        case static_cast<int>(CurrencyCode::PHP): return "Philippine peso";
-        case static_cast<int>(CurrencyCode::PKR): return "Pakistani rupee";
-        case static_cast<int>(CurrencyCode::PLN): return "Polish zloty";
-        case static_cast<int>(CurrencyCode::PYG): return "Paraguayan guaraní";
-        case static_cast<int>(CurrencyCode::QAR): return "Qatari riyal";
-        case static_cast<int>(CurrencyCode::RON): return "Romanian leu";
-        case static_cast<int>(CurrencyCode::RSD): return "Serbian dinar";
-        case static_cast<int>(CurrencyCode::CNY): return "Renminbi";
-        case static_cast<int>(CurrencyCode::RUB): return "Russian ruble";
-        case static_cast<int>(CurrencyCode::RWF): return "Rwandan franc";
-        case static_cast<int>(CurrencyCode::SAR): return "Saudi riyal";
-        case static_cast<int>(CurrencyCode::SBD): return "Solomon Islands dollar";
-        case static_cast<int>(CurrencyCode::SCR): return "Seychelles rupee";
-        case static_cast<int>(CurrencyCode::SDG): return "Sudanese pound";
-        case static_cast<int>(CurrencyCode::SEK): return "Swedish krona (plural: kronor)";
-        case static_cast<int>(CurrencyCode::SGD): return "Singapore dollar";
-        case static_cast<int>(CurrencyCode::SHP): return "Saint Helena pound";
-        case static_cast<int>(CurrencyCode::SLL): return "Sierra Leonean leone";
-        case static_cast<int>(CurrencyCode::SLE): return "Sierra Leonean leone";
-        case static_cast<int>(CurrencyCode::SOS): return "Somali shilling";
-        case static_cast<int>(CurrencyCode::SRD): return "Surinamese dollar";
-        case static_cast<int>(CurrencyCode::SSP): return "South Sudanese pound";
-        case static_cast<int>(CurrencyCode::STN): return "Sao Tome and Príncipe dobra";
-        case static_cast<int>(CurrencyCode::SVC): return "Salvadoran colón";
-        case static_cast<int>(CurrencyCode::SYP): return "Syrian pound";
-        case static_cast<int>(CurrencyCode::SZL): return "Swazi lilangeni";
-        case static_cast<int>(CurrencyCode::THB): return "Thai baht";
-        case static_cast<int>(CurrencyCode::TJS): return "Tajikistani somoni";
-        case static_cast<int>(CurrencyCode::TMT): return "Turkmenistan manat";
-        case static_cast<int>(CurrencyCode::TND): return "Tunisian dinar";
-        case static_cast<int>(CurrencyCode::TOP): return "Tongan pa anga";
-        case static_cast<int>(CurrencyCode::TRY): return "Turkish lira";
-        case static_cast<int>(CurrencyCode::TTD): return "Trinidad and Tobago dollar";
-        case static_cast<int>(CurrencyCode::TWD): return "New Taiwan dollar";
-        case static_cast<int>(CurrencyCode::TZS): return "Tanzanian shilling";
-        case static_cast<int>(CurrencyCode::UAH): return "Ukrainian hryvnia";
-        case static_cast<int>(CurrencyCode::UGX): return "Ugandan shilling";
-        case static_cast<int>(CurrencyCode::USD): return "United States dollar";
-        case static_cast<int>(CurrencyCode::USN): return "United States dollar (next day) (funds code)";
-        case static_cast<int>(CurrencyCode::UYI): return "Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)";
-        case static_cast<int>(CurrencyCode::UYU): return "Uruguayan peso";
-        case static_cast<int>(CurrencyCode::UYW): return "Unidad previsional";
-        case static_cast<int>(CurrencyCode::UZS): return "Uzbekistan som";
-        case static_cast<int>(CurrencyCode::VED): return "Venezuelan bolívar digital";
-        case static_cast<int>(CurrencyCode::VES): return "Venezuelan bolívar soberano";
-        case static_cast<int>(CurrencyCode::VND): return "Vietnamese dong";
-        case static_cast<int>(CurrencyCode::VUV): return "Vanuatu vatu";
-        case static_cast<int>(CurrencyCode::WST): return "Samoan tala";
-        case static_cast<int>(CurrencyCode::XAF): return "CFA franc BEAC";
-        case static_cast<int>(CurrencyCode::XAG): return "Silver (one troy ounce)";
-        case static_cast<int>(CurrencyCode::XAU): return "Gold (one troy ounce)";
-        case static_cast<int>(CurrencyCode::XBA): return "European Composite Unit (EURCO) (bond market unit)";
-        case static_cast<int>(CurrencyCode::XBB): return "European Monetary Unit (E.M.U.-6) (bond market unit)";
-        case static_cast<int>(CurrencyCode::XBC): return "European Unit of Account 9 (E.U.A.-9) (bond market unit)";
-        case static_cast<int>(CurrencyCode::XBD): return "European Unit of Account 17 (E.U.A.-17) (bond market unit)";
-        case static_cast<int>(CurrencyCode::XCD): return "East Caribbean dollar";
-        case static_cast<int>(CurrencyCode::XDR): return "Special drawing rights";
-        case static_cast<int>(CurrencyCode::XOF): return "CFA franc BCEAO";
-        case static_cast<int>(CurrencyCode::XPD): return "Palladium (one troy ounce)";
-        case static_cast<int>(CurrencyCode::XPF): return "CFP franc (franc Pacifique)";
-        case static_cast<int>(CurrencyCode::XPT): return "Platinum (one troy ounce)";
-        case static_cast<int>(CurrencyCode::XSU): return "SUCRE";
-        case static_cast<int>(CurrencyCode::XTS): return "Code reserved for testing";
-        case static_cast<int>(CurrencyCode::XUA): return "ADB Unit of Account";
-        case static_cast<int>(CurrencyCode::XXX): return "No currency";
-        case static_cast<int>(CurrencyCode::YER): return "Yemeni rial";
-        case static_cast<int>(CurrencyCode::ZAR): return "South African rand";
-        case static_cast<int>(CurrencyCode::ZMW): return "Zambian kwacha";
-        case static_cast<int>(CurrencyCode::ZWL): return "Zimbabwean dollar";
-        default: return "Unknown currency";
-        }
+    std::string nameCurr = currencyName[code];
+
+    return nameCurr;
 }
 
-void Price::setValue(int newValue) { }
-void Price::setValue(float newValue) { }
-void Price::setCurrency(std::string currencyCode) { }
-void Price::showAvailableCurrencies() const { }
+void Price::setValue(int newValue)
+{
+    
+}
+
+void Price::setValue(float newValue)
+{
+
+}
+
+void Price::setCurrency(std::string currencyCode)
+{
+
+}
+
+void Price::showAvailableCurrencies() const
+{
+    for (const auto& keyValue : currencyName)
+    {
+        std::cout << keyValue.second << std::endl;
+    }
+}
+
+void Price::showAvailableCurrenciesShortAndCode() const
+{
+    for (const auto& keyValue : currencyMap)
+    {
+        std::cout << keyValue.first << ' ' << static_cast<int>(keyValue.second) << std::endl;
+    }
+}
