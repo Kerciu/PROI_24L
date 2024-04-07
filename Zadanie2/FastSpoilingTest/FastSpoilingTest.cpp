@@ -4,6 +4,7 @@
 #include "../FastSpoiling/Transport.h"
 #include "../FastSpoiling/weightAndVolume.h"
 #include "../FastSpoiling/FastSpoilingCollection.h"
+#include "../FastSpoiling/Price.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -383,6 +384,27 @@ namespace FastSpoilingTest
 			Date date;
 			iss >> date;
 			Assert::AreEqual(date.getYear(), 1);
+		}
+
+		TEST_METHOD(CreatePriceObject)
+		{
+			int value = 1500;
+			std::string curr = "PLN";
+			Price price1;
+			Price price2(value);
+			Price price3(curr);
+			Price price4(value, curr);
+
+			Assert::AreEqual(price1.getValueInSmallestUnit(), 0);
+			Assert::AreEqual(price1.getCurrency().c_str(), "XXX");
+			Assert::AreEqual(price2.getValueInSmallestUnit(), 1500);
+			Assert::AreEqual(price2.getValue(), 15.0);
+			Assert::AreEqual(price2.getCurrency().c_str(), "XXX");
+			Assert::AreEqual(price3.getValueInSmallestUnit(), 0);
+			Assert::AreEqual(price3.getCurrency().c_str(), "PLN");
+			Assert::AreEqual(price4.getValueInSmallestUnit(), 1500);
+			Assert::AreEqual(price4.getValue(), 15.0);
+			Assert::AreEqual(price4.getCurrency().c_str(), "PLN");
 		}
 	};
 }
