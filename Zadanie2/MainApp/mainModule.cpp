@@ -11,8 +11,12 @@
 
 int main(int argc, char* argv[]) {
 	try {
-		Price price;
-		price.showAvailableCurrenciesShortAndCode();
+		Price price(100.0, "PLN");
+		P(price);
+
+		price.setCurrency("USD");
+		P(price);
+
 	}
 	catch (const std::out_of_range& e) {
 		std::cerr << "Error: " << e.what() << '\n';

@@ -1,15 +1,31 @@
 ﻿#include "Price.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <utility>
 #include <stdexcept>
 #include <unordered_map>
 
+// Constructors
 Price::Price() : mValue(0), mCurrency("XXX") { }
-Price::Price(int val) : mValue(val), mCurrency("XXX") { }
-Price::Price(std::string curr) : mValue(0), mCurrency(curr) { }
-Price::Price(int val, std::string curr) : mValue(val), mCurrency(curr) { }
 
+Price::Price(double val) : mValue(val), mCurrency("XXX")
+{
+    if (!validatePrice(val)) throw std::out_of_range("Price value cannot be negative!");
+}
+
+Price::Price(std::string curr) : mValue(0.0), mCurrency(curr)
+{
+    if (!validateCurrency(curr)) throw std::out_of_range("Currency does not exist!");
+}
+
+Price::Price(double val, std::string curr) : mValue(val), mCurrency(curr)
+{
+    if (!validatePrice(val)) throw std::out_of_range("Price value cannot be negative!");
+    if (!validateCurrency(curr)) throw std::out_of_range("Currency does not exist!");
+}
+
+// Maps and Enums
 enum class CurrencyCode : int {
     AED = 784, // United Arab Emirates dirham
     AFN = 971, // Afghan afghani
@@ -714,34 +730,23 @@ std::unordered_map<CurrencyCode, double> exchangeRates = {
     {CurrencyCode::ZAR, 15.20},  // South African rand
     {CurrencyCode::ZMW, 23.64},  // Zambian kwacha
     {CurrencyCode::ZWL, 322.00}, // Zimbabwean dollar
+    {CurrencyCode::XXX, 1.0}     // No currency
 };
 
-bool validateCurrency(std::string curr) {
-    return ((currencyMap.find(curr) == currencyMap.end()));
-}
 
-std::pair<int, int> Price::splitToIntegerAndDecimal() const
+bool Price::validatePrice(double p) const
 {
-	int integerPart;
-	int decimalPart;
-	integerPart = mValue / 100;
-	decimalPart = mValue % 100;
-
-	return std::make_pair(integerPart, decimalPart);
+    return (p >= 0);
 }
 
-double Price::getValue(void) const { return (double) mValue / 100; }
 
-int Price::getValueBiggestUnit(void) const
+bool Price::validateCurrency(std::string curr) const
 {
-	std::pair<int, int> Pair = splitToIntegerAndDecimal();
-	return Pair.first;
+    return ((currencyMap.find(curr) != currencyMap.end()));
 }
 
-int Price::getValueSmallestUnit(void) const
-{ 
-	std::pair<int, int> Pair = splitToIntegerAndDecimal();
-	return Pair.second;
+double Price::getValue(void) const {
+    return mValue;
 }
 
 std::string Price::getCurrency(void) const
@@ -770,19 +775,26 @@ std::string Price::getCurrencyName(void) const
     return nameCurr;
 }
 
-void Price::setValue(int newValue)
+void Price::setValue(double newValue)
 {
-    
-}
+    if (!validatePrice(newValue)) throw std::out_of_range("Price value cannot be negative!");
 
-void Price::setValue(float newValue)
-{
-
+    mValue = newValue;
 }
 
 void Price::setCurrency(std::string currencyCode)
 {
+    if (!validateCurrency(currencyCode)) throw std::out_of_range("Currency does not exist!");
 
+    double actualCurrencyExchange = exchangeRates[currencyMap[mCurrency]];
+
+    // Transform to default currency
+    CurrencyCode defaultCurrencyCode = CurrencyCode::XXX;
+    double defaultCurr = exchangeRates[defaultCurrencyCode] / actualCurrencyExchange;
+
+    // Update price value according to the new currency
+    mValue *= defaultCurr * exchangeRates[currencyMap[currencyCode]];
+    mCurrency = currencyCode;
 }
 
 void Price::showAvailableCurrencies() const
@@ -799,4 +811,61 @@ void Price::showAvailableCurrenciesShortAndCode() const
     {
         std::cout << keyValue.first << ' ' << static_cast<int>(keyValue.second) << std::endl;
     }
+}
+
+// Overloaded operators
+
+Price Price::operator+(const Price& other)
+{
+    Price price;
+    return price;
+}
+
+Price Price::operator-(const Price& other)
+{
+    Price price;
+    return price;
+}
+
+Price Price::operator*(const Price& other)
+{
+    Price price;
+    return price;
+}
+
+bool Price::operator<(const Price& other)
+{
+    return false;
+}
+
+bool Price::operator==(const Price& other)
+{
+    return false;
+}
+
+Price Price::operator=(const Price& other)
+{
+    Price price;
+    return price;
+}
+
+std::ostream& operator<<(std::ostream& os, const Price& p)
+{
+    os << std::fixed << std::setprecision(2) << p.mValue << ' ' << p.mCurrency << '\n';
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, const Price& p)
+{
+    return is;
+}
+
+std::fstream& operator<<(std::fstream& fs, const Price& p)
+{
+    return fs;
+}
+
+std::fstream& operator>>(std::fstream& fs, const Price& p)
+{
+    return fs;
 }

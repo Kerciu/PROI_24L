@@ -7,31 +7,39 @@
 class Price
 {
 private:
-	int mValue;
+	double mValue;
     // User gives currency code and it translates using enum
     // Price (
 	std::string mCurrency;
-	std::pair<int, int> splitToIntegerAndDecimal(void) const;
 
-    int parseCurrency(void);
+    bool validatePrice(double p) const;
+    bool validateCurrency(std::string cur) const;
 
 public:
     Price();
-    Price(int val);
+    Price(double val);
     Price(std::string curr);
-    Price(int value, std::string currency);
+    Price(double value, std::string currency);
 
 	double getValue(void) const;
-    int getValueBiggestUnit(void) const;
-    int getValueSmallestUnit(void) const;
     std::string getCurrency(void) const;
     int getCurrencyCode(void) const;
     std::string getCurrencyName(void) const;
 
-    void setValue(int newValue);
-    void setValue(float newValue);
+    void setValue(double newValue);
     void setCurrency(std::string currencyCode);
     void showAvailableCurrencies() const;
     void showAvailableCurrenciesShortAndCode() const;
+
+    Price operator+(const Price& other);
+    Price operator-(const Price& other);
+    Price operator*(const Price& other);
+    bool operator<(const Price& other);
+    bool operator==(const Price& other);
+    Price operator=(const Price& other);
+    friend std::ostream& operator<<(std::ostream& os, const Price& p);
+    friend std::istream& operator>>(std::istream& is, const Price& p);
+    friend std::fstream& operator<<(std::fstream& fs, const Price& p);
+    friend std::fstream& operator>>(std::fstream& fs, const Price& p);
 };
 
