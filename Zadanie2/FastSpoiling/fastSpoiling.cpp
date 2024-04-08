@@ -13,35 +13,43 @@ using Weight = double;
 using Volume = double;
 
 fastSpoiling::fastSpoiling()
-    : mName("N/A"), mType("N/A"), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(weightAndVolume(0, 0)) { }
+    : mName("N/A"), mType("N/A"), mPrice(Price()), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(weightAndVolume(0, 0)) { }
 
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv)
-    : mName(n), mType(t), mProdDate(Date(1, 1, 1)), mExpirDate(Date(2, 1, 1)), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
+    : mName(n), mType(t), mPrice(Price()), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& expDate, const WeightAndVolume& wv)
-    : mName(n), mType(t), mProdDate(Date(1, 1, 1)), mExpirDate(expDate), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
+fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const WeightAndVolume& wv)
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Transport& tm, const WeightAndVolume& wv)
-    : mName(n), mType(t), mProdDate(Date(1, 1, 1)), mExpirDate(Date(2, 1, 1)), mTransportMeans(tm), mWeightAndVolume(wv) { }
+fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& expDate, const WeightAndVolume& wv)
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(expDate), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
-    : mName(n), mType(t), mProdDate(Date(1, 1, 1)), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv) { }
+fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Transport& tm, const WeightAndVolume& wv)
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(tm), mWeightAndVolume(wv) { }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& pd, const Date& exd, const WeightAndVolume& wv)
-    : mName(n), mType(t), mProdDate(pd), mExpirDate(exd), mTransportMeans(Transport()), mWeightAndVolume(wv)
+fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv) { }
+
+fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& pd, const Date& exd, const WeightAndVolume& wv)
+    : mName(n), mType(t), mPrice(p), mProdDate(pd), mExpirDate(exd), mTransportMeans(Transport()), mWeightAndVolume(wv)
 {
     if (pd > exd) {
         throw std::out_of_range("Expiration date cannot be less than production date!!!");
     }
 }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& pd, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
-    : mName(n), mType(t), mProdDate(pd), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv)
+fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv)
+    : mName(n), mType(t), mPrice(Price()), mProdDate(prodDate), mExpirDate(expDate), mTransportMeans(tm), mWeightAndVolume(wv) { }
+
+fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& pd, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
+    : mName(n), mType(t), mPrice(p), mProdDate(pd), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv)
 {
     if (pd > exd) {
         throw std::out_of_range("Expiration date cannot be less than production date!!!");
     }
 }
+
+//TODO MAKE A FUNCTION THAT SEEKS SEMICOLONS IN STRING DATAS
 
 // Getters
 Name fastSpoiling::getName() const { return mName; }
@@ -61,6 +69,12 @@ Transport::Humidity fastSpoiling::getTransportHumidity() const
 {
     return mTransportMeans.getHumidity();
 }
+
+// Price getters
+double fastSpoiling::getPriceValue() { return mPrice.getValue(); }
+std::string fastSpoiling::getPriceCurrency() { return mPrice.getCurrency(); }
+int fastSpoiling::getPriceCurrencyCode() { return mPrice.getCurrencyCode(); }
+std::string fastSpoiling::getPriceCurrencyName() { return mPrice.getCurrencyName(); }
 
 // Production Date Getters
 std::string fastSpoiling::getProductionDateSlashed() const { return mProdDate.slashOutput(); }
@@ -87,6 +101,16 @@ Volume fastSpoiling::getVolume(const std::string& unitString) const { return mWe
 // Setters
 void fastSpoiling::setName(Name n) { mName = n; }
 void fastSpoiling::setType(Type t) { mType = t; }
+
+void fastSpoiling::setPriceValue(double newVal)
+{
+    mPrice.setValue(newVal);
+}
+
+void fastSpoiling::setPriceCurrency(std::string newCurr)
+{
+    mPrice.setCurrency(newCurr);
+}
 
 // Transport Means Setters
 void fastSpoiling::setTransportTemperature(double t) { mTransportMeans.setTemperature(t); }
@@ -153,9 +177,11 @@ std::istream& operator>>(std::istream& is, fastSpoiling& fs)
     std::getline(is, line);
 
     std::istringstream iss(line);
-    std::string name, type, prodDate, expirDate, temp, pack, humid, weight, volume;
+    std::string name, type, price, curr, prodDate, expirDate, temp, pack, humid, weight, volume;
     std::getline(iss, name, ';');
     std::getline(iss, type, ';');
+    std::getline(iss, price, ';');
+    std::getline(iss, curr, ';');
     std::getline(iss, prodDate, ';');
     std::getline(iss, expirDate, ';');
     std::getline(iss, temp, ';');
@@ -166,6 +192,11 @@ std::istream& operator>>(std::istream& is, fastSpoiling& fs)
 
     fs.mName = name;
     fs.mType = type;
+
+    Price priceClass;
+    std::istringstream(price) >> priceClass;
+    std::istringstream(curr) >> priceClass;
+    fs.mPrice = priceClass;
 
     Date productionDate;
     Date expirationDate;

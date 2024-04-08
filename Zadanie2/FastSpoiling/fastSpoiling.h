@@ -2,6 +2,7 @@
 #include <string>
 #include "../Transport/Transport.h"
 #include "../Date/Date.h"
+#include "../Price/Price.h"
 #include "../WeightAndVolume/weightAndVolume.h"
 
 class fastSpoiling {
@@ -14,6 +15,7 @@ private:
 
     Name mName;
     Type mType;
+    Price mPrice;
     Date mProdDate;
     Date mExpirDate;
     Transport mTransportMeans;
@@ -25,11 +27,13 @@ public:
     // Constructors
     fastSpoiling();
     fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Date& expDate, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Transport& tm, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const WeightAndVolume& wv);
+    fastSpoiling(const Name& n, const Type& t, const Price&, const WeightAndVolume& wv);
+    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& expDate, const WeightAndVolume& wv);
+    fastSpoiling(const Name& n, const Type& t, const Price&, const Transport& tm, const WeightAndVolume& wv);
+    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
+    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& prodDate, const Date& expDate, const WeightAndVolume& wv);
     fastSpoiling(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
+    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
 
     // Getters
     Name getName() const;
@@ -39,6 +43,12 @@ public:
     Transport::Temperature getTransportTemperature() const;
     Transport::Packaging getTransportPackaging() const;
     Transport::Humidity getTransportHumidity() const;
+
+    // Price Getters
+    double getPriceValue();
+    std::string getPriceCurrency();
+    int getPriceCurrencyCode();
+    std::string getPriceCurrencyName();
 
     // Production Date Getters
     std::string getProductionDateSlashed() const;
@@ -61,10 +71,14 @@ public:
     Weight getWeight(const std::string& unitString) const;
     Volume getVolume() const;
     Volume getVolume(const std::string& unitString) const;
-
+    
     // Setters
     void setName(Name n);
     void setType(Type t);
+
+    // Price Setters
+    void setPriceValue(double newVal);
+    void setPriceCurrency(std::string newCurr);
 
     // Transport Setters
     void setTransportTemperature(double t);

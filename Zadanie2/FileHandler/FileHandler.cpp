@@ -54,11 +54,11 @@ fastSpoilingCollection FileHandler::readFromFile() const
 			attributes.push_back(substring);
 		}
 
-		if (attributes.size() != 9) {
+		if (attributes.size() != 11) {
 			throw std::runtime_error("Invalid number of attributes in the file.");
 		}
 
-		std::istringstream dateStream(attributes[2]);
+		std::istringstream dateStream(attributes[4]);
 		int day, month, year;
 		char delimiter;
 		dateStream >> day >> delimiter >> month >> delimiter >> year;
@@ -67,14 +67,15 @@ fastSpoilingCollection FileHandler::readFromFile() const
 		Date productionDate(day, month, year);
 
 		dateStream.clear();
-		dateStream.str(attributes[3]);
+		dateStream.str(attributes[5]);
 		dateStream >> day >> delimiter >> month >> delimiter >> year;
 		Date expirationDate(day, month, year);
 
-		Transport transport(std::stod(attributes[4]), attributes[5], std::stod(attributes[6]));
-		weightAndVolume wv(std::stod(attributes[7]), std::stod(attributes[8]));
+		Price price(std::stod(attributes[2]), attributes[3].c_str());
+		Transport transport(std::stod(attributes[6]), attributes[7], std::stod(attributes[8]));
+		weightAndVolume wv(std::stod(attributes[9]), std::stod(attributes[10]));
 
-		fastSpoiling product(attributes[0], attributes[1], productionDate, expirationDate, transport, wv);
+		fastSpoiling product(attributes[0], attributes[1], price, productionDate, expirationDate, transport, wv);
 		collection.addNewElement(product);
 	}
 
