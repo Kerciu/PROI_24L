@@ -54,37 +54,26 @@ fastSpoilingCollection FileHandler::readFromFile() const
 			attributes.push_back(substring);
 		}
 
-		if (attributes.size() != 11) {
+		if (!(attributes.size() == 15)) {
+			std::cout << attributes.size();
 			throw std::runtime_error("Invalid number of attributes in the file.");
 		}
+		Price price(std::stod(attributes[2]), attributes[3]);
+		Date prodDate(std::stoi(attributes[4]), std::stoi(attributes[5]), std::stoi(attributes[6]));
+		Date expirDate(std::stoi(attributes[7]), std::stoi(attributes[8]), std::stoi(attributes[9]));
+		Transport transport(std::stod(attributes[10]), attributes[11], std::stod(attributes[12]));
+		weightAndVolume wv(std::stod(attributes[13]), std::stod(attributes[14]));
 
-		std::istringstream dateStream(attributes[4]);
-		int day, month, year;
-		char delimiter;
-		dateStream >> day >> delimiter >> month >> delimiter >> year;
-
-		
-		Date productionDate(day, month, year);
-
-		dateStream.clear();
-		dateStream.str(attributes[5]);
-		dateStream >> day >> delimiter >> month >> delimiter >> year;
-		Date expirationDate(day, month, year);
-
-		Price price(std::stod(attributes[2]), attributes[3].c_str());
-		Transport transport(std::stod(attributes[6]), attributes[7], std::stod(attributes[8]));
-		weightAndVolume wv(std::stod(attributes[9]), std::stod(attributes[10]));
-
-		fastSpoiling product(attributes[0], attributes[1], price, productionDate, expirationDate, transport, wv);
+		fastSpoiling product(attributes[0], attributes[1], price, prodDate, expirDate, transport, wv);
 		collection.addNewElement(product);
 	}
 
 	return collection;
  }
 
-void FileHandler::writeToFile(const fastSpoiling& content)
+void FileHandler::writeToFile(const fastSpoilingCollection& content)
 {
-	std::ofstream file(fileName, std::ios::app);
+	std::ofstream file(fileName);
 
 	if (!file.is_open()) {
 		throw std::runtime_error("Unable to open the file.");

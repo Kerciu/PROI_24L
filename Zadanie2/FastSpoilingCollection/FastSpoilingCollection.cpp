@@ -6,6 +6,7 @@
 #include "../Transport/Transport.h"
 #include "../Date/Date.h"
 #include "../WeightAndVolume/weightAndVolume.h"
+#include "../Price/Price.h"
 
 // Element collection operations
 void fastSpoilingCollection::searchForElement(const fastSpoiling& element) const {
@@ -39,6 +40,15 @@ void fastSpoilingCollection::modifyType(size_t index, const fastSpoiling::Type& 
         throw std::invalid_argument("Element not in the collection!");
     }
     elementCollection[index].setType(newType);
+}
+
+void fastSpoilingCollection::modifyPrice(size_t index, const Price& newPrice)
+{
+    if (!elementInCollection(elementCollection[index])) {
+        throw std::invalid_argument("Element not in the collection!");
+    }
+    elementCollection[index].setPriceValue(newPrice.getValue());
+    elementCollection[index].setPriceCurrency(newPrice.getCurrency());
 }
 
 void fastSpoilingCollection::modifyProductionDate(size_t index, const Date& newProdDate) {
@@ -75,6 +85,7 @@ void fastSpoilingCollection::modifyWeightAndVolume(size_t index, const weightAnd
 void fastSpoilingCollection::modifyCollectionElement(size_t index,
     const fastSpoiling::Name& newName,
     const fastSpoiling::Type& newType,
+    const Price& newPrice,
     const Date& newProdDate,
     const Date& newExpirDate,
     const Transport& newTransport,
@@ -86,6 +97,7 @@ void fastSpoilingCollection::modifyCollectionElement(size_t index,
     try {
         modifyName(index, newName);
         modifyType(index, newType);
+        modifyPrice(index, newPrice);
         modifyProductionDate(index, newProdDate);
         modifyExpiryDate(index, newExpirDate);
         modifyTransport(index, newTransport);
@@ -119,9 +131,8 @@ size_t fastSpoilingCollection::sizeOfCollection() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const fastSpoilingCollection& collect) {
-    os << "Collection of elements:\n";
     for (const auto& element : collect.elementCollection) {
-        os << element << '\n';
+        os << element;
     }
     return os;
 }

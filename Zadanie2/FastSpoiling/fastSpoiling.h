@@ -35,6 +35,8 @@ public:
     fastSpoiling(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
     fastSpoiling(const Name& n, const Type& t, const Price&, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
 
+    static bool semicolonInString(const std::string str);
+
     // Getters
     Name getName() const;
     Type getType() const;

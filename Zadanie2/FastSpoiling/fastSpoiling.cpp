@@ -16,23 +16,39 @@ fastSpoiling::fastSpoiling()
     : mName("N/A"), mType("N/A"), mPrice(Price()), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(weightAndVolume(0, 0)) { }
 
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv)
-    : mName(n), mType(t), mPrice(Price()), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
+    : mName(n), mType(t), mPrice(Price()), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv) 
+{
+    if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
+}
 
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const WeightAndVolume& wv)
-    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv)
+{
+    if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
+}
 
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& expDate, const WeightAndVolume& wv)
-    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(expDate), mTransportMeans(Transport()), mWeightAndVolume(wv) { }
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(expDate), mTransportMeans(Transport()), mWeightAndVolume(wv)
+{
+    if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
+}
 
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Transport& tm, const WeightAndVolume& wv)
-    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(tm), mWeightAndVolume(wv) { }
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(tm), mWeightAndVolume(wv)
+{
+    if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
+}
 
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
-    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv) { }
+    : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv)
+{
+    if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
+}
 
 fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& pd, const Date& exd, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(p), mProdDate(pd), mExpirDate(exd), mTransportMeans(Transport()), mWeightAndVolume(wv)
 {
+    if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
     if (pd > exd) {
         throw std::out_of_range("Expiration date cannot be less than production date!!!");
     }
@@ -50,6 +66,12 @@ fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const D
 }
 
 //TODO MAKE A FUNCTION THAT SEEKS SEMICOLONS IN STRING DATAS
+bool fastSpoiling::semicolonInString(const std::string str) {
+    for (const char& ch : str) {
+        if (ch == ';') return true;
+    }
+    return false;
+}
 
 // Getters
 Name fastSpoiling::getName() const { return mName; }
@@ -143,7 +165,7 @@ void fastSpoiling::setVolume(Volume v)
 
 // Operator Overloads
 bool fastSpoiling::operator==(const fastSpoiling& other) const {
-    return mName == other.mName && mType == other.mType && mProdDate == other.mProdDate &&
+    return mName == other.mName && mType == other.mType && mPrice == other.mPrice && mProdDate == other.mProdDate &&
         mExpirDate == other.mExpirDate && mTransportMeans == other.mTransportMeans &&
         mWeightAndVolume == other.mWeightAndVolume;
 }
@@ -151,20 +173,15 @@ bool fastSpoiling::operator==(const fastSpoiling& other) const {
 std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs) {
     os << fs.mName << ';';
     os << fs.mType << ';';
-    
-    if (fs.mProdDate.getYear() == 1) {
-        os << "N/A;";
-    }
-    else {
-        os << fs.mProdDate.slashOutput() << ';';
-    }
+    os << fs.mPrice.getValue() << ';';
+    os << fs.mPrice.getCurrency() << ';';
 
-    if (fs.mExpirDate.getYear() == 1) {
-        os << "N/A;";
-    }
-    else {
-        os << fs.mExpirDate.slashOutput() << ';';
-    }
+    os << fs.mProdDate.getDay() << ';';
+    os << fs.mProdDate.getMonthDigits() << ';';
+    os << fs.mProdDate.getYear() << ';';
+    os << fs.mExpirDate.getDay() << ';';
+    os << fs.mExpirDate.getMonthDigits() << ';';
+    os << fs.mExpirDate.getYear() << ';';
     
     os << fs.mTransportMeans << ';';
     os << fs.mWeightAndVolume << '\n';
@@ -177,13 +194,17 @@ std::istream& operator>>(std::istream& is, fastSpoiling& fs)
     std::getline(is, line);
 
     std::istringstream iss(line);
-    std::string name, type, price, curr, prodDate, expirDate, temp, pack, humid, weight, volume;
+    std::string name, type, price, curr, prodDateDay, prodDateMonth, prodDateYear, expirDateDay, expirDateMonth, expirDateYear, temp, pack, humid, weight, volume;
     std::getline(iss, name, ';');
     std::getline(iss, type, ';');
     std::getline(iss, price, ';');
     std::getline(iss, curr, ';');
-    std::getline(iss, prodDate, ';');
-    std::getline(iss, expirDate, ';');
+    std::getline(iss, prodDateDay, ';');
+    std::getline(iss, prodDateMonth, ';');
+    std::getline(iss, prodDateYear, ';');
+    std::getline(iss, expirDateDay, ';');
+    std::getline(iss, expirDateMonth, ';');
+    std::getline(iss, expirDateYear, ';');
     std::getline(iss, temp, ';');
     std::getline(iss, pack, ';');
     std::getline(iss, humid, ';');
@@ -200,8 +221,12 @@ std::istream& operator>>(std::istream& is, fastSpoiling& fs)
 
     Date productionDate;
     Date expirationDate;
-    std::istringstream(prodDate) >> productionDate;
-    std::istringstream(expirDate) >> expirationDate;
+    std::istringstream(prodDateDay) >> productionDate;
+    std::istringstream(prodDateMonth) >> productionDate;
+    std::istringstream(prodDateYear) >> productionDate;
+    std::istringstream(expirDateDay) >> expirationDate;
+    std::istringstream(expirDateMonth) >> expirationDate;
+    std::istringstream(expirDateYear) >> expirationDate;
     fs.mProdDate = productionDate;
     fs.mExpirDate = expirationDate;
 

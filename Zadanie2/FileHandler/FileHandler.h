@@ -14,7 +14,7 @@ public:
 	virtual const char* what() const throw();
 };
 
- 
+
 class FileHandler
 {
 	std::string fileName;
@@ -29,7 +29,7 @@ public:
 	void setName(const std::string& newName);
 
 	fastSpoilingCollection readFromFile() const;
-	void writeToFile(const fastSpoiling& content);
+	void writeToFile(const fastSpoilingCollection& content);
 	
 };
 

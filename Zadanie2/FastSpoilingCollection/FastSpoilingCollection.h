@@ -4,6 +4,7 @@
 #include "../Transport/Transport.h"
 #include "../Date/Date.h"
 #include "../WeightAndVolume/weightAndVolume.h"
+#include "../Price/Price.h"
 
 class fastSpoilingCollection {
 private:
@@ -19,6 +20,7 @@ public:
     void addNewElement(const fastSpoiling& element);
     void modifyName(size_t index, const fastSpoiling::Name& newName);
     void modifyType(size_t index, const fastSpoiling::Type& newType);
+    void modifyPrice(size_t index, const Price& newPrice);
     void modifyProductionDate(size_t index, const Date& newProdDate);
     void modifyExpiryDate(size_t index, const Date& newExpirDate);
     void modifyTransport(size_t index, const Transport& newTransport);
@@ -26,6 +28,7 @@ public:
     void modifyCollectionElement(size_t index,
         const fastSpoiling::Name& newName,
         const fastSpoiling::Type& newType,
+        const Price& newPrice,
         const Date& newProdDate,
         const Date& newExpirDate,
         const Transport& newTransport,

@@ -1,5 +1,6 @@
 #include <string>
 #include <stdexcept>
+#include <iostream>
 #include <iomanip>
 #include <sstream>
 #include "Date.h"
@@ -131,13 +132,16 @@ std::string Date::convertMonthGenitive(int mon) const {
 }
 
 int Date::getMaxDayInMonth(int mon, int y) const {
-    static constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    int maxDayInMonth = daysInMonth[mon - 1];
+    if (checkMonthValue(mon) && checkYearValue(y)) {
+        constexpr int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        int maxDayInMonth = daysInMonth[mon - 1];
 
-    if (mon == 2 && determineLeapYear(y)) {
-        maxDayInMonth = 29;
+        if (mon == 2 && determineLeapYear(y)) {
+            maxDayInMonth = 29;
+        }
+        return maxDayInMonth;
     }
-    return maxDayInMonth;
+    throw std::out_of_range("Wrong month or year values");
 }
 
 bool Date::checkDayValue(int d) const {
@@ -146,7 +150,7 @@ bool Date::checkDayValue(int d) const {
 }
 
 bool Date::checkMonthValue(int mon) const {
-    return !(mon < 1 || mon > 12);
+    return (mon >= 1 && mon <= 12);
 }
 
 bool Date::checkYearValue(int y) const {
@@ -236,24 +240,19 @@ bool Date::operator>(const Date& other) const {
 
 std::ostream& operator<<(std::ostream& os, const Date& date)
 {
-    date.year != 1 ? os << date.slashOutput() : os << "N/A";
+    date.year != 1 ? os << date.day << ';' << date.month << ';' << date.year << ';' : os << "N/A";
     return os;
 }
 
 std::istream& operator>>(std::istream& is, Date& date)
 {
-    std::string dateString;
-    is >> dateString;
+    int day, month, year;
+    is >> day >> month >> year;
 
-    if (dateString == "N/A") {
+    if (is.fail()) {
         date = Date();
     }
     else {
-        std::istringstream dateStream(dateString);
-        int day, month, year;
-        char delimiter;
-        dateStream >> day >> delimiter >> month >> delimiter >> year;
-
         date.setDay(day);
         date.setMonth(month);
         date.setYear(year);
