@@ -797,6 +797,15 @@ void Price::setCurrency(std::string currencyCode)
     mCurrency = currencyCode;
 }
 
+void Price::setValueAndCurrency(double newValue, std::string currencyCode) {
+    if (validatePrice(newValue) && validateCurrency(currencyCode)) {
+        mValue = newValue;
+        mCurrency = currencyCode;
+        return;
+    }
+    throw std::out_of_range("Error while setting new values");
+}
+
 void Price::showAvailableCurrencies() const
 {
     for (const auto& keyValue : currencyName)
@@ -815,57 +824,75 @@ void Price::showAvailableCurrenciesShortAndCode() const
 
 // Overloaded operators
 
-Price Price::operator+(const Price& other)
+Price Price::operator+(const Price& other) const
 {
-    Price price;
-    return price;
+    if (mCurrency == other.mCurrency) {
+        double newVal = mValue + other.mValue;
+        return Price(newVal, mCurrency);
+    }
+    throw std::out_of_range("Cannot sum prices with different currencies");
 }
 
-Price Price::operator-(const Price& other)
+Price Price::operator-(const Price& other) const
 {
-    Price price;
-    return price;
+    if (mCurrency == other.mCurrency) {
+        double newVal = mValue - other.mValue;
+        return Price(newVal, mCurrency);
+    }
+    throw std::out_of_range("Cannot subtract prices with different currencies");
 }
 
-Price Price::operator*(const Price& other)
+Price Price::operator*(const Price& other) const
 {
-    Price price;
-    return price;
+    if (mCurrency == other.mCurrency) {
+        double newVal = mValue + other.mValue;
+        return Price(newVal, mCurrency);
+    }
+    throw std::out_of_range("Cannot multiply prices with different currencies");
 }
 
-bool Price::operator<(const Price& other)
+bool Price::operator<(const Price& other) const
 {
+    if (mCurrency == other.mCurrency) {
+        return mValue < other.mValue;
+    }
     return false;
 }
 
-bool Price::operator==(const Price& other)
+bool Price::operator==(const Price& other) const
 {
-    return false;
+    return (mValue == other.mValue && mCurrency == other.mCurrency);
 }
 
 Price Price::operator=(const Price& other)
 {
-    Price price;
-    return price;
+    if (this == &other) return *this;
+    mValue = other.mValue;
+    mCurrency = other.mCurrency;
+    return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const Price& p)
 {
-    os << std::fixed << std::setprecision(2) << p.mValue << ' ' << p.mCurrency << '\n';
+    os << std::fixed << std::setprecision(2) << p.mValue << ';' << p.mCurrency << ';';
     return os;
 }
 
-std::istream& operator>>(std::istream& is, const Price& p)
+std::istream& operator>>(std::istream& is, Price& p)
 {
+    double val;
+    std::string valStr, currStr;
+    is >> valStr >> currStr;
+
+    try {
+        val = std::stod(valStr);
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+        return is;
+    }
+
+    p.setValueAndCurrency(val, currStr);
+
     return is;
-}
-
-std::fstream& operator<<(std::fstream& fs, const Price& p)
-{
-    return fs;
-}
-
-std::fstream& operator>>(std::fstream& fs, const Price& p)
-{
-    return fs;
 }

@@ -15,6 +15,9 @@ private:
     bool validatePrice(double p) const;
     bool validateCurrency(std::string cur) const;
 
+    friend std::ostream& operator<<(std::ostream& os, const Price& p);
+    friend std::istream& operator>>(std::istream& is, Price& p);
+
 public:
     Price();
     Price(double val);
@@ -28,18 +31,15 @@ public:
 
     void setValue(double newValue);
     void setCurrency(std::string currencyCode);
+    void setValueAndCurrency(double newValue, std::string currencyCode);
     void showAvailableCurrencies() const;
     void showAvailableCurrenciesShortAndCode() const;
 
-    Price operator+(const Price& other);
-    Price operator-(const Price& other);
-    Price operator*(const Price& other);
-    bool operator<(const Price& other);
-    bool operator==(const Price& other);
+    Price operator+(const Price& other) const;
+    Price operator-(const Price& other) const;
+    Price operator*(const Price& other) const;
+    bool operator<(const Price& other) const;
+    bool operator==(const Price& other) const;
     Price operator=(const Price& other);
-    friend std::ostream& operator<<(std::ostream& os, const Price& p);
-    friend std::istream& operator>>(std::istream& is, const Price& p);
-    friend std::fstream& operator<<(std::fstream& fs, const Price& p);
-    friend std::fstream& operator>>(std::fstream& fs, const Price& p);
 };
 
