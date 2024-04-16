@@ -133,7 +133,7 @@ void ProductCollection::displayContent(void) {
         P("Price: " << (*it).getPriceValue() << ' ' << (*it).getPriceCurrencyName());
         ((*it).getProductionYear() != 1) ? P("Production date: " << (*it).getProductionDateSlashed()) : P("Production date: N/A");
         ((*it).getExpirationYear() != 1) ? P("Expiration date: " << (*it).getExpirationDateSlashed()) : P("Expiration date : N/A");
-        P("Transport Temperature: " << (*it).getTransportTemperature() << "�C");
+        P("Transport Temperature: " << (*it).getTransportTemperature() << " Degrees Celcius");
         P("Transport Means/Packaging: " << (*it).getTransportPackaging());
         P("Transport Humidity: " << (*it).getTransportHumidity() << '%');
         P("Product Weight: " << (*it).getWeight() << " kg's");
