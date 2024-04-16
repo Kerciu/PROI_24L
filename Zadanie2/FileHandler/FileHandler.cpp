@@ -29,9 +29,9 @@ void FileHandler::setName(const std::string& newName)
 	fileName = newName;
 }
 
-fastSpoilingCollection FileHandler::readFromFile() const
+ProductCollection FileHandler::readFromFile() const
 {	
-	fastSpoilingCollection collection;
+	ProductCollection collection;
 	std::ifstream file(fileName.c_str());
 
 	if (!file.is_open()) {
@@ -64,14 +64,14 @@ fastSpoilingCollection FileHandler::readFromFile() const
 		Transport transport(std::stod(attributes[10]), attributes[11], std::stod(attributes[12]));
 		weightAndVolume wv(std::stod(attributes[13]), std::stod(attributes[14]));
 
-		fastSpoiling product(attributes[0], attributes[1], price, prodDate, expirDate, transport, wv);
+		Product product(attributes[0], attributes[1], price, prodDate, expirDate, transport, wv);
 		collection.addNewElement(product);
 	}
 
 	return collection;
  }
 
-void FileHandler::writeToFile(const fastSpoilingCollection& content)
+void FileHandler::writeToFile(const ProductCollection& content)
 {
 	std::ofstream file(fileName);
 

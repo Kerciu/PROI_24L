@@ -1,5 +1,5 @@
 #include "Transport.h"
-#include "../FastSpoiling/fastSpoiling.h"
+#include "../Product/Product.h"
 #include <stdexcept>
 #include <iomanip>
 #include <string>
@@ -9,17 +9,17 @@ Transport::Transport() : mTemperature(21.0), mPackaging("No information"), mHumi
 
 Transport::Transport(Packaging p) : mTemperature(21.0), mPackaging(p), mHumidity(50)
 {
-	if (fastSpoiling::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
+	if (Product::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
 Transport::Transport(Temperature t, Packaging p) : mTemperature(t), mPackaging(p), mHumidity(50)
 {
-	if (fastSpoiling::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
+	if (Product::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
 Transport::Transport(Temperature t, Packaging p, Humidity h) : mTemperature(t), mPackaging(p), mHumidity(h)
 {
-	if (fastSpoiling::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
+	if (Product::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
 bool Transport::validateTemperature(Temperature t) const {
@@ -47,7 +47,7 @@ void Transport::setTemperature(Temperature t) {
 }
 
 void Transport::setPackaging(Packaging p) {
-	if (fastSpoiling::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
+	if (Product::semicolonInString(p)) throw std::out_of_range("There cannot be semicolons in string!");
 	mPackaging = p;
 }
 

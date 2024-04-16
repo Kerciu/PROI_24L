@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <fstream>
-#include "../FastSpoiling/fastSpoiling.h"
-#include "../FastSpoilingCollection/FastSpoilingCollection.h"
+#include "../Product/Product.h"
+#include "../ProductCollection/ProductCollection.h"
 
 class wrongItemContentError : public std::exception {
 private:
@@ -28,8 +28,8 @@ public:
 	std::string getName() const;
 	void setName(const std::string& newName);
 
-	fastSpoilingCollection readFromFile() const;
-	void writeToFile(const fastSpoilingCollection& content);
+	ProductCollection readFromFile() const;
+	void writeToFile(const ProductCollection& content);
 	
 };
 

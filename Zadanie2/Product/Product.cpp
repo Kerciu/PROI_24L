@@ -1,4 +1,4 @@
-﻿#include "fastSpoiling.h"
+﻿#include "Product.h"
 #include "../Date/Date.h"
 #include "../Transport/Transport.h"
 #include "../WeightAndVolume/weightAndVolume.h"
@@ -12,40 +12,40 @@ using WeightAndVolume = weightAndVolume;
 using Weight = double;
 using Volume = double;
 
-fastSpoiling::fastSpoiling()
+Product::Product()
     : mName("N/A"), mType("N/A"), mPrice(Price()), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(weightAndVolume(0, 0)) { }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(Price()), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv) 
 {
     if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const Price& p, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(Transport()), mWeightAndVolume(wv)
 {
     if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& expDate, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const Price& p, const Date& expDate, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(expDate), mTransportMeans(Transport()), mWeightAndVolume(wv)
 {
     if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Transport& tm, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const Price& p, const Transport& tm, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(Date()), mTransportMeans(tm), mWeightAndVolume(wv)
 {
     if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const Price& p, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(p), mProdDate(Date()), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv)
 {
     if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
 }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& pd, const Date& exd, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const Price& p, const Date& pd, const Date& exd, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(p), mProdDate(pd), mExpirDate(exd), mTransportMeans(Transport()), mWeightAndVolume(wv)
 {
     if (semicolonInString(n) || semicolonInString(t)) throw std::out_of_range("There cannot be semicolons in string!");
@@ -54,10 +54,10 @@ fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const D
     }
 }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(Price()), mProdDate(prodDate), mExpirDate(expDate), mTransportMeans(tm), mWeightAndVolume(wv) { }
 
-fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const Date& pd, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
+Product::Product(const Name& n, const Type& t, const Price& p, const Date& pd, const Date& exd, const Transport& tm, const WeightAndVolume& wv)
     : mName(n), mType(t), mPrice(p), mProdDate(pd), mExpirDate(exd), mTransportMeans(tm), mWeightAndVolume(wv)
 {
     if (pd > exd) {
@@ -66,7 +66,7 @@ fastSpoiling::fastSpoiling(const Name& n, const Type& t, const Price& p, const D
 }
 
 //TODO MAKE A FUNCTION THAT SEEKS SEMICOLONS IN STRING DATAS
-bool fastSpoiling::semicolonInString(const std::string str) {
+bool Product::semicolonInString(const std::string str) {
     for (const char& ch : str) {
         if (ch == ';') return true;
     }
@@ -74,113 +74,113 @@ bool fastSpoiling::semicolonInString(const std::string str) {
 }
 
 // Getters
-Name fastSpoiling::getName() const { return mName; }
-Type fastSpoiling::getType() const { return mType; }
+Name Product::getName() const { return mName; }
+Type Product::getType() const { return mType; }
 
-Transport::Temperature fastSpoiling::getTransportTemperature() const
+Transport::Temperature Product::getTransportTemperature() const
 {
     return mTransportMeans.getTemperature();
 }
 
-Transport::Packaging fastSpoiling::getTransportPackaging() const
+Transport::Packaging Product::getTransportPackaging() const
 {
     return mTransportMeans.getPackaging();
 }
 
-Transport::Humidity fastSpoiling::getTransportHumidity() const
+Transport::Humidity Product::getTransportHumidity() const
 {
     return mTransportMeans.getHumidity();
 }
 
 // Price getters
-double fastSpoiling::getPriceValue() { return mPrice.getValue(); }
-std::string fastSpoiling::getPriceCurrency() { return mPrice.getCurrency(); }
-int fastSpoiling::getPriceCurrencyCode() { return mPrice.getCurrencyCode(); }
-std::string fastSpoiling::getPriceCurrencyName() { return mPrice.getCurrencyName(); }
+double Product::getPriceValue() { return mPrice.getValue(); }
+std::string Product::getPriceCurrency() { return mPrice.getCurrency(); }
+int Product::getPriceCurrencyCode() { return mPrice.getCurrencyCode(); }
+std::string Product::getPriceCurrencyName() { return mPrice.getCurrencyName(); }
 
 // Production Date Getters
-std::string fastSpoiling::getProductionDateSlashed() const { return mProdDate.slashOutput(); }
-std::string fastSpoiling::getProductionDateHyphened() const { return mProdDate.hyphenOutput(); }
-std::string fastSpoiling::getProductionDateDotted() const { return mProdDate.dotOutput(); }
-std::string fastSpoiling::getProductionDateShortenedYear() const { return mProdDate.shortenedYearOutput(); }
-std::string fastSpoiling::getProductionDateVerbalizedMonth() const { return mProdDate.verbalMonthOutput(); }
-std::string fastSpoiling::getProductionDateVerbalizedDay() const { return mProdDate.verbalDayOutput(); }
+std::string Product::getProductionDateSlashed() const { return mProdDate.slashOutput(); }
+std::string Product::getProductionDateHyphened() const { return mProdDate.hyphenOutput(); }
+std::string Product::getProductionDateDotted() const { return mProdDate.dotOutput(); }
+std::string Product::getProductionDateShortenedYear() const { return mProdDate.shortenedYearOutput(); }
+std::string Product::getProductionDateVerbalizedMonth() const { return mProdDate.verbalMonthOutput(); }
+std::string Product::getProductionDateVerbalizedDay() const { return mProdDate.verbalDayOutput(); }
 
-int fastSpoiling::getProductionYear() const
+int Product::getProductionYear() const
 {
     return mProdDate.getYear();
 }
 
 // Expiration Date Getters
-std::string fastSpoiling::getExpirationDateSlashed() const { return mExpirDate.slashOutput(); }
-std::string fastSpoiling::getExpirationDateHyphened() const { return mExpirDate.hyphenOutput(); }
-std::string fastSpoiling::getExpirationDateDotted() const { return mExpirDate.dotOutput(); }
-std::string fastSpoiling::getExpirationDateShortenedYear() const { return mExpirDate.shortenedYearOutput(); }
-std::string fastSpoiling::getExpirationDateVerbalizedMonth() const { return mExpirDate.verbalMonthOutput(); }
-std::string fastSpoiling::getExpirationDateVerbalizedDay() const { return mExpirDate.verbalDayOutput(); }
+std::string Product::getExpirationDateSlashed() const { return mExpirDate.slashOutput(); }
+std::string Product::getExpirationDateHyphened() const { return mExpirDate.hyphenOutput(); }
+std::string Product::getExpirationDateDotted() const { return mExpirDate.dotOutput(); }
+std::string Product::getExpirationDateShortenedYear() const { return mExpirDate.shortenedYearOutput(); }
+std::string Product::getExpirationDateVerbalizedMonth() const { return mExpirDate.verbalMonthOutput(); }
+std::string Product::getExpirationDateVerbalizedDay() const { return mExpirDate.verbalDayOutput(); }
 
-int fastSpoiling::getExpirationYear() const
+int Product::getExpirationYear() const
 {
     return mExpirDate.getYear();
 }
 
 // Weight and Volume Getters
-Weight fastSpoiling::getWeight() const { return mWeightAndVolume.getWeight(); }
-Weight fastSpoiling::getWeight(const std::string& unitString) const { return mWeightAndVolume.getWeight(unitString); }
-Volume fastSpoiling::getVolume() const { return mWeightAndVolume.getVolume(); }
-Volume fastSpoiling::getVolume(const std::string& unitString) const { return mWeightAndVolume.getVolume(unitString); }
+Weight Product::getWeight() const { return mWeightAndVolume.getWeight(); }
+Weight Product::getWeight(const std::string& unitString) const { return mWeightAndVolume.getWeight(unitString); }
+Volume Product::getVolume() const { return mWeightAndVolume.getVolume(); }
+Volume Product::getVolume(const std::string& unitString) const { return mWeightAndVolume.getVolume(unitString); }
 
 // Setters
-void fastSpoiling::setName(Name n) { mName = n; }
-void fastSpoiling::setType(Type t) { mType = t; }
+void Product::setName(Name n) { mName = n; }
+void Product::setType(Type t) { mType = t; }
 
-void fastSpoiling::setPriceValue(double newVal)
+void Product::setPriceValue(double newVal)
 {
     mPrice.setValue(newVal);
 }
 
-void fastSpoiling::setPriceCurrency(std::string newCurr)
+void Product::setPriceCurrency(std::string newCurr)
 {
     mPrice.setCurrency(newCurr);
 }
 
 // Transport Means Setters
-void fastSpoiling::setTransportTemperature(double t) { mTransportMeans.setTemperature(t); }
-void fastSpoiling::setTransportPackaging(std::string p) { mTransportMeans.setPackaging(p); }
-void fastSpoiling::setTransportHumidity(double h) { mTransportMeans.setHumidity(h); }
+void Product::setTransportTemperature(double t) { mTransportMeans.setTemperature(t); }
+void Product::setTransportPackaging(std::string p) { mTransportMeans.setPackaging(p); }
+void Product::setTransportHumidity(double h) { mTransportMeans.setHumidity(h); }
 
 // Date Setters
-void fastSpoiling::setProductionDate(int d, int m, int y) {
+void Product::setProductionDate(int d, int m, int y) {
     mProdDate.setDay(d);
     mProdDate.setMonth(m);
     mProdDate.setYear(y);
 }
 
-void fastSpoiling::setExpirationDate(int d, int m, int y) {
+void Product::setExpirationDate(int d, int m, int y) {
     mExpirDate.setDay(d);
     mExpirDate.setMonth(m);
     mExpirDate.setYear(y);
 }
 
 // Weight and Volume Setters
-void fastSpoiling::setWeight(Weight w)
+void Product::setWeight(Weight w)
 {
     mWeightAndVolume.setWeight(w);
 }
 
-void fastSpoiling::setVolume(Volume v)
+void Product::setVolume(Volume v)
 {
     mWeightAndVolume.setVolume(v);
 }
 
 // Operator Overloads
-bool fastSpoiling::operator==(const fastSpoiling& other) const {
+bool Product::operator==(const Product& other) const {
     return mName == other.mName && mType == other.mType && mPrice == other.mPrice && mProdDate == other.mProdDate &&
         mExpirDate == other.mExpirDate && mTransportMeans == other.mTransportMeans &&
         mWeightAndVolume == other.mWeightAndVolume;
 }
 
-std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs) {
+std::ostream& operator<<(std::ostream& os, const Product& fs) {
     os << fs.mName << ';';
     os << fs.mType << ';';
     os << fs.mPrice.getValue() << ';';
@@ -198,7 +198,7 @@ std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs) {
     return os;
 }
 
-std::istream& operator>>(std::istream& is, fastSpoiling& fs)
+std::istream& operator>>(std::istream& is, Product& fs)
 {
     std::string line;
     std::getline(is, line);
