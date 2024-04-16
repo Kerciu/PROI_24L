@@ -5,7 +5,7 @@
 #include "../Price/Price.h"
 #include "../WeightAndVolume/weightAndVolume.h"
 
-class fastSpoiling {
+class Product {
 private:
     using Name = std::string;
     using Type = std::string;
@@ -21,19 +21,19 @@ private:
     Transport mTransportMeans;
     WeightAndVolume mWeightAndVolume;
 
-    friend class fastSpoilingCollection;
+    friend class ProductCollection;
 
 public:
     // Constructors
-    fastSpoiling();
-    fastSpoiling(const Name& n, const Type& t, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Price&, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& expDate, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Price&, const Transport& tm, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& prodDate, const Date& expDate, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
-    fastSpoiling(const Name& n, const Type& t, const Price&, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
+    Product();
+    Product(const Name& n, const Type& t, const WeightAndVolume& wv);
+    Product(const Name& n, const Type& t, const Price&, const WeightAndVolume& wv);
+    Product(const Name& n, const Type& t, const Price&, const Date& expDate, const WeightAndVolume& wv);
+    Product(const Name& n, const Type& t, const Price&, const Transport& tm, const WeightAndVolume& wv);
+    Product(const Name& n, const Type& t, const Price&, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
+    Product(const Name& n, const Type& t, const Price&, const Date& prodDate, const Date& expDate, const WeightAndVolume& wv);
+    Product(const Name& n, const Type& t, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
+    Product(const Name& n, const Type& t, const Price&, const Date& prodDate, const Date& expDate, const Transport& tm, const WeightAndVolume& wv);
 
     static bool semicolonInString(const std::string str);
 
@@ -102,7 +102,7 @@ public:
     void setVolume(Volume w);
 
     // Operator overloads
-    bool operator==(const fastSpoiling& other) const;
-    friend std::ostream& operator<<(std::ostream& os, const fastSpoiling& fs);
-    friend std::istream& operator>>(std::istream& is, fastSpoiling& fs);
+    bool operator==(const Product& other) const;
+    friend std::ostream& operator<<(std::ostream& os, const Product& fs);
+    friend std::istream& operator>>(std::istream& is, Product& fs);
 };

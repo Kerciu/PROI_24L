@@ -1,8 +1,8 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-#include "../FastSpoiling/fastSpoiling.h"
-#include "fastSpoilingCollection.h"
+#include "../Product/Product.h"
+#include "ProductCollection.h"
 #include "../Transport/Transport.h"
 #include "../Date/Date.h"
 #include "../WeightAndVolume/weightAndVolume.h"
@@ -11,7 +11,7 @@
 #define P(x) std::cout << x << '\n'
 
 // Element collection operations
-void fastSpoilingCollection::searchForElement(const fastSpoiling& element) const {
+void ProductCollection::searchForElement(const Product& element) const {
     for (size_t i = 0; i < sizeOfCollection(); i++) {
         if (element == elementCollection[i]) {
             std::cout << element.getName() <<" is present at the index of " << i << '\n';
@@ -21,7 +21,7 @@ void fastSpoilingCollection::searchForElement(const fastSpoiling& element) const
     throw std::out_of_range("Element was not found!");
 }
 
-void fastSpoilingCollection::addNewElement(const fastSpoiling& element) {
+void ProductCollection::addNewElement(const Product& element) {
     for (size_t i = 0; i < elementCollection.size(); i++) {
         if (element == elementCollection[i]) {
             throw std::invalid_argument("Element already in the collection!");
@@ -30,21 +30,21 @@ void fastSpoilingCollection::addNewElement(const fastSpoiling& element) {
     elementCollection.push_back(element);
 }
 
-void fastSpoilingCollection::modifyName(size_t index, const fastSpoiling::Name& newName) {
+void ProductCollection::modifyName(size_t index, const Product::Name& newName) {
     if (!elementInCollection(elementCollection[index])) {
         throw std::invalid_argument("Element not in the collection!");
     }
     elementCollection[index].setName(newName);
 }
 
-void fastSpoilingCollection::modifyType(size_t index, const fastSpoiling::Type& newType) {
+void ProductCollection::modifyType(size_t index, const Product::Type& newType) {
     if (!elementInCollection(elementCollection[index])) {
         throw std::invalid_argument("Element not in the collection!");
     }
     elementCollection[index].setType(newType);
 }
 
-void fastSpoilingCollection::modifyPrice(size_t index, const Price& newPrice)
+void ProductCollection::modifyPrice(size_t index, const Price& newPrice)
 {
     if (!elementInCollection(elementCollection[index])) {
         throw std::invalid_argument("Element not in the collection!");
@@ -53,21 +53,21 @@ void fastSpoilingCollection::modifyPrice(size_t index, const Price& newPrice)
     elementCollection[index].setPriceCurrency(newPrice.getCurrency());
 }
 
-void fastSpoilingCollection::modifyProductionDate(size_t index, const Date& newProdDate) {
+void ProductCollection::modifyProductionDate(size_t index, const Date& newProdDate) {
     if (!elementInCollection(elementCollection[index])) {
         throw std::invalid_argument("Element not in the collection!");
     }
     elementCollection[index].setProductionDate(newProdDate.getDay(), newProdDate.getMonthDigits(), newProdDate.getYear());
 }
 
-void fastSpoilingCollection::modifyExpiryDate(size_t index, const Date& newExpirDate) {
+void ProductCollection::modifyExpiryDate(size_t index, const Date& newExpirDate) {
     if (!elementInCollection(elementCollection[index])) {
         throw std::invalid_argument("Element not in the collection!");
     }
     elementCollection[index].setExpirationDate(newExpirDate.getDay(), newExpirDate.getMonthDigits(), newExpirDate.getYear());
 }
 
-void fastSpoilingCollection::modifyTransport(size_t index, const Transport& newTransport) {
+void ProductCollection::modifyTransport(size_t index, const Transport& newTransport) {
     if (!elementInCollection(elementCollection[index])) {
         throw std::invalid_argument("Element not in the collection!");
     }
@@ -76,7 +76,7 @@ void fastSpoilingCollection::modifyTransport(size_t index, const Transport& newT
     elementCollection[index].setTransportHumidity(newTransport.getHumidity());
 }
 
-void fastSpoilingCollection::modifyWeightAndVolume(size_t index, const weightAndVolume& newWandV) {
+void ProductCollection::modifyWeightAndVolume(size_t index, const weightAndVolume& newWandV) {
     if (!elementInCollection(elementCollection[index])) {
         throw std::invalid_argument("Element not in the collection!");
     }
@@ -84,9 +84,9 @@ void fastSpoilingCollection::modifyWeightAndVolume(size_t index, const weightAnd
     elementCollection[index].setVolume(newWandV.getVolume());
 }
 
-void fastSpoilingCollection::modifyCollectionElement(size_t index,
-    const fastSpoiling::Name& newName,
-    const fastSpoiling::Type& newType,
+void ProductCollection::modifyCollectionElement(size_t index,
+    const Product::Name& newName,
+    const Product::Type& newType,
     const Price& newPrice,
     const Date& newProdDate,
     const Date& newExpirDate,
@@ -114,7 +114,7 @@ void fastSpoilingCollection::modifyCollectionElement(size_t index,
 }
 
 
-void fastSpoilingCollection::deleteElement(const fastSpoiling& element) {
+void ProductCollection::deleteElement(const Product& element) {
     auto it = std::find(elementCollection.begin(), elementCollection.end(), element);
     if (it != elementCollection.end()) {
         elementCollection.erase(it);
@@ -124,7 +124,7 @@ void fastSpoilingCollection::deleteElement(const fastSpoiling& element) {
     }
 }
 
-void fastSpoilingCollection::displayContent(void) {
+void ProductCollection::displayContent(void) {
     int index = 1;
     for (auto it = elementCollection.begin(); it != elementCollection.end(); it++) {
         P("Elem # " << index);
@@ -133,7 +133,7 @@ void fastSpoilingCollection::displayContent(void) {
         P("Price: " << (*it).getPriceValue() << ' ' << (*it).getPriceCurrencyName());
         ((*it).getProductionYear() != 1) ? P("Production date: " << (*it).getProductionDateSlashed()) : P("Production date: N/A");
         ((*it).getExpirationYear() != 1) ? P("Expiration date: " << (*it).getExpirationDateSlashed()) : P("Expiration date : N/A");
-        P("Transport Temperature: " << (*it).getTransportTemperature() << "°C");
+        P("Transport Temperature: " << (*it).getTransportTemperature() << " Degrees Celcius");
         P("Transport Means/Packaging: " << (*it).getTransportPackaging());
         P("Transport Humidity: " << (*it).getTransportHumidity() << '%');
         P("Product Weight: " << (*it).getWeight() << " kg's");
@@ -143,15 +143,15 @@ void fastSpoilingCollection::displayContent(void) {
     }
 }
 
-bool fastSpoilingCollection::elementInCollection(const fastSpoiling& element) const {
+bool ProductCollection::elementInCollection(const Product& element) const {
     return std::find(elementCollection.begin(), elementCollection.end(), element) != elementCollection.end();
 }
 
-size_t fastSpoilingCollection::sizeOfCollection() const {
+size_t ProductCollection::sizeOfCollection() const {
     return elementCollection.size();
 }
 
-std::ostream& operator<<(std::ostream& os, const fastSpoilingCollection& collect) {
+std::ostream& operator<<(std::ostream& os, const ProductCollection& collect) {
     for (const auto& element : collect.elementCollection) {
         os << element;
     }

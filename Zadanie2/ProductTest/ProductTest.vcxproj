@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <ProjectGuid>{09E72381-BA1F-4AC0-9BC3-D7AEE23A67CC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>FastSpoilingTest</RootNamespace>
+    <RootNamespace>ProductTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectSubType>NativeUnitTestProject</ProjectSubType>
   </PropertyGroup>
@@ -156,17 +156,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\FastSpoiling\Date.cpp" />
-    <ClCompile Include="..\FastSpoiling\fastSpoiling.cpp" />
-    <ClCompile Include="..\FastSpoiling\FastSpoilingCollection.cpp" />
-    <ClCompile Include="..\FastSpoiling\FileHandler.cpp" />
-    <ClCompile Include="..\FastSpoiling\mainModule.cpp" />
-    <ClCompile Include="..\FastSpoiling\Transport.cpp" />
-    <ClCompile Include="..\FastSpoiling\weightAndVolume.cpp" />
-    <ClCompile Include="FastSpoilingTest.cpp" />
+    <ClCompile Include="..\Product\Date.cpp" />
+    <ClCompile Include="..\Product\Product.cpp" />
+    <ClCompile Include="..\Product\ProductCollection.cpp" />
+    <ClCompile Include="..\Product\FileHandler.cpp" />
+    <ClCompile Include="..\Product\mainModule.cpp" />
+    <ClCompile Include="..\Product\Transport.cpp" />
+    <ClCompile Include="..\Product\weightAndVolume.cpp" />
+    <ClCompile Include="ProductTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FastSpoiling\FastSpoiling.vcxproj">
+    <ProjectReference Include="..\Product\Product.vcxproj">
       <Project>{f08a1510-52a5-422a-9cad-4d1aa9aa9da8}</Project>
     </ProjectReference>
   </ItemGroup>

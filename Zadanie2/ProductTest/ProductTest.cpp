@@ -1,20 +1,20 @@
 #include "CppUnitTest.h"
 #include <sstream>
-#include "../FastSpoiling/fastSpoiling.h"
-#include "../FastSpoiling/Transport.h"
-#include "../FastSpoiling/weightAndVolume.h"
-#include "../FastSpoiling/FastSpoilingCollection.h"
-#include "../FastSpoiling/Price.h"
+#include "../Product/Product.h"
+#include "../Product/Transport.h"
+#include "../Product/weightAndVolume.h"
+#include "../Product/ProductCollection.h"
+#include "../Product/Price.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace FastSpoilingTest
+namespace ProductTest
 {
-	TEST_CLASS(FastSpoilingTest)
+	TEST_CLASS(ProductTest)
 	{
 	public:
 
-		TEST_METHOD(CreateFastSpoilingObject)
+		TEST_METHOD(CreateProductObject)
 		{
 			// Arrange
 			std::string itemName = "Apple";
@@ -25,7 +25,7 @@ namespace FastSpoilingTest
 			weightAndVolume weightVolume(0.2, 0.1);
 
 			// Act
-			fastSpoiling fs(itemName, itemType, productionDate, expirationDate, transport, weightVolume);
+			Product fs(itemName, itemType, productionDate, expirationDate, transport, weightVolume);
 
 			// Assert
 			Assert::AreEqual(itemName, fs.getName());
@@ -36,10 +36,10 @@ namespace FastSpoilingTest
 			Assert::AreEqual(0.1, fs.getVolume());
 		}
 
-		TEST_METHOD(SetFastSpoilingAttributes)
+		TEST_METHOD(SetProductAttributes)
 		{
 			// Arrange
-			fastSpoiling fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			Product fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
 
 			// Act
 			fs.setName("Banana");
@@ -60,12 +60,12 @@ namespace FastSpoilingTest
 			Assert::AreEqual(0.2, fs.getVolume());
 		}
 
-		TEST_METHOD(FastSpoilingEqualityOperator)
+		TEST_METHOD(ProductEqualityOperator)
 		{
 			// Arrange
-			fastSpoiling fs1("Apple", "Fruit", Date(15, 3, 2023), Date(15, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
-			fastSpoiling fs2("Apple", "Fruit", Date(15, 3, 2023), Date(15, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
-			fastSpoiling fs3("Banana", "Fruit", Date(14, 3, 2023), Date(16, 3, 2023), Transport(15.5, "In a cooler", 50), weightAndVolume(0.3, 0.2));
+			Product fs1("Apple", "Fruit", Date(15, 3, 2023), Date(15, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			Product fs2("Apple", "Fruit", Date(15, 3, 2023), Date(15, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			Product fs3("Banana", "Fruit", Date(14, 3, 2023), Date(16, 3, 2023), Transport(15.5, "In a cooler", 50), weightAndVolume(0.3, 0.2));
 
 			// Act & Assert
 			Assert::IsTrue(fs1 == fs2);
@@ -158,7 +158,7 @@ namespace FastSpoilingTest
 		TEST_METHOD(VolumeConversion)
 		{
 			// Arrange
-			weightAndVolume wv(3000, 3000); // 3000 litrów
+			weightAndVolume wv(3000, 3000); // 3000 litrï¿½w
 
 			// Act
 			double volumeInLiters = wv.getVolume("hectoliter");
@@ -228,8 +228,8 @@ namespace FastSpoilingTest
 
 		TEST_METHOD(AddElement)
 		{
-			fastSpoiling fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
-			fastSpoilingCollection collection;
+			Product fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			ProductCollection collection;
 
 			collection.addNewElement(fs);
 
@@ -239,21 +239,21 @@ namespace FastSpoilingTest
 		TEST_METHOD(SearchElement)
 		{
 			// Arrange
-			fastSpoiling fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
-			fastSpoilingCollection collection;
+			Product fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			ProductCollection collection;
 			collection.addNewElement(fs);
 
 			// Act & Assert
 			Assert::ExpectException<std::out_of_range>([&]() {
-				collection.searchForElement(fastSpoiling("Banana", "Fruit", Date(2023, 3, 16), Date(2023, 3, 21), Transport(15.5, "In a cooler", 50), weightAndVolume(0.3, 0.2)));
+				collection.searchForElement(Product("Banana", "Fruit", Date(2023, 3, 16), Date(2023, 3, 21), Transport(15.5, "In a cooler", 50), weightAndVolume(0.3, 0.2)));
 				});
 		}
 
 		TEST_METHOD(DeleteElement)
 		{
 			// Arrange
-			fastSpoiling fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
-			fastSpoilingCollection collection;
+			Product fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			ProductCollection collection;
 			collection.addNewElement(fs);
 
 			// Act
@@ -266,8 +266,8 @@ namespace FastSpoilingTest
 		TEST_METHOD(ModifyElement)
 		{
 			// Arrange
-			fastSpoiling fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
-			fastSpoilingCollection collection;
+			Product fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			ProductCollection collection;
 			collection.addNewElement(fs);
 
 			// Act
@@ -286,7 +286,7 @@ namespace FastSpoilingTest
 		}
 
 		TEST_METHOD(RepresentCollection) {
-			fastSpoiling fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
+			Product fs("Apple", "Fruit", Date(15, 3, 2023), Date(20, 3, 2023), Transport(15.5, "In a box", 50), weightAndVolume(0.2, 0.1));
 			std::ostringstream oss;
 			oss << fs;
 			Assert::AreEqual(oss.str().c_str(), "Apple;Fruit;15/03/2023;20/03/2023;15.5;In a box;50;0.2;0.1\n");
