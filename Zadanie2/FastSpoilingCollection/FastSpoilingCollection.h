@@ -34,6 +34,7 @@ public:
         const Transport& newTransport,
         const weightAndVolume& newWandV);
     void deleteElement(const fastSpoiling& element);
+    void displayContent(void);
     bool elementInCollection(const fastSpoiling& element) const;
     size_t sizeOfCollection(void) const;
 

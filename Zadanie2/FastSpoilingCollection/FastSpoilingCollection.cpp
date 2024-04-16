@@ -8,6 +8,8 @@
 #include "../WeightAndVolume/weightAndVolume.h"
 #include "../Price/Price.h"
 
+#define P(x) std::cout << x << '\n'
+
 // Element collection operations
 void fastSpoilingCollection::searchForElement(const fastSpoiling& element) const {
     for (size_t i = 0; i < sizeOfCollection(); i++) {
@@ -119,6 +121,25 @@ void fastSpoilingCollection::deleteElement(const fastSpoiling& element) {
     }
     else {
         throw std::out_of_range("Element not found in the collection!");
+    }
+}
+
+void fastSpoilingCollection::displayContent(void) {
+    int index = 1;
+    for (auto it = elementCollection.begin(); it != elementCollection.end(); it++) {
+        P("Elem # " << index);
+        P("Name: " << (*it).getName());
+        P("Type: " << (*it).getType());
+        P("Price: " << (*it).getPriceValue() << ' ' << (*it).getPriceCurrencyName());
+        ((*it).getProductionYear() != 1) ? P("Production date: " << (*it).getProductionDateSlashed()) : P("Production date: N/A");
+        ((*it).getExpirationYear() != 1) ? P("Expiration date: " << (*it).getExpirationDateSlashed()) : P("Expiration date : N/A");
+        P("Transport Temperature: " << (*it).getTransportTemperature() << "°C");
+        P("Transport Means/Packaging: " << (*it).getTransportPackaging());
+        P("Transport Humidity: " << (*it).getTransportHumidity() << '%');
+        P("Product Weight: " << (*it).getWeight() << " kg's");
+        P("Product Volume: " << (*it).getVolume() << " liters");
+        std::cout << '\n';
+        index++;
     }
 }
 

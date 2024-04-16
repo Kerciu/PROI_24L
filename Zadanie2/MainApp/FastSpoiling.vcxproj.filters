@@ -18,51 +18,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fastSpoiling.cpp">
+    <ClCompile Include="../FastSpoiling/fastSpoiling.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="FastSpoilingCollection.cpp">
+    <ClCompile Include="../FastSpoilingCollection/FastSpoilingCollection.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="weightAndVolume.cpp">
+    <ClCompile Include="../WeightAndVolume/weightAndVolume.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Transport.cpp">
+    <ClCompile Include="../Transport/Transport.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Date.cpp">
+    <ClCompile Include="../Date/Date.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="mainModule.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="FileHandler.cpp">
+    <ClCompile Include="../FileHandler/FileHandler.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Price.cpp">
+    <ClCompile Include="../Price/Price.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FastSpoilingCollection.h">
+    <ClInclude Include="../FastSpoilingCollection/FastSpoilingCollection.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="fastSpoiling.h">
+    <ClInclude Include="../FastSpoiling/fastSpoiling.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="weightAndVolume.h">
+    <ClInclude Include="../WeightAndVolume/weightAndVolume.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Transport.h">
+    <ClInclude Include="../Transport/Transport.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Date.h">
+    <ClInclude Include="../Date/Date.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="FileHandler.h">
+    <ClInclude Include="../FileHandler/FileHandler.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Price.h">
+    <ClInclude Include="../Price/Price.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
