@@ -106,6 +106,11 @@ std::string fastSpoiling::getProductionDateShortenedYear() const { return mProdD
 std::string fastSpoiling::getProductionDateVerbalizedMonth() const { return mProdDate.verbalMonthOutput(); }
 std::string fastSpoiling::getProductionDateVerbalizedDay() const { return mProdDate.verbalDayOutput(); }
 
+int fastSpoiling::getProductionYear() const
+{
+    return mProdDate.getYear();
+}
+
 // Expiration Date Getters
 std::string fastSpoiling::getExpirationDateSlashed() const { return mExpirDate.slashOutput(); }
 std::string fastSpoiling::getExpirationDateHyphened() const { return mExpirDate.hyphenOutput(); }
@@ -113,6 +118,11 @@ std::string fastSpoiling::getExpirationDateDotted() const { return mExpirDate.do
 std::string fastSpoiling::getExpirationDateShortenedYear() const { return mExpirDate.shortenedYearOutput(); }
 std::string fastSpoiling::getExpirationDateVerbalizedMonth() const { return mExpirDate.verbalMonthOutput(); }
 std::string fastSpoiling::getExpirationDateVerbalizedDay() const { return mExpirDate.verbalDayOutput(); }
+
+int fastSpoiling::getExpirationYear() const
+{
+    return mExpirDate.getYear();
+}
 
 // Weight and Volume Getters
 Weight fastSpoiling::getWeight() const { return mWeightAndVolume.getWeight(); }

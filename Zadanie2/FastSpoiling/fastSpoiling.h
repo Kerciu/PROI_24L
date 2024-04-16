@@ -60,6 +60,9 @@ public:
     std::string getProductionDateVerbalizedMonth() const;
     std::string getProductionDateVerbalizedDay() const;
 
+    // Used for defining "N/A" Year
+    int getProductionYear() const;
+
     // Expiration Date Getters
     std::string getExpirationDateSlashed() const;
     std::string getExpirationDateHyphened() const;
@@ -67,6 +70,9 @@ public:
     std::string getExpirationDateShortenedYear() const;
     std::string getExpirationDateVerbalizedMonth() const;
     std::string getExpirationDateVerbalizedDay() const;
+
+    // Used for defining "N/A" Year
+    int getExpirationYear() const;
 
     // Weight and Volume Getters
     Weight getWeight() const;
