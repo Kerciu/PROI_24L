@@ -48,5 +48,22 @@ namespace UnitTests
 			std::unique_ptr<Line> line = std::make_unique<Line>(stroke);
 			Assert::AreEqual(line->getStroke().c_str(), "blue");
 		}
+
+		TEST_METHOD(CreateCollection)
+		{
+			std::unique_ptr<Circle> circle = std::make_unique<Circle>("blue", "yellow");
+			std::vector<std::unique_ptr<Figure>> veccy;
+
+			veccy.push_back(std::move(circle));
+			Collection col1(std::move(veccy));
+			Collection col2(std::make_unique<Circle>("red", "green"));
+
+			Assert::IsTrue(col1.getLastItem() != nullptr);
+			Assert::AreEqual("blue", col1.getLastItem()->getFill().c_str());
+
+			
+			Assert::IsTrue(col2.getLastItem() != nullptr);
+			Assert::AreEqual("red", col2.getLastItem()->getFill().c_str());
+		}
 	};
 }
