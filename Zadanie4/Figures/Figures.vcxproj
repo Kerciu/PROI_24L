@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="Collection.cpp" />
     <ClCompile Include="Figures.cpp" />
+    <ClCompile Include="DerivedFigures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collection.h" />
+    <ClInclude Include="DerivedFigures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,22 +1,26 @@
 #include "Figure.h"
-
-Figure::Figure() : fill(""), stroke("") { }
-Figure::Figure(const color& f) : fill(f), stroke("") { }
-Figure::Figure(const color& f, const color& s) : fill(f), stroke(s) { }
+#include "Figure.h"
+#include "Figure.h"
+#include "Figure.h"
 
 Figure::~Figure() { }
 
-Figure::svgFormat Figure::draw()
+Figure::Figure() : fill(""), stroke("") { }
+
+Figure::Figure(const color& stroke) : fill(""), stroke(stroke) { }
+
+Figure::Figure(const color& fill, const color& stroke) : fill(fill), stroke(stroke) { }
+
+Figure::svgFormat Figure::draw() const
 {
-    // TODO SVG format
-    return svgFormat();
+    return svgFormat("");
 }
 
-Figure::color Figure::getFill() {
+Figure::color Figure::getFill() const {
     return fill;
 }
 
-Figure::color Figure::getStroke() {
+Figure::color Figure::getStroke() const {
     return stroke;
 }
 
