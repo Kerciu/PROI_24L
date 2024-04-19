@@ -11,14 +11,15 @@ protected:
 	color stroke;
 
 public:
-	Figure() { }
-	Figure(const color& s) { }
-	Figure(const color& f) { }
-	Figure(const color& f, const color& s) { }
+	inline Figure() { }
+	inline Figure(const color& f) { }
+	inline Figure(const color& f, const color& s) { }
 
-	virtual ~Figure() { }
+	inline virtual ~Figure() { }
 
 	virtual svgFormat draw();
+	virtual color getFill();
+	virtual color getStroke();
 	virtual void setFill(const color& f);
 	virtual void setStroke(const color& s);
 };
