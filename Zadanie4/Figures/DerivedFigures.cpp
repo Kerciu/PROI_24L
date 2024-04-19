@@ -26,3 +26,8 @@ inline Figure::svgFormat Line::draw() const
 	Figure::svgFormat formatStr = "<line x1=\"50\" y1=\"50\" x2=\"250\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" />";
 	return formatStr;
 }
+
+Figure::color Line::getFill() const
+{
+	return Figure::color("");
+}

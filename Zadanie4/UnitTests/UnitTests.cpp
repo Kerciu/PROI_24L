@@ -1,6 +1,5 @@
 #include <memory>
 #include <string>
-#include "pch.h"
 #include "../Figures/Figure.h"
 #include "../Figures/Collection.h"
 #include "../Figures/DerivedFigures.h"
@@ -46,7 +45,7 @@ namespace UnitTests
 		TEST_METHOD(LineConstructorTest)
 		{
 			std::string stroke = "blue";
-			std::unique_ptr<Line> line = std::make_unique<Line>("", stroke);
+			std::unique_ptr<Line> line = std::make_unique<Line>(stroke);
 			Assert::AreEqual(line->getStroke().c_str(), "blue");
 		}
 	};

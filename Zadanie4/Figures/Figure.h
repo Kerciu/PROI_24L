@@ -12,11 +12,11 @@ public:
 	Figure(const color& fill, const color& stroke);
 	inline virtual ~Figure() = default;
 
-	virtual svgFormat draw() const = 0;
-	virtual color getFill() const;
-	virtual color getStroke() const;
-	virtual void setFill(const color& f);
-	virtual void setStroke(const color& s);
+	virtual inline svgFormat draw() const = 0;
+	virtual inline color getFill() const;
+	virtual inline color getStroke() const;
+	virtual inline void setFill(const color& f);
+	virtual inline void setStroke(const color& s);
 
 protected:
 	color fill;
