@@ -108,7 +108,7 @@ namespace UnitTests
 			col1.addItem(std::move(circle2));
 			col2.addItem(std::move(circle3));
 			Collection col3 = col1 + col2;
-			Assert::AreEqual(col3.collectionSize(), 3);
+			Assert::AreEqual(col3.collectionSize(), (size_t)3);
 		}
 
 		TEST_METHOD(AssignCollection)
@@ -120,10 +120,10 @@ namespace UnitTests
 			Collection col2;
 			col1.addItem(std::move(circle1));
 			col1.addItem(std::move(circle2));
-			Assert::AreEqual(col1.collectionSize(), 2);
+			Assert::AreEqual(col1.collectionSize(), (size_t)2);
 			col2.addItem(std::move(circle3));
 			col1 = col2;
-			Assert::AreEqual(col1.collectionSize(), 1);
+			Assert::AreEqual(col1.collectionSize(), (size_t)1);
 		}
 	};
 }
