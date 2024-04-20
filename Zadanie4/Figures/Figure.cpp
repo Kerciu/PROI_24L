@@ -31,3 +31,8 @@ inline void Figure::setStroke(const color& s)
 {
     stroke = s;
 }
+
+bool Figure::operator==(const Figure& other) const
+{
+    return (fill == other.fill && stroke == other.stroke);
+}

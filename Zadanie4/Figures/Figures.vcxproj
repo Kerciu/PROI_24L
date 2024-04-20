@@ -131,11 +131,13 @@
     <ClCompile Include="Figures.cpp" />
     <ClCompile Include="DerivedFigures.cpp" />
     <ClCompile Include="Figure.cpp" />
+    <ClCompile Include="HtmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collection.h" />
     <ClInclude Include="DerivedFigures.h" />
     <ClInclude Include="Figure.h" />
+    <ClInclude Include="HtmlParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
