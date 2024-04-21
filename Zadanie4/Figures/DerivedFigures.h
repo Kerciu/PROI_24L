@@ -23,3 +23,10 @@ public:
 	virtual color getFill() const override;
 };
 
+class Text : public Figure
+{
+public:
+	Text(const color& fill, const color& stroke);
+	inline svgFormat draw() const override;
+};
+

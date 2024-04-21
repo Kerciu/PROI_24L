@@ -6,6 +6,8 @@ Circle::Circle(const color& fill, const color& stroke) : Figure(fill, stroke) { 
 
 Line::Line(const color& stroke) : Figure(stroke) { }
 
+Text::Text(const color& fill, const color& stroke) : Figure(fill, stroke) { }
+
 inline Figure::svgFormat Rectangle::draw() const
 {
 	//TODO add x, y (optional), width, height, 
@@ -27,7 +29,15 @@ inline Figure::svgFormat Line::draw() const
 	return formatStr;
 }
 
+inline Figure::svgFormat Text::draw() const
+{
+	Figure::svgFormat formatStr = "<text x = \"150\" y = \"125\" font - size = \"60\" text - anchor = \"middle\" fill = \"white\">SVG< / text>";
+	return formatStr;
+}
+
 Figure::color Line::getFill() const
 {
 	return Figure::color("");
 }
+
+
