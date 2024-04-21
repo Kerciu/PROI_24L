@@ -1,4 +1,6 @@
 #include <exception>
+#include <iostream>
+#include <string>
 #include "Figure.h"
 #include "Collection.h"
 #include <stdexcept>
@@ -113,4 +115,16 @@ bool Collection::operator==(const Collection& other) const
 		if (!(*pointerCollection[i] == *other.pointerCollection[i])) return false;
 	}
 	return true;
+}
+
+std::ostream& operator<<(std::ostream& os, const Collection& collection)
+{
+	os << "<svg version=\"1.1\"\n"
+		"\twidth=\"300\" height=\"200\"\n"
+		"\txmlns=\"http://www.w3.org/2000/svg\">\n\n";
+	for (const auto& elem : collection.pointerCollection) {
+		os << '\t' << elem->draw().c_str() << '\n';
+	}
+	os << "\n</svg>";
+	return os;
 }

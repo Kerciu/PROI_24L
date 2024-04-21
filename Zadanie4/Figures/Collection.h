@@ -7,7 +7,7 @@ class Collection
 {
 private:
 	std::vector<std::unique_ptr<Figure>> pointerCollection;
-
+	friend std::ostream& operator<<(std::ostream& os, const Collection& other);
 public:
 	Collection();
 	Collection(std::unique_ptr<Figure> itemToCollect);
