@@ -12,7 +12,7 @@ namespace UnitTests
 	TEST_CLASS(UnitTests)
 	{
 	public:
-		
+
 		TEST_METHOD(CreateRectangleObject)
 		{
 			std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>("", "");
@@ -58,11 +58,11 @@ namespace UnitTests
 			Collection col1(std::move(veccy));
 			Collection col2(std::make_unique<Circle>("red", "green"));
 
-			Assert::IsTrue(col1.getLastItem() != nullptr);
+			Assert::IsTrue((int)col1.collectionSize() == 1);
 			Assert::AreEqual("blue", col1.getLastItem()->getFill().c_str());
 
-			
-			Assert::IsTrue(col2.getLastItem() != nullptr);
+
+			Assert::IsTrue((int)col2.collectionSize() == 1);
 			Assert::AreEqual("red", col2.getLastItem()->getFill().c_str());
 		}
 
@@ -73,10 +73,11 @@ namespace UnitTests
 			std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", "black");
 			Collection collection;
 
-			collection.addItem(std::move(circle1));
-			collection.addItem(std::move(circle2));
-			Assert::IsTrue(collection.findItem(std::move(circle1)) == true);
-			Assert::IsTrue(collection.findItem(std::move(circle3)) == false);
+			collection.addItem(std::make_unique<Figure>(*circle1));
+			collection.addItem(std::make_unique<Figure>(*circle2));
+
+			Assert::IsTrue(collection.findItem(std::make_unique<Figure>(*circle1)));
+			Assert::IsFalse(collection.findItem(std::make_unique<Figure>(*circle2)));
 			Assert::AreEqual(collection.getLastItem()->getFill().c_str(), "brown");
 		}
 
@@ -87,26 +88,36 @@ namespace UnitTests
 			std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", "black");
 			Collection collection;
 
-			collection.addItem(std::move(circle1));
-			collection.addItem(std::move(circle2));
-			collection.addItem(std::move(circle3));
-			Assert::IsTrue(collection.findItem(std::move(circle1)) == true);
-			Assert::IsTrue(collection.findItem(std::move(circle2)) == true);
-			Assert::IsTrue(collection.findItem(std::move(circle3)) == true);
-			collection.deleteItem(std::move(circle3));
-			Assert::IsTrue(collection.findItem(std::move(circle3)) == false);
-		}
+			collection.addItem(std::make_unique<Figure>(*circle1));
+			collection.addItem(std::make_unique<Figure>(*circle2));
+			collection.addItem(std::make_unique<Figure>(*circle3));
 
+			std::unique_ptr<Figure> circle3Ptr = std::make_unique<Figure>(*circle3);
+
+			Assert::IsTrue(collection.findItem(std::make_unique<Figure>(*circle1)));
+			Assert::IsTrue(collection.findItem(std::make_unique<Figure>(*circle2)));
+			Assert::IsTrue(collection.findItem(std::make_unique<Figure>(*circle3)));
+
+			collection.deleteItem(std::make_unique<Figure>(*circle3));
+
+			Assert::ExpectException<std::out_of_range>([&collection, &circle3Ptr] {
+				collection.deleteItem(std::move(circle3Ptr));
+				});
+
+			Assert::IsFalse(collection.findItem(std::make_unique<Figure>(*circle3)));
+		}
 		TEST_METHOD(AddTwoCollections)
 		{
 			std::unique_ptr<Circle> circle1 = std::make_unique<Circle>("brown", "yellow");
 			std::unique_ptr<Circle> circle2 = std::make_unique<Circle>("brown", "green");
 			std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", "black");
 			Collection col1;
+			col1.addItem(std::make_unique<Circle>(*circle1));
+			col1.addItem(std::make_unique<Circle>(*circle2));
+
 			Collection col2;
-			col1.addItem(std::move(circle1));
-			col1.addItem(std::move(circle2));
-			col2.addItem(std::move(circle3));
+			col2.addItem(std::make_unique<Circle>(*circle3));
+
 			Collection col3 = col1 + col2;
 			Assert::AreEqual(col3.collectionSize(), (size_t)3);
 		}
@@ -122,7 +133,7 @@ namespace UnitTests
 			col1.addItem(std::move(circle2));
 			Assert::AreEqual(col1.collectionSize(), (size_t)2);
 			col2.addItem(std::move(circle3));
-			col1 = col2;
+			col1 = std::move(col2);
 			Assert::AreEqual(col1.collectionSize(), (size_t)1);
 		}
 	};
