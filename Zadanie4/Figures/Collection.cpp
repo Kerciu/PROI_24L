@@ -64,8 +64,8 @@ size_t Collection::collectionSize() const
 
 void Collection::addItem(std::unique_ptr<Figure> item)
 {
-	if (findItem(std::make_unique<Figure>(*item))) {
-		pointerCollection.emplace_back(std::make_unique<Figure>(*item));
+	if (!findItem(std::move(item))) {
+		pointerCollection.push_back(std::move(item));
 	}
 	else {
 		throw std::out_of_range("Element already in collection");
@@ -110,8 +110,8 @@ Collection& Collection::operator=(Collection& other)
 
 bool Collection::operator==(const Collection& other) const
 {
-	if (collectionSize() != other.collectionSize()) return false;
-	for (size_t i = 0; i < collectionSize(); ++i) {
+	if (pointerCollection.size() != other.pointerCollection.size()) return false;
+	for (size_t i = 0; i < pointerCollection.size(); ++i) {
 		if (!(*pointerCollection[i] == *other.pointerCollection[i])) return false;
 	}
 	return true;
@@ -123,7 +123,7 @@ std::ostream& operator<<(std::ostream& os, const Collection& collection)
 		"\twidth=\"300\" height=\"200\"\n"
 		"\txmlns=\"http://www.w3.org/2000/svg\">\n\n";
 	for (const auto& elem : collection.pointerCollection) {
-		os << '\t' << elem->draw().c_str() << '\n';
+		os << '\t' << elem->draw() << '\n';
 	}
 	os << "\n</svg>";
 	return os;

@@ -1,19 +1,19 @@
 ﻿#include "Figure.h"
-
+#include "DerivedFigures.h"
+#include "Collection.h"
 #include <iostream>
+#include <memory>
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::unique_ptr<Circle> circle = std::make_unique<Circle>(150, 100, "blue", "black", 60);
+    // const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor
+    std::unique_ptr<Text> text = std::make_unique<Text>(150, 100, "yellow", "Arial", 26, "Some TEXT", "middle");
+    std::cout << circle->draw() << '\n' << text->draw();
+
+    Collection collection;
+    collection.addItem(std::move(circle));
+    collection.addItem(std::move(text));
+
+    std::cout << collection;
 }
-
-// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
-// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
-
-// Porady dotyczące rozpoczynania pracy:
-//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
-//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
-//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
-//   4. Użyj okna Lista błędów, aby zobaczyć błędy
-//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
-//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
