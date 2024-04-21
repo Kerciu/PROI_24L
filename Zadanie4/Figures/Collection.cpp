@@ -24,7 +24,9 @@ Collection::~Collection() { }
 
 void Collection::deleteItem(std::unique_ptr<Figure> item)
 {
-	auto it = std::find(pointerCollection.begin(), pointerCollection.end(), item);
+	auto it = std::find_if(pointerCollection.begin(), pointerCollection.end(),
+		[&item](const std::unique_ptr<Figure>& ptr) { return *ptr == *item; });
+
 	if (it != pointerCollection.end()) {
 		pointerCollection.erase(it);
 	}
@@ -35,7 +37,12 @@ void Collection::deleteItem(std::unique_ptr<Figure> item)
 
 bool Collection::findItem(std::unique_ptr<Figure> item) const
 {
-	return (std::find(pointerCollection.begin(), pointerCollection.end(), item) != pointerCollection.end());
+	for (const auto& ptr : pointerCollection) {
+		if (*ptr == *item) {
+			return true;
+		}
+	}
+	return false;
 }
 
 std::unique_ptr<Figure> Collection::popItem()
@@ -55,9 +62,8 @@ size_t Collection::collectionSize() const
 
 void Collection::addItem(std::unique_ptr<Figure> item)
 {
-	auto it = std::find(pointerCollection.begin(), pointerCollection.end(), item);
-	if (it == pointerCollection.end()) {
-		pointerCollection.push_back(std::move(item));
+	if (findItem(std::make_unique<Figure>(*item))) {
+		pointerCollection.emplace_back(std::make_unique<Figure>(*item));
 	}
 	else {
 		throw std::out_of_range("Element already in collection");
@@ -76,14 +82,13 @@ std::string Collection::generateSVGString()
 	return std::string();
 }
 
-Collection& Collection::operator+(Collection& other) const
+Collection Collection::operator+(Collection& other) const
 {
 	Collection result(*this);
 
-	for (size_t i = 0; i < other.collectionSize(); ++i) {
-		std::unique_ptr<Figure> item = std::move(other.pointerCollection[i]);
-		if (!result.findItem(std::move(item))) {
-			result.addItem(std::move(item));
+	for (const auto& item : other.pointerCollection) {
+		if (!result.findItem(std::make_unique<Figure>(*item))) {
+			result.pointerCollection.emplace_back(std::make_unique<Figure>(*item));
 		}
 	}
 	return result;
@@ -92,7 +97,11 @@ Collection& Collection::operator+(Collection& other) const
 Collection& Collection::operator=(Collection& other)
 {
 	if (&other != this) {
-		pointerCollection = std::move(other.pointerCollection);
+		pointerCollection.clear();
+		pointerCollection.reserve(other.pointerCollection.size());
+		for (const auto& elem : other.pointerCollection) {
+			pointerCollection.push_back(std::make_unique<Figure>(*elem));
+		}
 	}
 	return *this;
 }

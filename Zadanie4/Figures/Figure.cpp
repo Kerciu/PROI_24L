@@ -34,5 +34,5 @@ inline void Figure::setStroke(const color& s)
 
 bool Figure::operator==(const Figure& other) const
 {
-    return (fill == other.fill && stroke == other.stroke);
+    return (this->fill == other.fill) && (this->stroke == other.stroke);
 }
