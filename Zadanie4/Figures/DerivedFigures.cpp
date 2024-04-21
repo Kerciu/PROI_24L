@@ -1,12 +1,65 @@
 #include "DerivedFigures.h"
 
-Rectangle::Rectangle(const color& fill, const color& stroke) : Figure(fill, stroke) { }
+Rectangle::Rectangle(const color& fill, const size& width) : Figure(fill, ""), width(width), height(width) { }
 
-Circle::Circle(const color& fill, const color& stroke) : Figure(fill, stroke) { }
+Rectangle::Rectangle(const color& fill, const size& width, const size& height) : Figure(fill, ""), width(width), height(height) { }
 
-Line::Line(const color& stroke) : Figure(stroke) { }
+Rectangle::Rectangle(const color& fill, const color& stroke, const size& width) : Figure(fill, stroke), width(width), height(width) { }
 
-Text::Text(const color& fill, const color& stroke) : Figure(fill, stroke) { }
+Rectangle::Rectangle(const color& fill, const color& stroke, const size& width, const size& height) : Figure(fill, stroke), width(width), height(height) { }
+
+Rectangle::Rectangle(const coordinate& x, const coordinate& y, const color& fill, const color& stroke, const size& width)
+	: Figure(x, y, fill, stroke), width(width), height(width) { }
+
+Rectangle::Rectangle(const coordinate& x, const coordinate& y, const color& fill, const color& stroke, const size& width, const size& height)
+	: Figure(x, y, fill, stroke), width(width), height(height) { }
+
+Circle::Circle(const color& fill, const size& radius) : Figure(fill, ""), radius(radius) { }
+
+Circle::Circle(const color& fill, const color& stroke, const size& radius) : Figure(fill, stroke), radius(radius) { }
+
+Circle::Circle(const coordinate& x, const coordinate& y, const color& fill, const size& radius)
+	: Figure(x, y, fill), radius(radius) { }
+
+Circle::Circle(const coordinate& x, const coordinate& y, const color& fill, const color& stroke, const size& radius)
+	: Figure(x, y, fill, stroke), radius(radius) { }
+
+Line::Line(const color& stroke) : Figure(stroke), x2(0), y2(0), strokeWidth(1) { }
+
+Line::Line(const coordinate& x, const coordinate& y, const color& stroke)
+	: Figure(x, y, stroke), x2(0), y2(0), strokeWidth(1) { }
+
+Line::Line(const coordinate& x, const coordinate& y, const color& stroke, const int& strokeWidth)
+	: Figure(x, y, stroke), x2(0), y2(0), strokeWidth(strokeWidth) { }
+
+Line::Line(const coordinate& x, const coordinate& y, const coordinate& x2, const coordinate& y2, const color& stroke)
+	: Figure(x, y, stroke), x2(x2), y2(y2), strokeWidth(1) { }
+
+Line::Line(const coordinate& x, const coordinate& y, const coordinate& x2, const coordinate& y2, const color& stroke, const int& strokeWidth)
+	: Figure(x, y, stroke), x2(x2), y2(y2), strokeWidth(strokeWidth) { }
+
+Text::Text(const color& fill) : Figure(fill, "") { }
+
+Text::Text(const color& fill, const size& fontSize)
+	 : Figure(fill), fontSize(fontSize), fontFamily("Arial") { }
+
+Text::Text(const color& fill, const family& fontFamily)
+	 : Figure(fill), fontSize(11), fontFamily(fontFamily) { }
+
+Text::Text(const color& fill, const family& fontFamily, const size& fontSize)
+	 : Figure(fill), fontSize(fontSize), fontFamily(fontFamily) { }
+
+Text::Text(const coordinate& x, const coordinate& y, const color& fill)
+	: Figure(x, y, fill), fontSize(11), fontFamily("Arial") { }
+
+Text::Text(const coordinate& x, const coordinate& y, const color& fill, const size& fontSize)
+	: Figure(x, y, fill), fontSize(fontSize), fontFamily("Arial") { }
+
+Text::Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily)
+	: Figure(x, y, fill), fontSize(11), fontFamily(fontFamily) { }
+
+Text::Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize)
+	: Figure(x, y, fill), fontSize(fontSize), fontFamily(fontFamily) { }
 
 inline Figure::svgFormat Rectangle::draw() const
 {
@@ -38,6 +91,11 @@ inline Figure::svgFormat Text::draw() const
 Figure::color Line::getFill() const
 {
 	return Figure::color("");
+}
+
+bool Line::isFillable() const
+{
+	return false;
 }
 
 
