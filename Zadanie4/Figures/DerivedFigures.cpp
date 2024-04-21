@@ -76,7 +76,7 @@ inline Figure::svgFormat Rectangle::draw() const
 	 resultFormat += "height=\"" + std::to_string(height) + "\" ";
 	 if (fill != "") resultFormat += "fill=\"" + fill + "\" ";
 	 if (stroke != "") resultFormat += "stroke=\"" + stroke + "\" ";
-	 resultFormat += "/ >";
+	 resultFormat += "/>";
 	 // <rect  x = "10" y = "10" width = "280" height = "180" fill = "none" stroke = "blue" / >
 	 return resultFormat;
 }
@@ -91,7 +91,7 @@ inline Figure::svgFormat Circle::draw() const
 	resultFormat += "r=\"" + std::to_string(radius) + "\" ";
 	if (fill != "") resultFormat += "fill=\"" + fill + "\" ";
 	if (stroke != "") resultFormat += "stroke=\"" + stroke + "\" ";
-	resultFormat += "/ >";
+	resultFormat += "/>";
 	return resultFormat;
 }
 
@@ -106,7 +106,7 @@ inline Figure::svgFormat Line::draw() const
 	if (y2 != 0) resultFormat += "y2=\"" + std::to_string(y2) + "\" ";
 	if (stroke != "") resultFormat += "stroke=\"" + stroke + "\" ";
 	if (strokeWidth != 1) resultFormat += "stroke-width=\"" + std::to_string(strokeWidth) + "\" ";
-	resultFormat += "/ >";
+	resultFormat += "/>";
 	return resultFormat;
 }
 
