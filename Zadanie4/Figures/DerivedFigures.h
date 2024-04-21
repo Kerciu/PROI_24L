@@ -53,19 +53,24 @@ class Text : public Figure
 public:
 	typedef std::string family;
 	typedef int size;
+	typedef std::string anchor;
+	typedef std::string content;
 
-	Text(const color& fill);
-	Text(const color& fill, const size& fontSize);
-	Text(const color& fill, const family& fontFamily);
-	Text(const color& fill, const family& fontFamily, const size& fontSize);
-	Text(const coordinate& x, const coordinate& y, const color& fill);
-	Text(const coordinate& x, const coordinate& y, const color& fill, const size& fontSize);
-	Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily);
-	Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize);
+	Text(const color& fill, const content& textContent);
+	Text(const color& fill, const content& textContent, const anchor& textAnchor);
+	Text(const color& fill, const size& fontSize, const content& textContent, const anchor& textAnchor);
+	Text(const color& fill, const family& fontFamily, const content& textContent, const anchor& textAnchor);
+	Text(const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor);
+	Text(const coordinate& x, const coordinate& y, const color& fill, const content& textContent, const anchor& textAnchor);
+	Text(const coordinate& x, const coordinate& y, const color& fill, const size& fontSize, const content& textContent, const anchor& textAnchor);
+	Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const content& textContent, const anchor& textAnchor);
+	Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor);
 	inline svgFormat draw() const override;
 
 protected:
 	family fontFamily;
 	size fontSize;
+	anchor textAnchor;
+	content textContent;
 };
 
