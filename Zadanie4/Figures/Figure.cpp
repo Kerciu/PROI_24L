@@ -24,7 +24,7 @@ Figure::Figure(const coordinate& x, const color& colorValue)
 }
 
 Figure::Figure(const coordinate& x, const coordinate& y, const color& colorValue)
- : x(x), y(100), fill(colorValue), stroke("")
+ : x(x), y(y), fill(colorValue), stroke("")
 {
     if (!isFillable())
     {

@@ -8,14 +8,20 @@
 int main()
 {
     HtmlParser saver("file.html");
-    std::unique_ptr<Circle> circle = std::make_unique<Circle>(150, 100, "blue", "black", 60);
+    std::unique_ptr<Rectangle> rect1 = std::make_unique<Rectangle>(0, 0, "red","none", 300, 100);
+    std::unique_ptr<Rectangle> rect2 = std::make_unique<Rectangle>(10, 10, "none", "blue", 280, 180);
+    std::unique_ptr<Circle> circle = std::make_unique<Circle>(150, 100, "green", 80);
     // const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor
-    std::unique_ptr<Text> text = std::make_unique<Text>(150, 100, "yellow", "Arial", 26, "Some TEXT", "middle");
-    std::cout << circle->draw() << '\n' << text->draw() << '\n';
-
+    // Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor);
+    std::unique_ptr<Text> text_main = std::make_unique<Text>(280, 180, "blue", "Arial", 20, "24.Z", "end");
+    std::unique_ptr<Text> text = std::make_unique<Text>(150, 125, "white", "Arial", 60, "SVG", "middle");
+    // x, const coordinate& y, const color& fill, const size& fontSize, const content& textContent, const anchor& textAnchor)
     Collection collection;
+    collection.addItem(std::move(rect1));
+    collection.addItem(std::move(rect2));
     collection.addItem(std::move(circle));
     collection.addItem(std::move(text));
+    collection.addItem(std::move(text_main));
 
     std::cout << collection;
 
