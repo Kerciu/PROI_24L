@@ -52,7 +52,6 @@ class Text : public Figure
 {
 public:
 	typedef std::string family;
-	typedef int size;
 	typedef std::string anchor;
 	typedef std::string content;
 
