@@ -65,6 +65,46 @@ Text::Text(const coordinate& x, const coordinate& y, const color& fill, const fa
 Text::Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor)
 	: Figure(x, y, fill), fontSize(fontSize), fontFamily(fontFamily), textContent(textContent), textAnchor(textAnchor) { }
 
+inline Text::family Text::getFontFamily() const
+{
+	return fontFamily;
+}
+
+inline Text::size Text::getFontSize() const
+{
+	return fontSize;
+}
+
+inline Text::anchor Text::getTextAnchor() const
+{
+	return textAnchor;
+}
+
+inline Text::content Text::getTextContent() const
+{
+	return textContent;
+}
+
+inline void Text::setFontFamily(const family& newFontFam)
+{
+	fontFamily = newFontFam;
+}
+
+inline void Text::setFontSize(const size& newFontSize)
+{
+	if(!(newFontSize < 0)) fontSize = newFontSize;
+}
+
+inline void Text::setTextAnchor(const anchor& newAnchor)
+{
+	textAnchor = newAnchor;
+}
+
+inline void Text::setTextContent(const content& newContent)
+{
+	textContent = newContent;
+}
+
 inline Figure::svgFormat Rectangle::draw() const
 {
 	 //TODO add x, y (optional), width, height, 
@@ -81,6 +121,26 @@ inline Figure::svgFormat Rectangle::draw() const
 	 return resultFormat;
 }
 
+inline Rectangle::size Rectangle::getWidth() const
+{
+	return width;
+}
+
+inline Rectangle::size Rectangle::getHeight() const
+{
+	return height;
+}
+
+inline void Rectangle::setWidth(const size& newWidth)
+{
+	width = newWidth;
+}
+
+inline void Rectangle::setHeight(const size& newHeight)
+{
+	height = newHeight;
+}
+
 inline Figure::svgFormat Circle::draw() const
 {
 	//TODO add cx, cy, r parameters for circle, make stroke optional
@@ -93,6 +153,40 @@ inline Figure::svgFormat Circle::draw() const
 	if (stroke != "") resultFormat += "stroke=\"" + stroke + "\" ";
 	resultFormat += "/>";
 	return resultFormat;
+}
+
+inline Figure::size Circle::getRadius() const
+{
+	return radius;
+}
+
+inline void Circle::setRadius(const size& newRadius)
+{
+	if (!(newRadius < 0)) radius = newRadius;
+}
+
+inline Line::coordinate Line::getX2() const {
+	return x2;
+}
+
+inline Line::coordinate Line::getY2() const {
+	return y2;
+}
+
+inline void Line::setX2(const Line::coordinate& newX2) {
+	x2 = newX2;
+}
+
+inline void Line::setY2(const Line::coordinate& newY2) {
+	y2 = newY2;
+}
+
+inline int Line::getStrokeWidth() const {
+	return strokeWidth;
+}
+
+inline void Line::setStrokeWidth(const int& newStrokeWidth) {
+	if (!(newStrokeWidth < 0)) strokeWidth = newStrokeWidth;
 }
 
 inline Figure::svgFormat Line::draw() const
