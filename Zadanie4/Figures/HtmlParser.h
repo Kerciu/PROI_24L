@@ -12,7 +12,6 @@ public:
 	HtmlParser();
 	HtmlParser(const handle& fileHandle);
 
-	Collection parseFromFile() const;
 	void saveToSVG(const Collection& collection) const;
 
 	HtmlParser::handle getFileName();
