@@ -1,6 +1,4 @@
 #include "HtmlParser.h"
-#include "C:\Users\Kacper\Desktop\Zadanie4\PROI24L_203_Kacper_Gorski\Zadanie4\rapidxml\rapidxml.hpp"
-#include "C:\Users\Kacper\Desktop\Zadanie4\PROI24L_203_Kacper_Gorski\Zadanie4\rapidxml\rapidxml_utils.hpp"
 #include <fstream>
 
 HtmlParser::HtmlParser() : fileHandle("") { }

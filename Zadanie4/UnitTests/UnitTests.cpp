@@ -1,5 +1,7 @@
 #include <memory>
 #include <string>
+#include <fstream>
+#include "../Figures/HtmlParser.h"
 #include "../Figures/Figure.h"
 #include "../Figures/Collection.h"
 #include "../Figures/DerivedFigures.h"
@@ -483,5 +485,50 @@ namespace UnitTests
 		//	col1 = std::move(col2);
 		//	Assert::AreEqual(col1.collectionSize(), (size_t)1);
 		//}
+
+		TEST_METHOD(HtmlSaverConstructorWithoutParameters)
+		{
+			HtmlParser parser;
+			Assert::AreEqual(parser.getFileName().c_str(), "");
+		}
+
+		TEST_METHOD(HtmlSaverConstructorWithParameter)
+		{
+			HtmlParser parser("output.svg");
+			Assert::AreEqual(parser.getFileName().c_str(), "output.svg");
+		}
+
+		TEST_METHOD(HtmlSaverSetFileNameAndGetFileName)
+		{
+			HtmlParser parser;
+			parser.setFileName("output.svg");
+			Assert::AreEqual(parser.getFileName().c_str(), "output.svg");
+		}
+
+		TEST_METHOD(HtmlSaverSaveToSVG)
+		{
+			HtmlParser parser("test_output.svg");
+			Figure::coordinate x = 15;
+			Figure::coordinate y = 25;
+			Figure::color fill = "pink";
+			Figure::size fontSize = 16;
+			Text::content textContent = "x86-64";
+			Text::anchor textAnchor = "end";
+			std::unique_ptr<Text> text = std::make_unique<Text>(x, y, fill, fontSize, textContent, textAnchor);
+			Collection collection;
+			collection.addItem(std::move(text));
+			parser.saveToSVG(collection);
+
+			std::ifstream file("test_output.svg");
+			Assert::IsTrue(file.good());
+
+			std::stringstream buffer;
+			buffer << file.rdbuf();
+			std::string fileContent = buffer.str();
+			Assert::IsTrue(fileContent.find("x86-64") != std::string::npos);
+
+			file.close();
+			remove("test_output.svg");
+		}
 	};
 }
