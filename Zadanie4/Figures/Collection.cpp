@@ -64,11 +64,14 @@ size_t Collection::collectionSize() const
 
 void Collection::addItem(std::unique_ptr<Figure> item)
 {
-	if (!findItem(std::move(item))) {
-		pointerCollection.push_back(std::move(item));
+	int counter = 0;
+	for (int i = 0; i < pointerCollection.size(); i++) {
+		if (*(pointerCollection[i]) == *item) {
+			counter++;
+		}
 	}
-	else {
-		throw std::out_of_range("Element already in collection");
+	if (counter == 0) {
+		pointerCollection.push_back(std::move(item));
 	}
 }
 
