@@ -24,17 +24,20 @@ Collection::Collection(const Collection& other)
 
 Collection::~Collection() { }
 
-void Collection::deleteItem(std::unique_ptr<Figure> item)
+std::unique_ptr<Figure> Collection::deleteItem(const Figure& itemToDelete)
 {
-	auto it = std::find_if(pointerCollection.begin(), pointerCollection.end(),
-		[&item](const std::unique_ptr<Figure>& ptr) { return *ptr == *item; });
-
-	if (it != pointerCollection.end()) {
-		pointerCollection.erase(it);
+	for (auto it = pointerCollection.begin(); it != pointerCollection.end(); ++it)
+	{
+		if (typeid(**it) == typeid(itemToDelete)) {
+			auto& currentObject = **it;
+			if (currentObject == itemToDelete) {
+				auto deletedElem = std::move(*it);
+				pointerCollection.erase(it);
+				return deletedElem;
+			}
+		}
 	}
-	else {
-		throw std::out_of_range("No such element found in the collection");
-	}
+	throw std::out_of_range("No such element found in the collection");
 }
 
 bool Collection::findItem(std::unique_ptr<Figure> item) const

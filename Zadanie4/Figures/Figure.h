@@ -24,7 +24,7 @@ public:
 	virtual inline color getFill() const;
 	virtual inline color getStroke() const;
 	virtual inline void setX(const size& newX);
-	virtual inline void setY(const Figure::size& newY);
+	virtual inline void setY(const size& newY);
 	virtual inline void setFill(const color& f);
 	virtual inline void setStroke(const color& s);
 	bool operator==(const Figure& other) const;

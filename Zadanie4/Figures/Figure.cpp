@@ -52,6 +52,16 @@ inline Figure::color Figure::getStroke() const {
     return stroke;
 }
 
+inline void Figure::setX(const size& newX)
+{
+    x = newX;
+}
+
+inline void Figure::setY(const size& newY)
+{
+    y = newY;
+}
+
 inline Figure::size Figure::getX() const {
     return x;
 }
@@ -68,14 +78,6 @@ inline void Figure::setFill(const color& f)
 inline void Figure::setStroke(const color& s)
 {
     stroke = s;
-}
-
-inline void Figure::setX(const Figure::size& newX) {
-    x = newX;
-}
-
-inline void Figure::setY(const Figure::size& newY) {
-    y = newY;
 }
 
 inline bool Figure::isFillable() const {
