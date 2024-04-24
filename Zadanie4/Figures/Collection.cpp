@@ -28,23 +28,25 @@ std::unique_ptr<Figure> Collection::deleteItem(const Figure& itemToDelete)
 {
 	for (auto it = pointerCollection.begin(); it != pointerCollection.end(); ++it)
 	{
-		if (typeid(**it) == typeid(itemToDelete)) {
-			auto& currentObject = **it;
-			if (currentObject == itemToDelete) {
-				auto deletedElem = std::move(*it);
-				pointerCollection.erase(it);
-				return deletedElem;
-			}
+		auto& currentObject = **it;
+		if (currentObject == itemToDelete) {
+			auto deletedElem = std::move(*it);
+			pointerCollection.erase(it);
+			return deletedElem;
 		}
 	}
 	throw std::out_of_range("No such element found in the collection");
 }
 
-bool Collection::findItem(std::unique_ptr<Figure> item) const
+bool Collection::findItem(const Figure& item) const
 {
-	for (const auto& ptr : pointerCollection) {
-		if (*ptr == *item) {
-			return true;
+	for (auto it = pointerCollection.begin(); it != pointerCollection.end(); ++it)
+	{
+		if (typeid(**it) == typeid(item)) {
+			auto& currentObject = **it;
+			if (currentObject == item) {
+				return true;
+			}
 		}
 	}
 	return false;
@@ -52,7 +54,7 @@ bool Collection::findItem(std::unique_ptr<Figure> item) const
 
 std::unique_ptr<Figure> Collection::popItem()
 {
-	if (collectionSize() != 0) {
+	if (!pointerCollection.empty()) {
 		std::unique_ptr<Figure> result = std::move(pointerCollection.back());
 		pointerCollection.pop_back();
 		return result;
@@ -95,7 +97,7 @@ Collection Collection::operator+(Collection& other) const
 	Collection result(*this);
 
 	for (const auto& item : other.pointerCollection) {
-		if (!result.findItem(std::make_unique<Figure>(*item))) {
+		if (!result.findItem((*item))) {
 			result.pointerCollection.emplace_back(std::make_unique<Figure>(*item));
 		}
 	}

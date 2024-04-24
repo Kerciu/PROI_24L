@@ -7,26 +7,36 @@
 
 int main()
 {
-    HtmlParser saver("file.html");
-    std::unique_ptr<Rectangle> rect1 = std::make_unique<Rectangle>(0, 0, "red","none", 300, 100);
-    std::unique_ptr<Rectangle> rect2 = std::make_unique<Rectangle>(10, 10, "none", "blue", 280, 180);
-    std::unique_ptr<Circle> circle = std::make_unique<Circle>(150, 100, "green", 80);
-    std::unique_ptr<Text> text_main = std::make_unique<Text>(280, 180, "blue", "Arial", 20, "24.Z", "end");
-    std::unique_ptr<Text> text = std::make_unique<Text>(150, 125, "white", "Arial", 60, "SVG", "middle");
-  
-    Collection collection;
-    collection.addItem(std::move(rect1));
-    collection.addItem(std::move(rect2));
-    collection.addItem(std::move(circle));
-    collection.addItem(std::move(text));
-    collection.addItem(std::move(text_main));
+    try {
+        HtmlParser saver("file.html");
+        Rectangle rect1(0, 0, "red", "none", 300, 100);
+        Rectangle rect2(10, 10, "none", "blue", 280, 180);
+        Circle circle(150, 100, "green", 80);
+        Text textLower(280, 180, "blue", "Arial", 20, "24.Z", "end");
+        Text textMain(150, 125, "white", "Arial", 60, "SVG", "middle");
+        std::unique_ptr<Figure> rect1Ptr = std::make_unique<Rectangle>(std::move(rect1));
+        std::unique_ptr<Figure> rect2Ptr = std::make_unique<Rectangle>(std::move(rect2));
+        std::unique_ptr<Figure> circlePtr = std::make_unique<Circle>(std::move(circle));
+        std::unique_ptr<Figure> textLowerPtr = std::make_unique<Text>(std::move(textLower));
+        std::unique_ptr<Figure> textMainPtr = std::make_unique<Text>(std::move(textMain));
 
-    std::cout << collection;
+        Collection collection;
+        collection.addItem(std::move(rect1Ptr));
+        collection.addItem(std::move(rect2Ptr));
+        collection.addItem(std::move(circlePtr));
+        collection.addItem(std::move(textLowerPtr));
+        collection.addItem(std::move(textMainPtr));
 
-    auto deleteElem = collection.deleteItem(*text);
+        std::cout << collection;
 
-    std::cout << collection;
+        auto deleteElem = collection.deleteItem(textMain);
 
-    saver.saveToSVG(std::move(collection));
-    return 0;
+        std::cout << collection;
+        
+        saver.saveToSVG(std::move(collection));
+        return 0;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
 }

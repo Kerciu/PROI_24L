@@ -16,7 +16,7 @@ public:
 	~Collection();
 
 	std::unique_ptr<Figure> deleteItem(const Figure& item);
-	bool findItem(std::unique_ptr<Figure> item) const;
+	bool findItem(const Figure& item) const;
 	std::unique_ptr<Figure> popItem();
 	size_t collectionSize() const;
 	void addItem(std::unique_ptr<Figure> item);
