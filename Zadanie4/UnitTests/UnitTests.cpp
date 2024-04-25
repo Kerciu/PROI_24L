@@ -400,91 +400,81 @@ namespace UnitTests
 			Assert::AreEqual(text->draw().c_str(), "<text x=\"100\" y=\"100\" font-size=\"11\" font-family=\"Arial\" fill=\"green\">Hello, world!</text>");
 		}
 
-		//TEST_METHOD(CreateCollection)
-		//{
-		//	std::unique_ptr<Circle> circle = std::make_unique<Circle>("blue", "yellow");
-		//	std::vector<std::unique_ptr<Figure>> veccy;
+		TEST_METHOD(CreateCollection)
+		{
+			std::unique_ptr<Figure> circle = std::make_unique<Circle>("blue", 20);
+			std::unique_ptr<Figure> circle2 = std::make_unique<Circle>("red", 69);
+			std::vector<std::unique_ptr<Figure>> veccy;
 
-		//	veccy.push_back(std::move(circle));
-		//	Collection col1(std::move(veccy));
-		//	Collection col2(std::make_unique<Circle>("red", "green"));
+			veccy.push_back(std::move(circle));
+			Collection col1(std::move(veccy));
+			Collection col2(std::move(circle2));
 
-		//	Assert::IsTrue((int)col1.collectionSize() == 1);
-		//	Assert::AreEqual("blue", col1.getLastItem()->getFill().c_str());
+			Assert::IsTrue((int)col1.collectionSize() == 1);
+			Assert::AreEqual("blue", col1.getLastItem()->getFill().c_str());
 
 
-		//	Assert::IsTrue((int)col2.collectionSize() == 1);
-		//	Assert::AreEqual("red", col2.getLastItem()->getFill().c_str());
-		//}
+			Assert::IsTrue((int)col2.collectionSize() == 1);
+			Assert::AreEqual("red", col2.getLastItem()->getFill().c_str());
+		}
 
-		//TEST_METHOD(AddToCollection)
-		//{
-		//	std::unique_ptr<Circle> circle1 = std::make_unique<Circle>("brown", "yellow");
-		//	std::unique_ptr<Circle> circle2 = std::make_unique<Circle>("brown", "green");
-		//	std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", "black");
-		//	Collection collection;
+		TEST_METHOD(AddToCollection)
+		{
+			Figure::coordinate x = 12;
+			Figure::coordinate y = 8;
+			Figure::color fill = "black";
+			Figure::color stroke = "white";
+			Figure::size radius = 15;
+			std::unique_ptr<Figure> circle1 = std::make_unique<Circle>(x, y, fill, stroke, radius);
+			Collection collection;
 
-		//	collection.addItem(std::move(circle1));
-		//	collection.addItem(std::move(circle2));
+			collection.addItem(std::move(circle1));
 
-		//	Assert::IsTrue(collection.findItem(std::move(circle1)));
-		//	Assert::IsFalse(collection.findItem(std::move(circle2)));
-		//	Assert::AreEqual(collection.getLastItem()->getFill().c_str(), "brown");
-		//}
+			Assert::IsTrue(collection.findItem(*circle1));
+			Assert::AreEqual(collection.getLastItem()->getFill().c_str(), "brown");
+		}
 
-		//TEST_METHOD(DeleteFromCollection)
-		//{
-		//	std::unique_ptr<Circle> circle1 = std::make_unique<Circle>("brown", "yellow");
-		//	std::unique_ptr<Circle> circle2 = std::make_unique<Circle>("brown", "green");
-		//	std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", "black");
-		//	Collection collection;
+		TEST_METHOD(DeleteFromCollection)
+		{
+			Circle circle1("green", 80);
+			Circle circle2("yellow", 60);
+			Circle circle3("white", 40);
+			std::unique_ptr<Figure> circle1Ptr = std::make_unique<Circle>(std::move(circle1));
+			std::unique_ptr<Figure> circle2Ptr = std::make_unique<Circle>(std::move(circle2));
+			std::unique_ptr<Figure> circle3Ptr = std::make_unique<Circle>(std::move(circle3));
+			Collection collection;
 
-		//	collection.addItem(std::move(circle1));
-		//	collection.addItem(std::move(circle2));
-		//	collection.addItem(std::move(circle3));
+			collection.addItem(std::move(circle1Ptr));
+			collection.addItem(std::move(circle2Ptr));
+			collection.addItem(std::move(circle3Ptr));
 
-		//	Assert::IsTrue(collection.findItem(std::move(circle1)));
-		//	Assert::IsTrue(collection.findItem(std::move(circle2)));
-		//	Assert::IsTrue(collection.findItem(std::move(circle3)));
+			Assert::IsTrue(collection.findItem(circle1));
+			Assert::IsTrue(collection.findItem(circle2));
+			Assert::IsTrue(collection.findItem(circle3));
 
-		//	collection.deleteItem(std::move(circle3));
+			collection.deleteItem(circle3);
 
-		//	/*Assert::ExpectException<std::out_of_range>([&collection, &circle3Ptr] {
-		//		collection.deleteItem(std::move(circle3Ptr));
-		//		});*/
+			Assert::ExpectException<std::out_of_range>([&collection, &circle3] {
+				collection.deleteItem(circle3);
+				});
 
-		//	Assert::IsFalse(collection.findItem(std::move(circle3)));
-		//}
-		//TEST_METHOD(AddTwoCollections)
-		//{
-		//	std::unique_ptr<Circle> circle1 = std::make_unique<Circle>("brown", "yellow");
-		//	std::unique_ptr<Circle> circle2 = std::make_unique<Circle>("brown", "green");
-		//	std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", "black");
-		//	Collection col1;
-		//	col1.addItem(std::move(circle1));
-		//	col1.addItem(std::move(circle2));
+			Assert::IsFalse(collection.findItem(circle3));
+		}
 
-		//	Collection col2;
-		//	col2.addItem(std::move(circle3));
-
-		//	Collection col3 = col1 + col2;
-		//	Assert::AreEqual((int)col3.collectionSize(), 3);
-		//}
-
-		//TEST_METHOD(AssignCollection)
-		//{
-		//	std::unique_ptr<Circle> circle1 = std::make_unique<Circle>("brown", "yellow");
-		//	std::unique_ptr<Circle> circle2 = std::make_unique<Circle>("brown", "green");
-		//	std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", "black");
-		//	Collection col1;
-		//	Collection col2;
-		//	col1.addItem(std::move(circle1));
-		//	col1.addItem(std::move(circle2));
-		//	Assert::AreEqual((int)col1.collectionSize(), 2);
-		//	col2.addItem(std::move(circle3));
-		//	col1 = std::move(col2);
-		//	Assert::AreEqual(col1.collectionSize(), (size_t)1);
-		//}
+		TEST_METHOD(AssignCollection)
+		{
+			std::unique_ptr<Circle> circle1 = std::make_unique<Circle>("brown", 1);
+			std::unique_ptr<Circle> circle2 = std::make_unique<Circle>("brown", 2);
+			std::unique_ptr<Circle> circle3 = std::make_unique<Circle>("brown", 3);
+			Collection col1;
+			Collection col2;
+			col1.addItem(std::move(circle1));
+			col1.addItem(std::move(circle2));
+			Assert::AreEqual((int)col1.collectionSize(), 2);
+			col2.addItem(std::move(circle3));
+			col1 = std::move(col2);
+			Assert::AreEqual(col1.collectionSize(), (size_t)1);
+		}
 
 		TEST_METHOD(HtmlSaverConstructorWithoutParameters)
 		{
