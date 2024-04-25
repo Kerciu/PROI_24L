@@ -27,13 +27,19 @@ int main()
         collection.addItem(std::move(textLowerPtr));
         collection.addItem(std::move(textMainPtr));
 
+        std::cout << "Initial collection:\n";
         std::cout << collection;
+        saver.saveToSVG(std::move(collection));
 
+        std::cout << "\nCollection after deletion of main text:\n";
         auto deleteElem = collection.deleteItem(textMain);
 
         std::cout << collection;
-        
-        saver.saveToSVG(std::move(collection));
+
+        std::cout << "\nPopped item:\n";
+        std::unique_ptr<Figure> poppedItem = collection.popItem();
+        std::cout << *poppedItem << '\n';
+
         return 0;
     }
     catch (const std::exception& e) {

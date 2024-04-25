@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Figure
 {
@@ -28,7 +29,7 @@ public:
 	virtual inline void setFill(const color& f);
 	virtual inline void setStroke(const color& s);
 	bool operator==(const Figure& other) const;
-
+	friend std::ostream& operator<<(std::ostream& os, const Figure& figure);
 protected:
 	coordinate x;
 	coordinate y;

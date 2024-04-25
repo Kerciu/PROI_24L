@@ -23,7 +23,6 @@ public:
 	std::unique_ptr<Figure> getLastItem();
 	std::string generateSVGString();
 
-	Collection operator+(Collection& other) const;
 	Collection& operator=(Collection& other);
 	bool operator==(const Collection& other) const;
 };

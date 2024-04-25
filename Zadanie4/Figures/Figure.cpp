@@ -1,4 +1,5 @@
 #include "Figure.h"
+#include <iostream>
 
 Figure::Figure() : x(150), y(100), fill(""), stroke("") { }
 
@@ -87,4 +88,10 @@ inline bool Figure::isFillable() const {
 bool Figure::operator==(const Figure& other) const
 {
     return (this->fill == other.fill) && (this->stroke == other.stroke) && (this->x == other.x) && (this->y == other.y);
+}
+
+std::ostream& operator<<(std::ostream& os, const Figure& figure)
+{
+    os << figure.draw();
+    return os;
 }

@@ -92,18 +92,6 @@ std::string Collection::generateSVGString()
 	return std::string();
 }
 
-Collection Collection::operator+(Collection& other) const
-{
-	Collection result(*this);
-
-	for (const auto& item : other.pointerCollection) {
-		if (!result.findItem((*item))) {
-			result.pointerCollection.emplace_back(std::make_unique<Figure>(*item));
-		}
-	}
-	return result;
-}
-
 Collection& Collection::operator=(Collection& other)
 {
 	if (&other != this) {
