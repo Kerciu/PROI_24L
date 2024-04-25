@@ -159,6 +159,7 @@
     <ClCompile Include="..\Figures\Collection.cpp" />
     <ClCompile Include="..\Figures\DerivedFigures.cpp" />
     <ClCompile Include="..\Figures\Figure.cpp" />
+    <ClCompile Include="..\Figures\HtmlParser.cpp" />
     <ClCompile Include="UnitTests.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>

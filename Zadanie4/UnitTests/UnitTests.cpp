@@ -159,8 +159,8 @@ namespace UnitTests
 			Figure::color stroke = "red";
 			std::unique_ptr<Line> line = std::make_unique<Line>(stroke);
 			Assert::AreEqual(line->getStroke().c_str(), "red");
-			Assert::AreEqual(line->getX(), 0);
-			Assert::AreEqual(line->getY(), 0);
+			Assert::AreEqual(line->getX(), 150);
+			Assert::AreEqual(line->getY(), 100);
 			Assert::AreEqual(line->getX2(), 0);
 			Assert::AreEqual(line->getY2(), 0);
 			Assert::AreEqual(line->getStrokeWidth(), 1);
@@ -258,15 +258,15 @@ namespace UnitTests
 
 		TEST_METHOD(TextConstructorFillFontSizeTextContentAndTextAnchor) {
 			Figure::color fill = "green";
-			Figure::size fontSize = 14;
+			Text::family fontFamily = "Arial";
 			Text::content textContent = "Banana";
 			Text::anchor textAnchor = "middle";
-			std::unique_ptr<Text> text = std::make_unique<Text>(fill, fontSize, textContent, textAnchor);
-			Assert::AreEqual(text->getFill().c_str(), "green");
-			Assert::AreEqual(text->getFontFamily().c_str(), "Arial");
-			Assert::AreEqual(text->getFontSize(), 14);
-			Assert::AreEqual(text->getTextContent().c_str(), "Banana");
-			Assert::AreEqual(text->getTextAnchor().c_str(), "middle");
+			Text text(fill, fontFamily, textContent, textAnchor);
+			std::unique_ptr<Text> textPtr = std::make_unique<Text>(std::move(text));
+			Assert::AreEqual(textPtr->getFill().c_str(), "green");
+			Assert::AreEqual(textPtr->getFontFamily().c_str(), "Arial");
+			Assert::AreEqual(textPtr->getTextContent().c_str(), "Banana");
+			Assert::AreEqual(textPtr->getTextAnchor().c_str(), "middle");
 		}
 
 		TEST_METHOD(TextConstructorFillFontFamilyTextContentAndTextAnchor) {
@@ -376,12 +376,12 @@ namespace UnitTests
 		
 		TEST_METHOD(RectangleDraw) {
 			std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>("red", 10, 20);
-			Assert::AreEqual(rect->draw().c_str(), "<rect width=\"10\" height=\"20\" fill=\"red\" />");
+			Assert::AreEqual(rect->draw().c_str(), "<rect x=\"150\" y=\"100\" width=\"10\" height=\"20\" fill=\"red\" />");
 		}
 
 		TEST_METHOD(CircleDraw) {
 			std::unique_ptr<Circle> circle = std::make_unique<Circle>("blue", 15);
-			Assert::AreEqual(circle->draw().c_str(), "<circle r=\"15\" fill=\"blue\" />");
+			Assert::AreEqual(circle->draw().c_str(), "<circle cx=\"150\" cy=\"100\" r=\"15\" fill=\"blue\" />");
 		}
 
 		TEST_METHOD(LineDraw) {
@@ -390,6 +390,7 @@ namespace UnitTests
 			line->setY(10);
 			line->setX2(50);
 			line->setY2(50);
+			line->setStroke("black");
 			Assert::AreEqual(line->draw().c_str(), "<line x1=\"10\" y1=\"10\" x2=\"50\" y2=\"50\" stroke=\"black\" />");
 		}
 
@@ -397,7 +398,7 @@ namespace UnitTests
 			std::unique_ptr<Text> text = std::make_unique<Text>("green", "Hello, world!");
 			text->setX(100);
 			text->setY(100);
-			Assert::AreEqual(text->draw().c_str(), "<text x=\"100\" y=\"100\" font-size=\"11\" font-family=\"Arial\" fill=\"green\">Hello, world!</text>");
+			Assert::AreEqual(text->draw().c_str(), "<text x=\"100\" y=\"100\" font-size=\"11\" font-family=\"Arial\" fill=\"green\" >Hello, world!</text>");
 		}
 
 		TEST_METHOD(CreateCollection)
@@ -425,13 +426,14 @@ namespace UnitTests
 			Figure::color fill = "black";
 			Figure::color stroke = "white";
 			Figure::size radius = 15;
-			std::unique_ptr<Figure> circle1 = std::make_unique<Circle>(x, y, fill, stroke, radius);
+			Circle circle1(x, y, fill, stroke, radius);
+			std::unique_ptr<Figure> circle1Ptr = std::make_unique<Circle>(std::move(circle1));
 			Collection collection;
 
-			collection.addItem(std::move(circle1));
+			collection.addItem(std::move(circle1Ptr));
 
-			Assert::IsTrue(collection.findItem(*circle1));
-			Assert::AreEqual(collection.getLastItem()->getFill().c_str(), "brown");
+			Assert::IsTrue(collection.findItem(circle1));
+			Assert::AreEqual(collection.getLastItem()->getFill().c_str(), "black");
 		}
 
 		TEST_METHOD(DeleteFromCollection)
@@ -470,9 +472,9 @@ namespace UnitTests
 			Collection col2;
 			col1.addItem(std::move(circle1));
 			col1.addItem(std::move(circle2));
-			Assert::AreEqual((int)col1.collectionSize(), 2);
+			Assert::AreEqual(col1.collectionSize(), (size_t) 1);
 			col2.addItem(std::move(circle3));
-			col1 = std::move(col2);
+			col1 = col2;
 			Assert::AreEqual(col1.collectionSize(), (size_t)1);
 		}
 

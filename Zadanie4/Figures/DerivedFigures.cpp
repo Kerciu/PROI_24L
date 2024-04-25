@@ -24,19 +24,39 @@ Circle::Circle(const coordinate& x, const coordinate& y, const color& fill, cons
 Circle::Circle(const coordinate& x, const coordinate& y, const color& fill, const color& stroke, const size& radius)
 	: Figure(x, y, fill, stroke), radius(radius) { }
 
-Line::Line(const color& stroke) : Figure(stroke), x2(0), y2(0), strokeWidth(1) { }
+Line::Line(const color& stroke) : Figure(stroke), x2(0), y2(0), strokeWidth(1)
+{
+	this->setStroke(stroke);
+	this->setFill("");
+}
 
 Line::Line(const coordinate& x, const coordinate& y, const color& stroke)
-	: Figure(x, y, stroke), x2(0), y2(0), strokeWidth(1) { }
+	: Figure(x, y, stroke), x2(0), y2(0), strokeWidth(1)
+{
+	this->setStroke(stroke);
+	this->setFill("");
+}
 
 Line::Line(const coordinate& x, const coordinate& y, const color& stroke, const int& strokeWidth)
-	: Figure(x, y, stroke), x2(0), y2(0), strokeWidth(strokeWidth) { }
+	: Figure(x, y, stroke), x2(0), y2(0), strokeWidth(strokeWidth)
+{
+	this->setStroke(stroke);
+	this->setFill("");
+}
 
 Line::Line(const coordinate& x, const coordinate& y, const coordinate& x2, const coordinate& y2, const color& stroke)
-	: Figure(x, y, stroke), x2(x2), y2(y2), strokeWidth(1) { }
+	: Figure(x, y, stroke), x2(x2), y2(y2), strokeWidth(1)
+{
+	this->setStroke(stroke);
+	this->setFill("");
+}
 
 Line::Line(const coordinate& x, const coordinate& y, const coordinate& x2, const coordinate& y2, const color& stroke, const int& strokeWidth)
-	: Figure(x, y, stroke), x2(x2), y2(y2), strokeWidth(strokeWidth) { }
+	: Figure(x, y, stroke), x2(x2), y2(y2), strokeWidth(strokeWidth)
+{
+	this->setStroke(stroke);
+	this->setFill("");
+}
 
 Text::Text(const color& fill, const content& textContent)
 	: Figure(fill), fontFamily("Arial"), fontSize(11), textContent(textContent), textAnchor("") { }
@@ -65,47 +85,47 @@ Text::Text(const coordinate& x, const coordinate& y, const color& fill, const fa
 Text::Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor)
 	: Figure(x, y, fill), fontSize(fontSize), fontFamily(fontFamily), textContent(textContent), textAnchor(textAnchor) { }
 
-inline Text::family Text::getFontFamily() const
+Text::family Text::getFontFamily() const
 {
 	return fontFamily;
 }
 
-inline Text::size Text::getFontSize() const
+Text::size Text::getFontSize() const
 {
 	return fontSize;
 }
 
-inline Text::anchor Text::getTextAnchor() const
+ Text::anchor Text::getTextAnchor() const
 {
 	return textAnchor;
 }
 
-inline Text::content Text::getTextContent() const
+ Text::content Text::getTextContent() const
 {
 	return textContent;
 }
 
-inline void Text::setFontFamily(const family& newFontFam)
+ void Text::setFontFamily(const family& newFontFam)
 {
 	fontFamily = newFontFam;
 }
 
-inline void Text::setFontSize(const size& newFontSize)
+ void Text::setFontSize(const size& newFontSize)
 {
 	if(!(newFontSize < 0)) fontSize = newFontSize;
 }
 
-inline void Text::setTextAnchor(const anchor& newAnchor)
+ void Text::setTextAnchor(const anchor& newAnchor)
 {
 	textAnchor = newAnchor;
 }
 
-inline void Text::setTextContent(const content& newContent)
+ void Text::setTextContent(const content& newContent)
 {
 	textContent = newContent;
 }
 
-inline Figure::svgFormat Rectangle::draw() const
+ Figure::svgFormat Rectangle::draw() const
 {
 	 //TODO add x, y (optional), width, height, 
 	 // Figure::svgFormat desired = "<rect width=\"300\" height=\"100\" fill=\"red\" />";
@@ -121,27 +141,27 @@ inline Figure::svgFormat Rectangle::draw() const
 	 return resultFormat;
 }
 
-inline Rectangle::size Rectangle::getWidth() const
+ Rectangle::size Rectangle::getWidth() const
 {
 	return width;
 }
 
-inline Rectangle::size Rectangle::getHeight() const
+ Rectangle::size Rectangle::getHeight() const
 {
 	return height;
 }
 
-inline void Rectangle::setWidth(const size& newWidth)
+ void Rectangle::setWidth(const size& newWidth)
 {
 	width = newWidth;
 }
 
-inline void Rectangle::setHeight(const size& newHeight)
+ void Rectangle::setHeight(const size& newHeight)
 {
 	height = newHeight;
 }
 
-inline Figure::svgFormat Circle::draw() const
+ Figure::svgFormat Circle::draw() const
 {
 	//TODO add cx, cy, r parameters for circle, make stroke optional
 	// Figure::svgFormat desired = "<circle cx=\"150\" cy=\"100\" r=\"80\" fill=\"green\" />";
@@ -155,41 +175,41 @@ inline Figure::svgFormat Circle::draw() const
 	return resultFormat;
 }
 
-inline Figure::size Circle::getRadius() const
+ Figure::size Circle::getRadius() const
 {
 	return radius;
 }
 
-inline void Circle::setRadius(const size& newRadius)
+ void Circle::setRadius(const size& newRadius)
 {
 	if (!(newRadius < 0)) radius = newRadius;
 }
 
-inline Line::coordinate Line::getX2() const {
+ Line::coordinate Line::getX2() const {
 	return x2;
 }
 
-inline Line::coordinate Line::getY2() const {
+ Line::coordinate Line::getY2() const {
 	return y2;
 }
 
-inline void Line::setX2(const Line::coordinate& newX2) {
+ void Line::setX2(const Line::coordinate& newX2) {
 	x2 = newX2;
 }
 
-inline void Line::setY2(const Line::coordinate& newY2) {
+ void Line::setY2(const Line::coordinate& newY2) {
 	y2 = newY2;
 }
 
-inline int Line::getStrokeWidth() const {
+ int Line::getStrokeWidth() const {
 	return strokeWidth;
 }
 
-inline void Line::setStrokeWidth(const int& newStrokeWidth) {
+ void Line::setStrokeWidth(const int& newStrokeWidth) {
 	if (!(newStrokeWidth < 0)) strokeWidth = newStrokeWidth;
 }
 
-inline Figure::svgFormat Line::draw() const
+ Figure::svgFormat Line::draw() const
 {
 	//TODO add x1, y1, x2, y2, stroke-width
 	// Figure::svgFormat desired = "<line x1=\"50\" y1=\"50\" x2=\"250\" y2=\"150\" stroke=\"black\" stroke-width=\"2\" />";
@@ -204,7 +224,7 @@ inline Figure::svgFormat Line::draw() const
 	return resultFormat;
 }
 
-inline Figure::svgFormat Text::draw() const
+ Figure::svgFormat Text::draw() const
 {
 	Figure::svgFormat resultFormat = "<text ";
 	if (x != 0) resultFormat += "x=\"" + std::to_string(x) + "\" ";

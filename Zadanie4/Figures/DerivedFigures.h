@@ -10,12 +10,12 @@ public:
 	Rectangle(const color& fill, const color& stroke, const size& width, const size& height);
 	Rectangle(const coordinate& x, const coordinate& y,const color& fill, const color& stroke , const size& width);
 	Rectangle(const coordinate& x, const coordinate& y, const color& fill, const color& stroke, const size& width, const size& height);
-	inline svgFormat draw() const override;
+	svgFormat draw() const override;
 
-	inline size getWidth() const;
-	inline size getHeight() const;
-	inline void setWidth(const size& newWidth);
-	inline void setHeight(const size& newHeight);
+	size getWidth() const;
+	size getHeight() const;
+	void setWidth(const size& newWidth);
+	void setHeight(const size& newHeight);
 
 protected:
 	size width;
@@ -29,10 +29,10 @@ public:
 	Circle(const color& fill, const color& stroke, const size& radius);
 	Circle(const coordinate& x, const coordinate& y, const color& fill, const size& radius);
 	Circle(const coordinate& x, const coordinate& y, const color& fill, const color& stroke, const size& radius);
-	inline svgFormat draw() const override;
+	 svgFormat draw() const override;
 
-	inline size getRadius() const;
-	inline void setRadius(const size& newRadius);
+	size getRadius() const;
+	void setRadius(const size& newRadius);
 
 protected:
 	size radius;
@@ -52,9 +52,9 @@ public:
 	void setY2(const coordinate& newY2);
 	int getStrokeWidth() const;
 	void setStrokeWidth(const int& newStrokeWidth);
-	virtual inline svgFormat draw() const override;
-	virtual color getFill() const override;
-	virtual bool isFillable() const override;
+	svgFormat draw() const override;
+	color getFill() const override;
+	bool isFillable() const override;
 
 protected:
 	coordinate x2;
@@ -79,15 +79,15 @@ public:
 	Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const content& textContent, const anchor& textAnchor);
 	Text(const coordinate& x, const coordinate& y, const color& fill, const family& fontFamily, const size& fontSize, const content& textContent, const anchor& textAnchor);
 	
-	inline family getFontFamily() const;
-	inline size getFontSize() const;
-	inline anchor getTextAnchor() const;
-	inline content getTextContent() const;
-	inline void setFontFamily(const family& newFontFam);
-	inline void setFontSize(const size& newFontSize);
-	inline void setTextAnchor(const anchor& newAnchor);
-	inline void setTextContent(const content& newContent);
-	inline svgFormat draw() const override;
+	family getFontFamily() const;
+	size getFontSize() const;
+	anchor getTextAnchor() const;
+	content getTextContent() const;
+	void setFontFamily(const family& newFontFam);
+	void setFontSize(const size& newFontSize);
+	void setTextAnchor(const anchor& newAnchor);
+	void setTextContent(const content& newContent);
+	svgFormat draw() const override;
 
 protected:
 	family fontFamily;
