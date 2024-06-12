@@ -1,0 +1,1 @@
+Object-Oriented Programming course exercises @ Warsaw University of Technology
